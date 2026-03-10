@@ -80,4 +80,12 @@ void FeatureExtractor::ComputeFeatures(AudioFeatures& features){
    features.rms = sqrt(total /frameSize_);
 
    //Peak amplutude
+   float maximumAmplitude = 0.0f;
+   for(size_t n = 0; n < frameSize_; n++){
+    float a = fabsf(frame_[n]);
+    if(a > maximumAmplitude){
+        maximumAmplitude = a;
+    }
+    features.peak = maximumAmplitude;
+   }
 }
