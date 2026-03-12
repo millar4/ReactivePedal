@@ -1,0 +1,824 @@
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.arch armv7e-m
+   3              		.fpu fpv5-d16
+   4              		.eabi_attribute 28, 1
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.file	"arm_const_structs.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.file 1 "../libDaisy/Drivers/CMSIS/DSP/Source/CommonTables/arm_const_structs.c"
+  19              		.global	arm_rfft_sR_q15_len8192
+  20              		.section	.rodata.arm_rfft_sR_q15_len8192,"a"
+  21              		.align	2
+  24              	arm_rfft_sR_q15_len8192:
+  25 0000 00200000 		.word	8192
+  26 0004 00       		.byte	0
+  27 0005 01       		.byte	1
+  28 0006 0000     		.space	2
+  29 0008 01000000 		.word	1
+  30 000c 00000000 		.word	realCoefAQ15
+  31 0010 00000000 		.word	realCoefBQ15
+  32 0014 00000000 		.word	arm_cfft_sR_q15_len4096
+  33              		.global	arm_rfft_sR_q15_len4096
+  34              		.section	.rodata.arm_rfft_sR_q15_len4096,"a"
+  35              		.align	2
+  38              	arm_rfft_sR_q15_len4096:
+  39 0000 00100000 		.word	4096
+  40 0004 00       		.byte	0
+  41 0005 01       		.byte	1
+  42 0006 0000     		.space	2
+  43 0008 02000000 		.word	2
+  44 000c 00000000 		.word	realCoefAQ15
+  45 0010 00000000 		.word	realCoefBQ15
+  46 0014 00000000 		.word	arm_cfft_sR_q15_len2048
+  47              		.global	arm_rfft_sR_q15_len2048
+  48              		.section	.rodata.arm_rfft_sR_q15_len2048,"a"
+  49              		.align	2
+  52              	arm_rfft_sR_q15_len2048:
+  53 0000 00080000 		.word	2048
+  54 0004 00       		.byte	0
+  55 0005 01       		.byte	1
+  56 0006 0000     		.space	2
+  57 0008 04000000 		.word	4
+  58 000c 00000000 		.word	realCoefAQ15
+  59 0010 00000000 		.word	realCoefBQ15
+  60 0014 00000000 		.word	arm_cfft_sR_q15_len1024
+  61              		.global	arm_rfft_sR_q15_len1024
+  62              		.section	.rodata.arm_rfft_sR_q15_len1024,"a"
+  63              		.align	2
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s 			page 2
+
+
+  66              	arm_rfft_sR_q15_len1024:
+  67 0000 00040000 		.word	1024
+  68 0004 00       		.byte	0
+  69 0005 01       		.byte	1
+  70 0006 0000     		.space	2
+  71 0008 08000000 		.word	8
+  72 000c 00000000 		.word	realCoefAQ15
+  73 0010 00000000 		.word	realCoefBQ15
+  74 0014 00000000 		.word	arm_cfft_sR_q15_len512
+  75              		.global	arm_rfft_sR_q15_len512
+  76              		.section	.rodata.arm_rfft_sR_q15_len512,"a"
+  77              		.align	2
+  80              	arm_rfft_sR_q15_len512:
+  81 0000 00020000 		.word	512
+  82 0004 00       		.byte	0
+  83 0005 01       		.byte	1
+  84 0006 0000     		.space	2
+  85 0008 10000000 		.word	16
+  86 000c 00000000 		.word	realCoefAQ15
+  87 0010 00000000 		.word	realCoefBQ15
+  88 0014 00000000 		.word	arm_cfft_sR_q15_len256
+  89              		.global	arm_rfft_sR_q15_len256
+  90              		.section	.rodata.arm_rfft_sR_q15_len256,"a"
+  91              		.align	2
+  94              	arm_rfft_sR_q15_len256:
+  95 0000 00010000 		.word	256
+  96 0004 00       		.byte	0
+  97 0005 01       		.byte	1
+  98 0006 0000     		.space	2
+  99 0008 20000000 		.word	32
+ 100 000c 00000000 		.word	realCoefAQ15
+ 101 0010 00000000 		.word	realCoefBQ15
+ 102 0014 00000000 		.word	arm_cfft_sR_q15_len128
+ 103              		.global	arm_rfft_sR_q15_len128
+ 104              		.section	.rodata.arm_rfft_sR_q15_len128,"a"
+ 105              		.align	2
+ 108              	arm_rfft_sR_q15_len128:
+ 109 0000 80000000 		.word	128
+ 110 0004 00       		.byte	0
+ 111 0005 01       		.byte	1
+ 112 0006 0000     		.space	2
+ 113 0008 40000000 		.word	64
+ 114 000c 00000000 		.word	realCoefAQ15
+ 115 0010 00000000 		.word	realCoefBQ15
+ 116 0014 00000000 		.word	arm_cfft_sR_q15_len64
+ 117              		.global	arm_rfft_sR_q15_len64
+ 118              		.section	.rodata.arm_rfft_sR_q15_len64,"a"
+ 119              		.align	2
+ 122              	arm_rfft_sR_q15_len64:
+ 123 0000 40000000 		.word	64
+ 124 0004 00       		.byte	0
+ 125 0005 01       		.byte	1
+ 126 0006 0000     		.space	2
+ 127 0008 80000000 		.word	128
+ 128 000c 00000000 		.word	realCoefAQ15
+ 129 0010 00000000 		.word	realCoefBQ15
+ 130 0014 00000000 		.word	arm_cfft_sR_q15_len32
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s 			page 3
+
+
+ 131              		.global	arm_rfft_sR_q15_len32
+ 132              		.section	.rodata.arm_rfft_sR_q15_len32,"a"
+ 133              		.align	2
+ 136              	arm_rfft_sR_q15_len32:
+ 137 0000 20000000 		.word	32
+ 138 0004 00       		.byte	0
+ 139 0005 01       		.byte	1
+ 140 0006 0000     		.space	2
+ 141 0008 00010000 		.word	256
+ 142 000c 00000000 		.word	realCoefAQ15
+ 143 0010 00000000 		.word	realCoefBQ15
+ 144 0014 00000000 		.word	arm_cfft_sR_q15_len16
+ 145              		.global	arm_rfft_sR_q31_len8192
+ 146              		.section	.rodata.arm_rfft_sR_q31_len8192,"a"
+ 147              		.align	2
+ 150              	arm_rfft_sR_q31_len8192:
+ 151 0000 00200000 		.word	8192
+ 152 0004 00       		.byte	0
+ 153 0005 01       		.byte	1
+ 154 0006 0000     		.space	2
+ 155 0008 01000000 		.word	1
+ 156 000c 00000000 		.word	realCoefAQ31
+ 157 0010 00000000 		.word	realCoefBQ31
+ 158 0014 00000000 		.word	arm_cfft_sR_q31_len4096
+ 159              		.global	arm_rfft_sR_q31_len4096
+ 160              		.section	.rodata.arm_rfft_sR_q31_len4096,"a"
+ 161              		.align	2
+ 164              	arm_rfft_sR_q31_len4096:
+ 165 0000 00100000 		.word	4096
+ 166 0004 00       		.byte	0
+ 167 0005 01       		.byte	1
+ 168 0006 0000     		.space	2
+ 169 0008 02000000 		.word	2
+ 170 000c 00000000 		.word	realCoefAQ31
+ 171 0010 00000000 		.word	realCoefBQ31
+ 172 0014 00000000 		.word	arm_cfft_sR_q31_len2048
+ 173              		.global	arm_rfft_sR_q31_len2048
+ 174              		.section	.rodata.arm_rfft_sR_q31_len2048,"a"
+ 175              		.align	2
+ 178              	arm_rfft_sR_q31_len2048:
+ 179 0000 00080000 		.word	2048
+ 180 0004 00       		.byte	0
+ 181 0005 01       		.byte	1
+ 182 0006 0000     		.space	2
+ 183 0008 04000000 		.word	4
+ 184 000c 00000000 		.word	realCoefAQ31
+ 185 0010 00000000 		.word	realCoefBQ31
+ 186 0014 00000000 		.word	arm_cfft_sR_q31_len1024
+ 187              		.global	arm_rfft_sR_q31_len1024
+ 188              		.section	.rodata.arm_rfft_sR_q31_len1024,"a"
+ 189              		.align	2
+ 192              	arm_rfft_sR_q31_len1024:
+ 193 0000 00040000 		.word	1024
+ 194 0004 00       		.byte	0
+ 195 0005 01       		.byte	1
+ 196 0006 0000     		.space	2
+ 197 0008 08000000 		.word	8
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s 			page 4
+
+
+ 198 000c 00000000 		.word	realCoefAQ31
+ 199 0010 00000000 		.word	realCoefBQ31
+ 200 0014 00000000 		.word	arm_cfft_sR_q31_len512
+ 201              		.global	arm_rfft_sR_q31_len512
+ 202              		.section	.rodata.arm_rfft_sR_q31_len512,"a"
+ 203              		.align	2
+ 206              	arm_rfft_sR_q31_len512:
+ 207 0000 00020000 		.word	512
+ 208 0004 00       		.byte	0
+ 209 0005 01       		.byte	1
+ 210 0006 0000     		.space	2
+ 211 0008 10000000 		.word	16
+ 212 000c 00000000 		.word	realCoefAQ31
+ 213 0010 00000000 		.word	realCoefBQ31
+ 214 0014 00000000 		.word	arm_cfft_sR_q31_len256
+ 215              		.global	arm_rfft_sR_q31_len256
+ 216              		.section	.rodata.arm_rfft_sR_q31_len256,"a"
+ 217              		.align	2
+ 220              	arm_rfft_sR_q31_len256:
+ 221 0000 00010000 		.word	256
+ 222 0004 00       		.byte	0
+ 223 0005 01       		.byte	1
+ 224 0006 0000     		.space	2
+ 225 0008 20000000 		.word	32
+ 226 000c 00000000 		.word	realCoefAQ31
+ 227 0010 00000000 		.word	realCoefBQ31
+ 228 0014 00000000 		.word	arm_cfft_sR_q31_len128
+ 229              		.global	arm_rfft_sR_q31_len128
+ 230              		.section	.rodata.arm_rfft_sR_q31_len128,"a"
+ 231              		.align	2
+ 234              	arm_rfft_sR_q31_len128:
+ 235 0000 80000000 		.word	128
+ 236 0004 00       		.byte	0
+ 237 0005 01       		.byte	1
+ 238 0006 0000     		.space	2
+ 239 0008 40000000 		.word	64
+ 240 000c 00000000 		.word	realCoefAQ31
+ 241 0010 00000000 		.word	realCoefBQ31
+ 242 0014 00000000 		.word	arm_cfft_sR_q31_len64
+ 243              		.global	arm_rfft_sR_q31_len64
+ 244              		.section	.rodata.arm_rfft_sR_q31_len64,"a"
+ 245              		.align	2
+ 248              	arm_rfft_sR_q31_len64:
+ 249 0000 40000000 		.word	64
+ 250 0004 00       		.byte	0
+ 251 0005 01       		.byte	1
+ 252 0006 0000     		.space	2
+ 253 0008 80000000 		.word	128
+ 254 000c 00000000 		.word	realCoefAQ31
+ 255 0010 00000000 		.word	realCoefBQ31
+ 256 0014 00000000 		.word	arm_cfft_sR_q31_len32
+ 257              		.global	arm_rfft_sR_q31_len32
+ 258              		.section	.rodata.arm_rfft_sR_q31_len32,"a"
+ 259              		.align	2
+ 262              	arm_rfft_sR_q31_len32:
+ 263 0000 20000000 		.word	32
+ 264 0004 00       		.byte	0
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s 			page 5
+
+
+ 265 0005 01       		.byte	1
+ 266 0006 0000     		.space	2
+ 267 0008 00010000 		.word	256
+ 268 000c 00000000 		.word	realCoefAQ31
+ 269 0010 00000000 		.word	realCoefBQ31
+ 270 0014 00000000 		.word	arm_cfft_sR_q31_len16
+ 271              		.global	arm_rfft_fast_sR_f32_len4096
+ 272              		.section	.rodata.arm_rfft_fast_sR_f32_len4096,"a"
+ 273              		.align	2
+ 276              	arm_rfft_fast_sR_f32_len4096:
+ 277 0000 0008     		.short	2048
+ 278 0002 0000     		.space	2
+ 279 0004 00000000 		.word	twiddleCoef_2048
+ 280 0008 00000000 		.word	armBitRevIndexTable2048
+ 281 000c E00E     		.short	3808
+ 282 000e 0000     		.space	2
+ 283 0010 0010     		.short	4096
+ 284 0012 0000     		.space	2
+ 285 0014 00000000 		.word	twiddleCoef_rfft_4096
+ 286              		.global	arm_rfft_fast_sR_f32_len2048
+ 287              		.section	.rodata.arm_rfft_fast_sR_f32_len2048,"a"
+ 288              		.align	2
+ 291              	arm_rfft_fast_sR_f32_len2048:
+ 292 0000 0004     		.short	1024
+ 293 0002 0000     		.space	2
+ 294 0004 00000000 		.word	twiddleCoef_1024
+ 295 0008 00000000 		.word	armBitRevIndexTable1024
+ 296 000c 0807     		.short	1800
+ 297 000e 0000     		.space	2
+ 298 0010 0008     		.short	2048
+ 299 0012 0000     		.space	2
+ 300 0014 00000000 		.word	twiddleCoef_rfft_2048
+ 301              		.global	arm_rfft_fast_sR_f32_len1024
+ 302              		.section	.rodata.arm_rfft_fast_sR_f32_len1024,"a"
+ 303              		.align	2
+ 306              	arm_rfft_fast_sR_f32_len1024:
+ 307 0000 0002     		.short	512
+ 308 0002 0000     		.space	2
+ 309 0004 00000000 		.word	twiddleCoef_512
+ 310 0008 00000000 		.word	armBitRevIndexTable512
+ 311 000c C001     		.short	448
+ 312 000e 0000     		.space	2
+ 313 0010 0004     		.short	1024
+ 314 0012 0000     		.space	2
+ 315 0014 00000000 		.word	twiddleCoef_rfft_1024
+ 316              		.global	arm_rfft_fast_sR_f32_len512
+ 317              		.section	.rodata.arm_rfft_fast_sR_f32_len512,"a"
+ 318              		.align	2
+ 321              	arm_rfft_fast_sR_f32_len512:
+ 322 0000 0001     		.short	256
+ 323 0002 0000     		.space	2
+ 324 0004 00000000 		.word	twiddleCoef_256
+ 325 0008 00000000 		.word	armBitRevIndexTable256
+ 326 000c B801     		.short	440
+ 327 000e 0000     		.space	2
+ 328 0010 0002     		.short	512
+ 329 0012 0000     		.space	2
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s 			page 6
+
+
+ 330 0014 00000000 		.word	twiddleCoef_rfft_512
+ 331              		.global	arm_rfft_fast_sR_f32_len256
+ 332              		.section	.rodata.arm_rfft_fast_sR_f32_len256,"a"
+ 333              		.align	2
+ 336              	arm_rfft_fast_sR_f32_len256:
+ 337 0000 8000     		.short	128
+ 338 0002 0000     		.space	2
+ 339 0004 00000000 		.word	twiddleCoef_128
+ 340 0008 00000000 		.word	armBitRevIndexTable128
+ 341 000c D000     		.short	208
+ 342 000e 0000     		.space	2
+ 343 0010 0001     		.short	256
+ 344 0012 0000     		.space	2
+ 345 0014 00000000 		.word	twiddleCoef_rfft_256
+ 346              		.global	arm_rfft_fast_sR_f32_len128
+ 347              		.section	.rodata.arm_rfft_fast_sR_f32_len128,"a"
+ 348              		.align	2
+ 351              	arm_rfft_fast_sR_f32_len128:
+ 352 0000 4000     		.short	64
+ 353 0002 0000     		.space	2
+ 354 0004 00000000 		.word	twiddleCoef_64
+ 355 0008 00000000 		.word	armBitRevIndexTable64
+ 356 000c 3800     		.short	56
+ 357 000e 0000     		.space	2
+ 358 0010 8000     		.short	128
+ 359 0012 0000     		.space	2
+ 360 0014 00000000 		.word	twiddleCoef_rfft_128
+ 361              		.global	arm_rfft_fast_sR_f32_len64
+ 362              		.section	.rodata.arm_rfft_fast_sR_f32_len64,"a"
+ 363              		.align	2
+ 366              	arm_rfft_fast_sR_f32_len64:
+ 367 0000 2000     		.short	32
+ 368 0002 0000     		.space	2
+ 369 0004 00000000 		.word	twiddleCoef_32
+ 370 0008 00000000 		.word	armBitRevIndexTable32
+ 371 000c 3000     		.short	48
+ 372 000e 0000     		.space	2
+ 373 0010 4000     		.short	64
+ 374 0012 0000     		.space	2
+ 375 0014 00000000 		.word	twiddleCoef_rfft_64
+ 376              		.global	arm_rfft_fast_sR_f32_len32
+ 377              		.section	.rodata.arm_rfft_fast_sR_f32_len32,"a"
+ 378              		.align	2
+ 381              	arm_rfft_fast_sR_f32_len32:
+ 382 0000 1000     		.short	16
+ 383 0002 0000     		.space	2
+ 384 0004 00000000 		.word	twiddleCoef_32
+ 385 0008 00000000 		.word	armBitRevIndexTable32
+ 386 000c 1400     		.short	20
+ 387 000e 0000     		.space	2
+ 388 0010 2000     		.short	32
+ 389 0012 0000     		.space	2
+ 390 0014 00000000 		.word	twiddleCoef_rfft_32
+ 391              		.global	arm_cfft_sR_q15_len4096
+ 392              		.section	.rodata.arm_cfft_sR_q15_len4096,"a"
+ 393              		.align	2
+ 396              	arm_cfft_sR_q15_len4096:
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s 			page 7
+
+
+ 397 0000 0010     		.short	4096
+ 398 0002 0000     		.space	2
+ 399 0004 00000000 		.word	twiddleCoef_4096_q15
+ 400 0008 00000000 		.word	armBitRevIndexTable_fixed_4096
+ 401 000c C00F     		.short	4032
+ 402 000e 0000     		.space	2
+ 403              		.global	arm_cfft_sR_q15_len2048
+ 404              		.section	.rodata.arm_cfft_sR_q15_len2048,"a"
+ 405              		.align	2
+ 408              	arm_cfft_sR_q15_len2048:
+ 409 0000 0008     		.short	2048
+ 410 0002 0000     		.space	2
+ 411 0004 00000000 		.word	twiddleCoef_2048_q15
+ 412 0008 00000000 		.word	armBitRevIndexTable_fixed_2048
+ 413 000c C007     		.short	1984
+ 414 000e 0000     		.space	2
+ 415              		.global	arm_cfft_sR_q15_len1024
+ 416              		.section	.rodata.arm_cfft_sR_q15_len1024,"a"
+ 417              		.align	2
+ 420              	arm_cfft_sR_q15_len1024:
+ 421 0000 0004     		.short	1024
+ 422 0002 0000     		.space	2
+ 423 0004 00000000 		.word	twiddleCoef_1024_q15
+ 424 0008 00000000 		.word	armBitRevIndexTable_fixed_1024
+ 425 000c E003     		.short	992
+ 426 000e 0000     		.space	2
+ 427              		.global	arm_cfft_sR_q15_len512
+ 428              		.section	.rodata.arm_cfft_sR_q15_len512,"a"
+ 429              		.align	2
+ 432              	arm_cfft_sR_q15_len512:
+ 433 0000 0002     		.short	512
+ 434 0002 0000     		.space	2
+ 435 0004 00000000 		.word	twiddleCoef_512_q15
+ 436 0008 00000000 		.word	armBitRevIndexTable_fixed_512
+ 437 000c E001     		.short	480
+ 438 000e 0000     		.space	2
+ 439              		.global	arm_cfft_sR_q15_len256
+ 440              		.section	.rodata.arm_cfft_sR_q15_len256,"a"
+ 441              		.align	2
+ 444              	arm_cfft_sR_q15_len256:
+ 445 0000 0001     		.short	256
+ 446 0002 0000     		.space	2
+ 447 0004 00000000 		.word	twiddleCoef_256_q15
+ 448 0008 00000000 		.word	armBitRevIndexTable_fixed_256
+ 449 000c F000     		.short	240
+ 450 000e 0000     		.space	2
+ 451              		.global	arm_cfft_sR_q15_len128
+ 452              		.section	.rodata.arm_cfft_sR_q15_len128,"a"
+ 453              		.align	2
+ 456              	arm_cfft_sR_q15_len128:
+ 457 0000 8000     		.short	128
+ 458 0002 0000     		.space	2
+ 459 0004 00000000 		.word	twiddleCoef_128_q15
+ 460 0008 00000000 		.word	armBitRevIndexTable_fixed_128
+ 461 000c 7000     		.short	112
+ 462 000e 0000     		.space	2
+ 463              		.global	arm_cfft_sR_q15_len64
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s 			page 8
+
+
+ 464              		.section	.rodata.arm_cfft_sR_q15_len64,"a"
+ 465              		.align	2
+ 468              	arm_cfft_sR_q15_len64:
+ 469 0000 4000     		.short	64
+ 470 0002 0000     		.space	2
+ 471 0004 00000000 		.word	twiddleCoef_64_q15
+ 472 0008 00000000 		.word	armBitRevIndexTable_fixed_64
+ 473 000c 3800     		.short	56
+ 474 000e 0000     		.space	2
+ 475              		.global	arm_cfft_sR_q15_len32
+ 476              		.section	.rodata.arm_cfft_sR_q15_len32,"a"
+ 477              		.align	2
+ 480              	arm_cfft_sR_q15_len32:
+ 481 0000 2000     		.short	32
+ 482 0002 0000     		.space	2
+ 483 0004 00000000 		.word	twiddleCoef_32_q15
+ 484 0008 00000000 		.word	armBitRevIndexTable_fixed_32
+ 485 000c 1800     		.short	24
+ 486 000e 0000     		.space	2
+ 487              		.global	arm_cfft_sR_q15_len16
+ 488              		.section	.rodata.arm_cfft_sR_q15_len16,"a"
+ 489              		.align	2
+ 492              	arm_cfft_sR_q15_len16:
+ 493 0000 1000     		.short	16
+ 494 0002 0000     		.space	2
+ 495 0004 00000000 		.word	twiddleCoef_16_q15
+ 496 0008 00000000 		.word	armBitRevIndexTable_fixed_16
+ 497 000c 0C00     		.short	12
+ 498 000e 0000     		.space	2
+ 499              		.global	arm_cfft_sR_q31_len4096
+ 500              		.section	.rodata.arm_cfft_sR_q31_len4096,"a"
+ 501              		.align	2
+ 504              	arm_cfft_sR_q31_len4096:
+ 505 0000 0010     		.short	4096
+ 506 0002 0000     		.space	2
+ 507 0004 00000000 		.word	twiddleCoef_4096_q31
+ 508 0008 00000000 		.word	armBitRevIndexTable_fixed_4096
+ 509 000c C00F     		.short	4032
+ 510 000e 0000     		.space	2
+ 511              		.global	arm_cfft_sR_q31_len2048
+ 512              		.section	.rodata.arm_cfft_sR_q31_len2048,"a"
+ 513              		.align	2
+ 516              	arm_cfft_sR_q31_len2048:
+ 517 0000 0008     		.short	2048
+ 518 0002 0000     		.space	2
+ 519 0004 00000000 		.word	twiddleCoef_2048_q31
+ 520 0008 00000000 		.word	armBitRevIndexTable_fixed_2048
+ 521 000c C007     		.short	1984
+ 522 000e 0000     		.space	2
+ 523              		.global	arm_cfft_sR_q31_len1024
+ 524              		.section	.rodata.arm_cfft_sR_q31_len1024,"a"
+ 525              		.align	2
+ 528              	arm_cfft_sR_q31_len1024:
+ 529 0000 0004     		.short	1024
+ 530 0002 0000     		.space	2
+ 531 0004 00000000 		.word	twiddleCoef_1024_q31
+ 532 0008 00000000 		.word	armBitRevIndexTable_fixed_1024
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s 			page 9
+
+
+ 533 000c E003     		.short	992
+ 534 000e 0000     		.space	2
+ 535              		.global	arm_cfft_sR_q31_len512
+ 536              		.section	.rodata.arm_cfft_sR_q31_len512,"a"
+ 537              		.align	2
+ 540              	arm_cfft_sR_q31_len512:
+ 541 0000 0002     		.short	512
+ 542 0002 0000     		.space	2
+ 543 0004 00000000 		.word	twiddleCoef_512_q31
+ 544 0008 00000000 		.word	armBitRevIndexTable_fixed_512
+ 545 000c E001     		.short	480
+ 546 000e 0000     		.space	2
+ 547              		.global	arm_cfft_sR_q31_len256
+ 548              		.section	.rodata.arm_cfft_sR_q31_len256,"a"
+ 549              		.align	2
+ 552              	arm_cfft_sR_q31_len256:
+ 553 0000 0001     		.short	256
+ 554 0002 0000     		.space	2
+ 555 0004 00000000 		.word	twiddleCoef_256_q31
+ 556 0008 00000000 		.word	armBitRevIndexTable_fixed_256
+ 557 000c F000     		.short	240
+ 558 000e 0000     		.space	2
+ 559              		.global	arm_cfft_sR_q31_len128
+ 560              		.section	.rodata.arm_cfft_sR_q31_len128,"a"
+ 561              		.align	2
+ 564              	arm_cfft_sR_q31_len128:
+ 565 0000 8000     		.short	128
+ 566 0002 0000     		.space	2
+ 567 0004 00000000 		.word	twiddleCoef_128_q31
+ 568 0008 00000000 		.word	armBitRevIndexTable_fixed_128
+ 569 000c 7000     		.short	112
+ 570 000e 0000     		.space	2
+ 571              		.global	arm_cfft_sR_q31_len64
+ 572              		.section	.rodata.arm_cfft_sR_q31_len64,"a"
+ 573              		.align	2
+ 576              	arm_cfft_sR_q31_len64:
+ 577 0000 4000     		.short	64
+ 578 0002 0000     		.space	2
+ 579 0004 00000000 		.word	twiddleCoef_64_q31
+ 580 0008 00000000 		.word	armBitRevIndexTable_fixed_64
+ 581 000c 3800     		.short	56
+ 582 000e 0000     		.space	2
+ 583              		.global	arm_cfft_sR_q31_len32
+ 584              		.section	.rodata.arm_cfft_sR_q31_len32,"a"
+ 585              		.align	2
+ 588              	arm_cfft_sR_q31_len32:
+ 589 0000 2000     		.short	32
+ 590 0002 0000     		.space	2
+ 591 0004 00000000 		.word	twiddleCoef_32_q31
+ 592 0008 00000000 		.word	armBitRevIndexTable_fixed_32
+ 593 000c 1800     		.short	24
+ 594 000e 0000     		.space	2
+ 595              		.global	arm_cfft_sR_q31_len16
+ 596              		.section	.rodata.arm_cfft_sR_q31_len16,"a"
+ 597              		.align	2
+ 600              	arm_cfft_sR_q31_len16:
+ 601 0000 1000     		.short	16
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s 			page 10
+
+
+ 602 0002 0000     		.space	2
+ 603 0004 00000000 		.word	twiddleCoef_16_q31
+ 604 0008 00000000 		.word	armBitRevIndexTable_fixed_16
+ 605 000c 0C00     		.short	12
+ 606 000e 0000     		.space	2
+ 607              		.global	arm_cfft_sR_f32_len4096
+ 608              		.section	.rodata.arm_cfft_sR_f32_len4096,"a"
+ 609              		.align	2
+ 612              	arm_cfft_sR_f32_len4096:
+ 613 0000 0010     		.short	4096
+ 614 0002 0000     		.space	2
+ 615 0004 00000000 		.word	twiddleCoef_4096
+ 616 0008 00000000 		.word	armBitRevIndexTable4096
+ 617 000c C00F     		.short	4032
+ 618 000e 0000     		.space	2
+ 619              		.global	arm_cfft_sR_f32_len2048
+ 620              		.section	.rodata.arm_cfft_sR_f32_len2048,"a"
+ 621              		.align	2
+ 624              	arm_cfft_sR_f32_len2048:
+ 625 0000 0008     		.short	2048
+ 626 0002 0000     		.space	2
+ 627 0004 00000000 		.word	twiddleCoef_2048
+ 628 0008 00000000 		.word	armBitRevIndexTable2048
+ 629 000c E00E     		.short	3808
+ 630 000e 0000     		.space	2
+ 631              		.global	arm_cfft_sR_f32_len1024
+ 632              		.section	.rodata.arm_cfft_sR_f32_len1024,"a"
+ 633              		.align	2
+ 636              	arm_cfft_sR_f32_len1024:
+ 637 0000 0004     		.short	1024
+ 638 0002 0000     		.space	2
+ 639 0004 00000000 		.word	twiddleCoef_1024
+ 640 0008 00000000 		.word	armBitRevIndexTable1024
+ 641 000c 0807     		.short	1800
+ 642 000e 0000     		.space	2
+ 643              		.global	arm_cfft_sR_f32_len512
+ 644              		.section	.rodata.arm_cfft_sR_f32_len512,"a"
+ 645              		.align	2
+ 648              	arm_cfft_sR_f32_len512:
+ 649 0000 0002     		.short	512
+ 650 0002 0000     		.space	2
+ 651 0004 00000000 		.word	twiddleCoef_512
+ 652 0008 00000000 		.word	armBitRevIndexTable512
+ 653 000c C001     		.short	448
+ 654 000e 0000     		.space	2
+ 655              		.global	arm_cfft_sR_f32_len256
+ 656              		.section	.rodata.arm_cfft_sR_f32_len256,"a"
+ 657              		.align	2
+ 660              	arm_cfft_sR_f32_len256:
+ 661 0000 0001     		.short	256
+ 662 0002 0000     		.space	2
+ 663 0004 00000000 		.word	twiddleCoef_256
+ 664 0008 00000000 		.word	armBitRevIndexTable256
+ 665 000c B801     		.short	440
+ 666 000e 0000     		.space	2
+ 667              		.global	arm_cfft_sR_f32_len128
+ 668              		.section	.rodata.arm_cfft_sR_f32_len128,"a"
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s 			page 11
+
+
+ 669              		.align	2
+ 672              	arm_cfft_sR_f32_len128:
+ 673 0000 8000     		.short	128
+ 674 0002 0000     		.space	2
+ 675 0004 00000000 		.word	twiddleCoef_128
+ 676 0008 00000000 		.word	armBitRevIndexTable128
+ 677 000c D000     		.short	208
+ 678 000e 0000     		.space	2
+ 679              		.global	arm_cfft_sR_f32_len64
+ 680              		.section	.rodata.arm_cfft_sR_f32_len64,"a"
+ 681              		.align	2
+ 684              	arm_cfft_sR_f32_len64:
+ 685 0000 4000     		.short	64
+ 686 0002 0000     		.space	2
+ 687 0004 00000000 		.word	twiddleCoef_64
+ 688 0008 00000000 		.word	armBitRevIndexTable64
+ 689 000c 3800     		.short	56
+ 690 000e 0000     		.space	2
+ 691              		.global	arm_cfft_sR_f32_len32
+ 692              		.section	.rodata.arm_cfft_sR_f32_len32,"a"
+ 693              		.align	2
+ 696              	arm_cfft_sR_f32_len32:
+ 697 0000 2000     		.short	32
+ 698 0002 0000     		.space	2
+ 699 0004 00000000 		.word	twiddleCoef_32
+ 700 0008 00000000 		.word	armBitRevIndexTable32
+ 701 000c 3000     		.short	48
+ 702 000e 0000     		.space	2
+ 703              		.global	arm_cfft_sR_f32_len16
+ 704              		.section	.rodata.arm_cfft_sR_f32_len16,"a"
+ 705              		.align	2
+ 708              	arm_cfft_sR_f32_len16:
+ 709 0000 1000     		.short	16
+ 710 0002 0000     		.space	2
+ 711 0004 00000000 		.word	twiddleCoef_16
+ 712 0008 00000000 		.word	armBitRevIndexTable16
+ 713 000c 1400     		.short	20
+ 714 000e 0000     		.space	2
+ 715              		.text
+ 716              	.Letext0:
+ 717              		.file 2 "/Applications/ArmGNUToolchain/15.2.rel1/arm-none-eabi/arm-none-eabi/include/machine/_defa
+ 718              		.file 3 "/Applications/ArmGNUToolchain/15.2.rel1/arm-none-eabi/arm-none-eabi/include/sys/_stdint.h
+ 719              		.file 4 "../libDaisy/Drivers/CMSIS/DSP/Include/arm_math.h"
+ 720              		.file 5 "../libDaisy/Drivers/CMSIS/DSP/Include/arm_common_tables.h"
+ 721              		.file 6 "../libDaisy/Drivers/CMSIS/DSP/Include/arm_const_structs.h"
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s 			page 12
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 arm_const_structs.c
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:24     .rodata.arm_rfft_sR_q15_len8192:00000000 arm_rfft_sR_q15_len8192
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:21     .rodata.arm_rfft_sR_q15_len8192:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:396    .rodata.arm_cfft_sR_q15_len4096:00000000 arm_cfft_sR_q15_len4096
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:38     .rodata.arm_rfft_sR_q15_len4096:00000000 arm_rfft_sR_q15_len4096
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:35     .rodata.arm_rfft_sR_q15_len4096:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:408    .rodata.arm_cfft_sR_q15_len2048:00000000 arm_cfft_sR_q15_len2048
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:52     .rodata.arm_rfft_sR_q15_len2048:00000000 arm_rfft_sR_q15_len2048
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:49     .rodata.arm_rfft_sR_q15_len2048:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:420    .rodata.arm_cfft_sR_q15_len1024:00000000 arm_cfft_sR_q15_len1024
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:66     .rodata.arm_rfft_sR_q15_len1024:00000000 arm_rfft_sR_q15_len1024
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:63     .rodata.arm_rfft_sR_q15_len1024:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:432    .rodata.arm_cfft_sR_q15_len512:00000000 arm_cfft_sR_q15_len512
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:80     .rodata.arm_rfft_sR_q15_len512:00000000 arm_rfft_sR_q15_len512
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:77     .rodata.arm_rfft_sR_q15_len512:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:444    .rodata.arm_cfft_sR_q15_len256:00000000 arm_cfft_sR_q15_len256
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:94     .rodata.arm_rfft_sR_q15_len256:00000000 arm_rfft_sR_q15_len256
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:91     .rodata.arm_rfft_sR_q15_len256:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:456    .rodata.arm_cfft_sR_q15_len128:00000000 arm_cfft_sR_q15_len128
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:108    .rodata.arm_rfft_sR_q15_len128:00000000 arm_rfft_sR_q15_len128
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:105    .rodata.arm_rfft_sR_q15_len128:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:468    .rodata.arm_cfft_sR_q15_len64:00000000 arm_cfft_sR_q15_len64
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:122    .rodata.arm_rfft_sR_q15_len64:00000000 arm_rfft_sR_q15_len64
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:119    .rodata.arm_rfft_sR_q15_len64:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:480    .rodata.arm_cfft_sR_q15_len32:00000000 arm_cfft_sR_q15_len32
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:136    .rodata.arm_rfft_sR_q15_len32:00000000 arm_rfft_sR_q15_len32
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:133    .rodata.arm_rfft_sR_q15_len32:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:492    .rodata.arm_cfft_sR_q15_len16:00000000 arm_cfft_sR_q15_len16
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:150    .rodata.arm_rfft_sR_q31_len8192:00000000 arm_rfft_sR_q31_len8192
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:147    .rodata.arm_rfft_sR_q31_len8192:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:504    .rodata.arm_cfft_sR_q31_len4096:00000000 arm_cfft_sR_q31_len4096
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:164    .rodata.arm_rfft_sR_q31_len4096:00000000 arm_rfft_sR_q31_len4096
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:161    .rodata.arm_rfft_sR_q31_len4096:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:516    .rodata.arm_cfft_sR_q31_len2048:00000000 arm_cfft_sR_q31_len2048
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:178    .rodata.arm_rfft_sR_q31_len2048:00000000 arm_rfft_sR_q31_len2048
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:175    .rodata.arm_rfft_sR_q31_len2048:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:528    .rodata.arm_cfft_sR_q31_len1024:00000000 arm_cfft_sR_q31_len1024
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:192    .rodata.arm_rfft_sR_q31_len1024:00000000 arm_rfft_sR_q31_len1024
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:189    .rodata.arm_rfft_sR_q31_len1024:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:540    .rodata.arm_cfft_sR_q31_len512:00000000 arm_cfft_sR_q31_len512
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:206    .rodata.arm_rfft_sR_q31_len512:00000000 arm_rfft_sR_q31_len512
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:203    .rodata.arm_rfft_sR_q31_len512:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:552    .rodata.arm_cfft_sR_q31_len256:00000000 arm_cfft_sR_q31_len256
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:220    .rodata.arm_rfft_sR_q31_len256:00000000 arm_rfft_sR_q31_len256
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:217    .rodata.arm_rfft_sR_q31_len256:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:564    .rodata.arm_cfft_sR_q31_len128:00000000 arm_cfft_sR_q31_len128
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:234    .rodata.arm_rfft_sR_q31_len128:00000000 arm_rfft_sR_q31_len128
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:231    .rodata.arm_rfft_sR_q31_len128:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:576    .rodata.arm_cfft_sR_q31_len64:00000000 arm_cfft_sR_q31_len64
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:248    .rodata.arm_rfft_sR_q31_len64:00000000 arm_rfft_sR_q31_len64
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:245    .rodata.arm_rfft_sR_q31_len64:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:588    .rodata.arm_cfft_sR_q31_len32:00000000 arm_cfft_sR_q31_len32
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:262    .rodata.arm_rfft_sR_q31_len32:00000000 arm_rfft_sR_q31_len32
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:259    .rodata.arm_rfft_sR_q31_len32:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:600    .rodata.arm_cfft_sR_q31_len16:00000000 arm_cfft_sR_q31_len16
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:276    .rodata.arm_rfft_fast_sR_f32_len4096:00000000 arm_rfft_fast_sR_f32_len4096
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s 			page 13
+
+
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:273    .rodata.arm_rfft_fast_sR_f32_len4096:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:291    .rodata.arm_rfft_fast_sR_f32_len2048:00000000 arm_rfft_fast_sR_f32_len2048
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:288    .rodata.arm_rfft_fast_sR_f32_len2048:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:306    .rodata.arm_rfft_fast_sR_f32_len1024:00000000 arm_rfft_fast_sR_f32_len1024
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:303    .rodata.arm_rfft_fast_sR_f32_len1024:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:321    .rodata.arm_rfft_fast_sR_f32_len512:00000000 arm_rfft_fast_sR_f32_len512
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:318    .rodata.arm_rfft_fast_sR_f32_len512:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:336    .rodata.arm_rfft_fast_sR_f32_len256:00000000 arm_rfft_fast_sR_f32_len256
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:333    .rodata.arm_rfft_fast_sR_f32_len256:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:351    .rodata.arm_rfft_fast_sR_f32_len128:00000000 arm_rfft_fast_sR_f32_len128
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:348    .rodata.arm_rfft_fast_sR_f32_len128:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:366    .rodata.arm_rfft_fast_sR_f32_len64:00000000 arm_rfft_fast_sR_f32_len64
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:363    .rodata.arm_rfft_fast_sR_f32_len64:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:381    .rodata.arm_rfft_fast_sR_f32_len32:00000000 arm_rfft_fast_sR_f32_len32
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:378    .rodata.arm_rfft_fast_sR_f32_len32:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:393    .rodata.arm_cfft_sR_q15_len4096:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:405    .rodata.arm_cfft_sR_q15_len2048:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:417    .rodata.arm_cfft_sR_q15_len1024:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:429    .rodata.arm_cfft_sR_q15_len512:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:441    .rodata.arm_cfft_sR_q15_len256:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:453    .rodata.arm_cfft_sR_q15_len128:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:465    .rodata.arm_cfft_sR_q15_len64:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:477    .rodata.arm_cfft_sR_q15_len32:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:489    .rodata.arm_cfft_sR_q15_len16:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:501    .rodata.arm_cfft_sR_q31_len4096:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:513    .rodata.arm_cfft_sR_q31_len2048:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:525    .rodata.arm_cfft_sR_q31_len1024:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:537    .rodata.arm_cfft_sR_q31_len512:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:549    .rodata.arm_cfft_sR_q31_len256:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:561    .rodata.arm_cfft_sR_q31_len128:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:573    .rodata.arm_cfft_sR_q31_len64:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:585    .rodata.arm_cfft_sR_q31_len32:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:597    .rodata.arm_cfft_sR_q31_len16:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:612    .rodata.arm_cfft_sR_f32_len4096:00000000 arm_cfft_sR_f32_len4096
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:609    .rodata.arm_cfft_sR_f32_len4096:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:624    .rodata.arm_cfft_sR_f32_len2048:00000000 arm_cfft_sR_f32_len2048
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:621    .rodata.arm_cfft_sR_f32_len2048:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:636    .rodata.arm_cfft_sR_f32_len1024:00000000 arm_cfft_sR_f32_len1024
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:633    .rodata.arm_cfft_sR_f32_len1024:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:648    .rodata.arm_cfft_sR_f32_len512:00000000 arm_cfft_sR_f32_len512
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:645    .rodata.arm_cfft_sR_f32_len512:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:660    .rodata.arm_cfft_sR_f32_len256:00000000 arm_cfft_sR_f32_len256
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:657    .rodata.arm_cfft_sR_f32_len256:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:672    .rodata.arm_cfft_sR_f32_len128:00000000 arm_cfft_sR_f32_len128
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:669    .rodata.arm_cfft_sR_f32_len128:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:684    .rodata.arm_cfft_sR_f32_len64:00000000 arm_cfft_sR_f32_len64
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:681    .rodata.arm_cfft_sR_f32_len64:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:696    .rodata.arm_cfft_sR_f32_len32:00000000 arm_cfft_sR_f32_len32
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:693    .rodata.arm_cfft_sR_f32_len32:00000000 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:708    .rodata.arm_cfft_sR_f32_len16:00000000 arm_cfft_sR_f32_len16
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s:705    .rodata.arm_cfft_sR_f32_len16:00000000 $d
+
+UNDEFINED SYMBOLS
+realCoefAQ15
+realCoefBQ15
+realCoefAQ31
+realCoefBQ31
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//cclSOgLp.s 			page 14
+
+
+twiddleCoef_2048
+armBitRevIndexTable2048
+twiddleCoef_rfft_4096
+twiddleCoef_1024
+armBitRevIndexTable1024
+twiddleCoef_rfft_2048
+twiddleCoef_512
+armBitRevIndexTable512
+twiddleCoef_rfft_1024
+twiddleCoef_256
+armBitRevIndexTable256
+twiddleCoef_rfft_512
+twiddleCoef_128
+armBitRevIndexTable128
+twiddleCoef_rfft_256
+twiddleCoef_64
+armBitRevIndexTable64
+twiddleCoef_rfft_128
+twiddleCoef_32
+armBitRevIndexTable32
+twiddleCoef_rfft_64
+twiddleCoef_rfft_32
+twiddleCoef_4096_q15
+armBitRevIndexTable_fixed_4096
+twiddleCoef_2048_q15
+armBitRevIndexTable_fixed_2048
+twiddleCoef_1024_q15
+armBitRevIndexTable_fixed_1024
+twiddleCoef_512_q15
+armBitRevIndexTable_fixed_512
+twiddleCoef_256_q15
+armBitRevIndexTable_fixed_256
+twiddleCoef_128_q15
+armBitRevIndexTable_fixed_128
+twiddleCoef_64_q15
+armBitRevIndexTable_fixed_64
+twiddleCoef_32_q15
+armBitRevIndexTable_fixed_32
+twiddleCoef_16_q15
+armBitRevIndexTable_fixed_16
+twiddleCoef_4096_q31
+twiddleCoef_2048_q31
+twiddleCoef_1024_q31
+twiddleCoef_512_q31
+twiddleCoef_256_q31
+twiddleCoef_128_q31
+twiddleCoef_64_q31
+twiddleCoef_32_q31
+twiddleCoef_16_q31
+twiddleCoef_4096
+armBitRevIndexTable4096
+twiddleCoef_16
+armBitRevIndexTable16

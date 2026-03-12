@@ -1,0 +1,2840 @@
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.arch armv7e-m
+   3              		.fpu fpv5-d16
+   4              		.eabi_attribute 28, 1
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 2
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.file	"arm_cfft_f32.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.file 1 "../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c"
+  19              		.section	.text.arm_cfft_radix8by2_f32,"ax",%progbits
+  20              		.align	1
+  21              		.p2align 2,,3
+  22              		.global	arm_cfft_radix8by2_f32
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  27              	arm_cfft_radix8by2_f32:
+  28              	.LVL0:
+  29              	.LFB353:
+   1:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** /* ----------------------------------------------------------------------
+   2:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  * Project:      CMSIS DSP Library
+   3:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  * Title:        arm_cfft_f32.c
+   4:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  * Description:  Combined Radix Decimation in Frequency CFFT Floating point processing function
+   5:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  *
+   6:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  * $Date:        27. January 2017
+   7:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  * $Revision:    V.1.5.1
+   8:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  *
+   9:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  * Target Processor: Cortex-M cores
+  10:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  * -------------------------------------------------------------------- */
+  11:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** /*
+  12:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  * Copyright (C) 2010-2017 ARM Limited or its affiliates. All rights reserved.
+  13:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  *
+  14:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  * SPDX-License-Identifier: Apache-2.0
+  15:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  *
+  16:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  * Licensed under the Apache License, Version 2.0 (the License); you may
+  17:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  * not use this file except in compliance with the License.
+  18:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  * You may obtain a copy of the License at
+  19:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  *
+  20:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  * www.apache.org/licenses/LICENSE-2.0
+  21:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  *
+  22:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  * Unless required by applicable law or agreed to in writing, software
+  23:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  * distributed under the License is distributed on an AS IS BASIS, WITHOUT
+  24:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  25:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  * See the License for the specific language governing permissions and
+  26:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  * limitations under the License.
+  27:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****  */
+  28:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+  29:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** #include "arm_math.h"
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 2
+
+
+  30:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** #include "arm_common_tables.h"
+  31:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+  32:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** extern void arm_radix8_butterfly_f32(
+  33:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t * pSrc,
+  34:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint16_t fftLen,
+  35:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     const float32_t * pCoef,
+  36:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint16_t twidCoefModifier);
+  37:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+  38:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** extern void arm_bitreversal_32(
+  39:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint32_t * pSrc,
+  40:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     const uint16_t bitRevLen,
+  41:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     const uint16_t * pBitRevTable);
+  42:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+  43:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** /**
+  44:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * @ingroup groupTransforms
+  45:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** */
+  46:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+  47:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** /**
+  48:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * @defgroup ComplexFFT Complex FFT Functions
+  49:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *
+  50:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * \par
+  51:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * The Fast Fourier Transform (FFT) is an efficient algorithm for computing the
+  52:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * Discrete Fourier Transform (DFT).  The FFT can be orders of magnitude faster
+  53:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * than the DFT, especially for long lengths.
+  54:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * The algorithms described in this section
+  55:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * operate on complex data.  A separate set of functions is devoted to handling
+  56:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * of real sequences.
+  57:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * \par
+  58:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * There are separate algorithms for handling floating-point, Q15, and Q31 data
+  59:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * types.  The algorithms available for each data type are described next.
+  60:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * \par
+  61:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * The FFT functions operate in-place.  That is, the array holding the input data
+  62:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * will also be used to hold the corresponding result.  The input data is complex
+  63:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * and contains <code>2*fftLen</code> interleaved values as shown below.
+  64:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * <pre> {real[0], imag[0], real[1], imag[1],..} </pre>
+  65:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * The FFT result will be contained in the same array and the frequency domain
+  66:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * values will have the same interleaving.
+  67:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *
+  68:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * \par Floating-point
+  69:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * The floating-point complex FFT uses a mixed-radix algorithm.  Multiple radix-8
+  70:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * stages are performed along with a single radix-2 or radix-4 stage, as needed.
+  71:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * The algorithm supports lengths of [16, 32, 64, ..., 4096] and each length uses
+  72:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * a different twiddle factor table.
+  73:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * \par
+  74:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * The function uses the standard FFT definition and output values may grow by a
+  75:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * factor of <code>fftLen</code> when computing the forward transform.  The
+  76:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * inverse transform includes a scale of <code>1/fftLen</code> as part of the
+  77:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * calculation and this matches the textbook definition of the inverse FFT.
+  78:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * \par
+  79:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * Pre-initialized data structures containing twiddle factors and bit reversal
+  80:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * tables are provided and defined in <code>arm_const_structs.h</code>.  Include
+  81:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * this header in your function and then pass one of the constant structures as
+  82:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * an argument to arm_cfft_f32.  For example:
+  83:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * \par
+  84:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * <code>arm_cfft_f32(arm_cfft_sR_f32_len64, pSrc, 1, 1)</code>
+  85:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * \par
+  86:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * computes a 64-point inverse complex FFT including bit reversal.
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 3
+
+
+  87:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * The data structures are treated as constant data and not modified during the
+  88:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * calculation.  The same data structure can be reused for multiple transforms
+  89:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * including mixing forward and inverse transforms.
+  90:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * \par
+  91:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * Earlier releases of the library provided separate radix-2 and radix-4
+  92:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * algorithms that operated on floating-point data.  These functions are still
+  93:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * provided but are deprecated.  The older functions are slower and less general
+  94:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * than the new functions.
+  95:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * \par
+  96:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * An example of initialization of the constants for the arm_cfft_f32 function follows:
+  97:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * \code
+  98:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * const static arm_cfft_instance_f32 *S;
+  99:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * ...
+ 100:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *   switch (length) {
+ 101:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *     case 16:
+ 102:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       S = &arm_cfft_sR_f32_len16;
+ 103:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       break;
+ 104:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *     case 32:
+ 105:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       S = &arm_cfft_sR_f32_len32;
+ 106:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       break;
+ 107:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *     case 64:
+ 108:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       S = &arm_cfft_sR_f32_len64;
+ 109:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       break;
+ 110:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *     case 128:
+ 111:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       S = &arm_cfft_sR_f32_len128;
+ 112:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       break;
+ 113:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *     case 256:
+ 114:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       S = &arm_cfft_sR_f32_len256;
+ 115:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       break;
+ 116:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *     case 512:
+ 117:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       S = &arm_cfft_sR_f32_len512;
+ 118:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       break;
+ 119:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *     case 1024:
+ 120:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       S = &arm_cfft_sR_f32_len1024;
+ 121:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       break;
+ 122:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *     case 2048:
+ 123:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       S = &arm_cfft_sR_f32_len2048;
+ 124:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       break;
+ 125:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *     case 4096:
+ 126:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       S = &arm_cfft_sR_f32_len4096;
+ 127:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       break;
+ 128:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *   }
+ 129:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * \endcode
+ 130:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * \par Q15 and Q31
+ 131:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * The floating-point complex FFT uses a mixed-radix algorithm.  Multiple radix-4
+ 132:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * stages are performed along with a single radix-2 stage, as needed.
+ 133:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * The algorithm supports lengths of [16, 32, 64, ..., 4096] and each length uses
+ 134:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * a different twiddle factor table.
+ 135:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * \par
+ 136:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * The function uses the standard FFT definition and output values may grow by a
+ 137:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * factor of <code>fftLen</code> when computing the forward transform.  The
+ 138:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * inverse transform includes a scale of <code>1/fftLen</code> as part of the
+ 139:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * calculation and this matches the textbook definition of the inverse FFT.
+ 140:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * \par
+ 141:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * Pre-initialized data structures containing twiddle factors and bit reversal
+ 142:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * tables are provided and defined in <code>arm_const_structs.h</code>.  Include
+ 143:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * this header in your function and then pass one of the constant structures as
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 4
+
+
+ 144:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * an argument to arm_cfft_q31.  For example:
+ 145:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * \par
+ 146:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * <code>arm_cfft_q31(arm_cfft_sR_q31_len64, pSrc, 1, 1)</code>
+ 147:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * \par
+ 148:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * computes a 64-point inverse complex FFT including bit reversal.
+ 149:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * The data structures are treated as constant data and not modified during the
+ 150:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * calculation.  The same data structure can be reused for multiple transforms
+ 151:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * including mixing forward and inverse transforms.
+ 152:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * \par
+ 153:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * Earlier releases of the library provided separate radix-2 and radix-4
+ 154:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * algorithms that operated on floating-point data.  These functions are still
+ 155:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * provided but are deprecated.  The older functions are slower and less general
+ 156:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * than the new functions.
+ 157:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * \par
+ 158:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * An example of initialization of the constants for the arm_cfft_q31 function follows:
+ 159:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * \code
+ 160:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * const static arm_cfft_instance_q31 *S;
+ 161:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * ...
+ 162:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *   switch (length) {
+ 163:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *     case 16:
+ 164:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       S = &arm_cfft_sR_q31_len16;
+ 165:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       break;
+ 166:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *     case 32:
+ 167:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       S = &arm_cfft_sR_q31_len32;
+ 168:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       break;
+ 169:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *     case 64:
+ 170:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       S = &arm_cfft_sR_q31_len64;
+ 171:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       break;
+ 172:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *     case 128:
+ 173:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       S = &arm_cfft_sR_q31_len128;
+ 174:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       break;
+ 175:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *     case 256:
+ 176:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       S = &arm_cfft_sR_q31_len256;
+ 177:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       break;
+ 178:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *     case 512:
+ 179:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       S = &arm_cfft_sR_q31_len512;
+ 180:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       break;
+ 181:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *     case 1024:
+ 182:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       S = &arm_cfft_sR_q31_len1024;
+ 183:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       break;
+ 184:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *     case 2048:
+ 185:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       S = &arm_cfft_sR_q31_len2048;
+ 186:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       break;
+ 187:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *     case 4096:
+ 188:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       S = &arm_cfft_sR_q31_len4096;
+ 189:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *       break;
+ 190:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *   }
+ 191:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * \endcode
+ 192:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** *
+ 193:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** */
+ 194:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 195:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** void arm_cfft_radix8by2_f32( arm_cfft_instance_f32 * S, float32_t * p1)
+ 196:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** {
+  30              		.loc 1 196 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 5
+
+
+ 197:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint32_t    L  = S->fftLen;
+  34              		.loc 1 197 5 view .LVU1
+  35              		.loc 1 197 17 is_stmt 0 view .LVU2
+  36 0000 0388     		ldrh	r3, [r0]
+  37              	.LVL1:
+ 198:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t * pCol1, * pCol2, * pMid1, * pMid2;
+  38              		.loc 1 198 5 is_stmt 1 view .LVU3
+ 199:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t * p2 = p1 + L;
+  39              		.loc 1 199 5 view .LVU4
+ 196:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint32_t    L  = S->fftLen;
+  40              		.loc 1 196 1 is_stmt 0 view .LVU5
+  41 0002 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+  42              		.cfi_def_cfa_offset 24
+  43              		.cfi_offset 4, -24
+  44              		.cfi_offset 5, -20
+  45              		.cfi_offset 6, -16
+  46              		.cfi_offset 7, -12
+  47              		.cfi_offset 8, -8
+  48              		.cfi_offset 14, -4
+  49 0006 0F46     		mov	r7, r1
+  50              		.loc 1 199 17 view .LVU6
+  51 0008 01EB8305 		add	r5, r1, r3, lsl #2
+  52              	.LVL2:
+ 200:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     const float32_t * tw = (float32_t *) S->pTwiddle;
+  53              		.loc 1 200 5 is_stmt 1 view .LVU7
+ 201:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t t1[4], t2[4], t3[4], t4[4], twR, twI;
+ 202:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t m0, m1, m2, m3;
+ 203:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint32_t l;
+ 204:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 205:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pCol1 = p1;
+ 206:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pCol2 = p2;
+ 207:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 208:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     //    Define new length
+ 209:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     L >>= 1;
+ 210:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     //    Initialize mid pointers
+ 211:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pMid1 = p1 + L;
+ 212:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pMid2 = p2 + L;
+ 213:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 214:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // do two dot Fourier transform
+ 215:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     for ( l = L >> 2; l > 0; l-- )
+  54              		.loc 1 215 25 is_stmt 0 discriminator 1 view .LVU8
+  55 000c D908     		lsrs	r1, r3, #3
+  56              	.LVL3:
+ 196:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint32_t    L  = S->fftLen;
+  57              		.loc 1 196 1 view .LVU9
+  58 000e 0446     		mov	r4, r0
+ 200:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     const float32_t * tw = (float32_t *) S->pTwiddle;
+  59              		.loc 1 200 23 view .LVU10
+  60 0010 D0F80480 		ldr	r8, [r0, #4]
+  61              	.LVL4:
+ 201:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t t1[4], t2[4], t3[4], t4[4], twR, twI;
+  62              		.loc 1 201 5 is_stmt 1 view .LVU11
+ 202:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint32_t l;
+  63              		.loc 1 202 5 view .LVU12
+ 203:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+  64              		.loc 1 203 5 view .LVU13
+ 205:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pCol2 = p2;
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 6
+
+
+  65              		.loc 1 205 5 view .LVU14
+ 206:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+  66              		.loc 1 206 5 view .LVU15
+ 209:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     //    Initialize mid pointers
+  67              		.loc 1 209 5 view .LVU16
+ 209:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     //    Initialize mid pointers
+  68              		.loc 1 209 7 is_stmt 0 view .LVU17
+  69 0014 4FEA5306 		lsr	r6, r3, #1
+  70              	.LVL5:
+ 211:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pMid2 = p2 + L;
+  71              		.loc 1 211 5 is_stmt 1 view .LVU18
+ 212:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+  72              		.loc 1 212 5 view .LVU19
+  73              		.loc 1 215 5 view .LVU20
+  74              		.loc 1 215 25 discriminator 1 view .LVU21
+ 196:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint32_t    L  = S->fftLen;
+  75              		.loc 1 196 1 is_stmt 0 view .LVU22
+  76 0018 2DED088B 		vpush.64	{d8, d9, d10, d11}
+  77              		.cfi_def_cfa_offset 56
+  78              		.cfi_offset 80, -56
+  79              		.cfi_offset 81, -52
+  80              		.cfi_offset 82, -48
+  81              		.cfi_offset 83, -44
+  82              		.cfi_offset 84, -40
+  83              		.cfi_offset 85, -36
+  84              		.cfi_offset 86, -32
+  85              		.cfi_offset 87, -28
+  86              		.loc 1 215 25 discriminator 1 view .LVU23
+  87 001c 00F0AA80 		beq	.L2
+  88 0020 07F11003 		add	r3, r7, #16
+ 211:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pMid2 = p2 + L;
+  89              		.loc 1 211 11 view .LVU24
+  90 0024 07EB860E 		add	lr, r7, r6, lsl #2
+ 212:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+  91              		.loc 1 212 11 view .LVU25
+  92 0028 05EB860C 		add	ip, r5, r6, lsl #2
+  93 002c 08F11000 		add	r0, r8, #16
+  94              	.LVL6:
+ 212:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+  95              		.loc 1 212 11 view .LVU26
+  96 0030 03EB0111 		add	r1, r3, r1, lsl #4
+  97              	.LVL7:
+ 212:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+  98              		.loc 1 212 11 view .LVU27
+  99 0034 0EF1100E 		add	lr, lr, #16
+ 100 0038 0CF1100C 		add	ip, ip, #16
+ 101 003c 05F11002 		add	r2, r5, #16
+ 102              	.LVL8:
+ 103              	.L3:
+ 216:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 217:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t1[0] = p1[0];
+ 104              		.loc 1 217 9 is_stmt 1 view .LVU28
+ 218:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t1[1] = p1[1];
+ 219:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t1[2] = p1[2];
+ 220:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t1[3] = p1[3];
+ 221:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 222:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[0] = p2[0];
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 7
+
+
+ 105              		.loc 1 222 19 is_stmt 0 view .LVU29
+ 106 0040 52ED042A 		vldr.32	s5, [r2, #-16]
+ 215:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 107              		.loc 1 215 25 discriminator 1 view .LVU30
+ 108 0044 0CF1100C 		add	ip, ip, #16
+ 223:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[1] = p2[1];
+ 109              		.loc 1 223 15 view .LVU31
+ 110 0048 12ED033A 		vldr.32	s6, [r2, #-12]
+ 215:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 111              		.loc 1 215 25 discriminator 1 view .LVU32
+ 112 004c 1030     		adds	r0, r0, #16
+ 224:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[2] = p2[2];
+ 113              		.loc 1 224 15 view .LVU33
+ 114 004e 52ED023A 		vldr.32	s7, [r2, #-8]
+ 215:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 115              		.loc 1 215 25 discriminator 1 view .LVU34
+ 116 0052 1032     		adds	r2, r2, #16
+ 225:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[3] = p2[3];
+ 226:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 227:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t3[0] = pMid1[0];
+ 228:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t3[1] = pMid1[1];
+ 229:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t3[2] = pMid1[2];
+ 230:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t3[3] = pMid1[3];
+ 231:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 232:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[0] = pMid2[0];
+ 117              		.loc 1 232 22 view .LVU35
+ 118 0054 1CED082A 		vldr.32	s4, [ip, #-32]
+ 215:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 119              		.loc 1 215 25 discriminator 1 view .LVU36
+ 120 0058 1033     		adds	r3, r3, #16
+ 121              	.LVL9:
+ 233:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[1] = pMid2[1];
+ 122              		.loc 1 233 15 view .LVU37
+ 123 005a 5CED075A 		vldr.32	s11, [ip, #-28]
+ 215:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 124              		.loc 1 215 25 discriminator 1 view .LVU38
+ 125 005e 0EF1100E 		add	lr, lr, #16
+ 225:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[3] = p2[3];
+ 126              		.loc 1 225 15 view .LVU39
+ 127 0062 12ED054A 		vldr.32	s8, [r2, #-20]
+ 234:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[2] = pMid2[2];
+ 128              		.loc 1 234 15 view .LVU40
+ 129 0066 5CED067A 		vldr.32	s15, [ip, #-24]
+ 235:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[3] = pMid2[3];
+ 130              		.loc 1 235 15 view .LVU41
+ 131 006a 5CED056A 		vldr.32	s13, [ip, #-20]
+ 217:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t1[1] = p1[1];
+ 132              		.loc 1 217 19 view .LVU42
+ 133 006e 13ED081A 		vldr.32	s2, [r3, #-32]
+ 134              	.LVL10:
+ 218:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t1[2] = p1[2];
+ 135              		.loc 1 218 9 is_stmt 1 view .LVU43
+ 218:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t1[2] = p1[2];
+ 136              		.loc 1 218 15 is_stmt 0 view .LVU44
+ 137 0072 53ED071A 		vldr.32	s3, [r3, #-28]
+ 138              	.LVL11:
+ 219:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t1[3] = p1[3];
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 8
+
+
+ 139              		.loc 1 219 9 is_stmt 1 view .LVU45
+ 219:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t1[3] = p1[3];
+ 140              		.loc 1 219 15 is_stmt 0 view .LVU46
+ 141 0076 13ED066A 		vldr.32	s12, [r3, #-24]
+ 142              	.LVL12:
+ 220:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 143              		.loc 1 220 9 is_stmt 1 view .LVU47
+ 236:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 237:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p1++ = t1[0] + t2[0];
+ 144              		.loc 1 237 23 is_stmt 0 view .LVU48
+ 145 007a 71EE22BA 		vadd.f32	s23, s2, s5
+ 220:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 146              		.loc 1 220 15 view .LVU49
+ 147 007e 13ED057A 		vldr.32	s14, [r3, #-20]
+ 148              	.LVL13:
+ 222:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[1] = p2[1];
+ 149              		.loc 1 222 9 is_stmt 1 view .LVU50
+ 223:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[2] = p2[2];
+ 150              		.loc 1 223 9 view .LVU51
+ 224:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[3] = p2[3];
+ 151              		.loc 1 224 9 view .LVU52
+ 225:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 152              		.loc 1 225 9 view .LVU53
+ 227:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t3[1] = pMid1[1];
+ 153              		.loc 1 227 9 view .LVU54
+ 238:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p1++ = t1[1] + t2[1];
+ 154              		.loc 1 238 23 is_stmt 0 view .LVU55
+ 155 0082 31EE83BA 		vadd.f32	s22, s3, s6
+ 227:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t3[1] = pMid1[1];
+ 156              		.loc 1 227 22 view .LVU56
+ 157 0086 5EED084A 		vldr.32	s9, [lr, #-32]
+ 158              	.LVL14:
+ 228:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t3[2] = pMid1[2];
+ 159              		.loc 1 228 9 is_stmt 1 view .LVU57
+ 239:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p1++ = t1[2] + t2[2];
+ 160              		.loc 1 239 23 is_stmt 0 view .LVU58
+ 161 008a 76EE23AA 		vadd.f32	s21, s12, s7
+ 228:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t3[2] = pMid1[2];
+ 162              		.loc 1 228 15 view .LVU59
+ 163 008e 1EED075A 		vldr.32	s10, [lr, #-28]
+ 164              	.LVL15:
+ 229:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t3[3] = pMid1[3];
+ 165              		.loc 1 229 9 is_stmt 1 view .LVU60
+ 240:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p1++ = t1[3] + t2[3];    // col 1
+ 166              		.loc 1 240 23 is_stmt 0 view .LVU61
+ 167 0092 37EE04AA 		vadd.f32	s20, s14, s8
+ 229:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t3[3] = pMid1[3];
+ 168              		.loc 1 229 15 view .LVU62
+ 169 0096 5EED060A 		vldr.32	s1, [lr, #-24]
+ 170              	.LVL16:
+ 230:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 171              		.loc 1 230 9 is_stmt 1 view .LVU63
+ 241:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 242:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[0] = t1[0] - t2[0];
+ 243:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[1] = t1[1] - t2[1];
+ 244:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[2] = t1[2] - t2[2];
+ 245:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[3] = t1[3] - t2[3];    // for col 2
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 9
+
+
+ 246:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 247:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pMid1++ = t3[0] + t4[0];
+ 172              		.loc 1 247 26 is_stmt 0 view .LVU64
+ 173 009a 74EE829A 		vadd.f32	s19, s9, s4
+ 230:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 174              		.loc 1 230 15 view .LVU65
+ 175 009e 1EED050A 		vldr.32	s0, [lr, #-20]
+ 176              	.LVL17:
+ 232:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[1] = pMid2[1];
+ 177              		.loc 1 232 9 is_stmt 1 view .LVU66
+ 233:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[2] = pMid2[2];
+ 178              		.loc 1 233 9 view .LVU67
+ 234:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[3] = pMid2[3];
+ 179              		.loc 1 234 9 view .LVU68
+ 235:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 180              		.loc 1 235 9 view .LVU69
+ 237:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p1++ = t1[1] + t2[1];
+ 181              		.loc 1 237 9 view .LVU70
+ 248:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pMid1++ = t3[1] + t4[1];
+ 182              		.loc 1 248 26 is_stmt 0 view .LVU71
+ 183 00a2 35EE259A 		vadd.f32	s18, s10, s11
+ 249:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pMid1++ = t3[2] + t4[2];
+ 184              		.loc 1 249 26 view .LVU72
+ 185 00a6 70EEA78A 		vadd.f32	s17, s1, s15
+ 237:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p1++ = t1[1] + t2[1];
+ 186              		.loc 1 237 15 view .LVU73
+ 187 00aa 43ED08BA 		vstr.32	s23, [r3, #-32]
+ 238:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p1++ = t1[2] + t2[2];
+ 188              		.loc 1 238 9 is_stmt 1 view .LVU74
+ 189              	.LVL18:
+ 250:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pMid1++ = t3[3] + t4[3]; // col 1
+ 190              		.loc 1 250 26 is_stmt 0 view .LVU75
+ 191 00ae 30EE268A 		vadd.f32	s16, s0, s13
+ 238:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p1++ = t1[2] + t2[2];
+ 192              		.loc 1 238 15 view .LVU76
+ 193 00b2 03ED07BA 		vstr.32	s22, [r3, #-28]
+ 239:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p1++ = t1[3] + t2[3];    // col 1
+ 194              		.loc 1 239 9 is_stmt 1 view .LVU77
+ 195              	.LVL19:
+ 242:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[1] = t1[1] - t2[1];
+ 196              		.loc 1 242 23 is_stmt 0 view .LVU78
+ 197 00b6 31EE621A 		vsub.f32	s2, s2, s5
+ 198              	.LVL20:
+ 239:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p1++ = t1[3] + t2[3];    // col 1
+ 199              		.loc 1 239 15 view .LVU79
+ 200 00ba 43ED06AA 		vstr.32	s21, [r3, #-24]
+ 240:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 201              		.loc 1 240 9 is_stmt 1 view .LVU80
+ 202              	.LVL21:
+ 243:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[2] = t1[2] - t2[2];
+ 203              		.loc 1 243 23 is_stmt 0 view .LVU81
+ 204 00be 71EEC31A 		vsub.f32	s3, s3, s6
+ 205              	.LVL22:
+ 240:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 206              		.loc 1 240 15 view .LVU82
+ 207 00c2 03ED05AA 		vstr.32	s20, [r3, #-20]
+ 242:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[1] = t1[1] - t2[1];
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 10
+
+
+ 208              		.loc 1 242 9 is_stmt 1 view .LVU83
+ 209              	.LVL23:
+ 243:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[2] = t1[2] - t2[2];
+ 210              		.loc 1 243 9 view .LVU84
+ 244:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[3] = t1[3] - t2[3];    // for col 2
+ 211              		.loc 1 244 9 view .LVU85
+ 251:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 252:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[0] = t4[0] - t3[0];
+ 212              		.loc 1 252 23 is_stmt 0 view .LVU86
+ 213 00c6 32EE642A 		vsub.f32	s4, s4, s9
+ 214              	.LVL24:
+ 247:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pMid1++ = t3[1] + t4[1];
+ 215              		.loc 1 247 18 view .LVU87
+ 216 00ca 4EED089A 		vstr.32	s19, [lr, #-32]
+ 248:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pMid1++ = t3[2] + t4[2];
+ 217              		.loc 1 248 18 view .LVU88
+ 218 00ce 0EED079A 		vstr.32	s18, [lr, #-28]
+ 253:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[1] = t4[1] - t3[1];
+ 219              		.loc 1 253 23 view .LVU89
+ 220 00d2 75EEC55A 		vsub.f32	s11, s11, s10
+ 221              	.LVL25:
+ 249:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pMid1++ = t3[3] + t4[3]; // col 1
+ 222              		.loc 1 249 18 view .LVU90
+ 223 00d6 4EED068A 		vstr.32	s17, [lr, #-24]
+ 245:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 224              		.loc 1 245 23 view .LVU91
+ 225 00da 37EE447A 		vsub.f32	s14, s14, s8
+ 226              	.LVL26:
+ 250:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 227              		.loc 1 250 18 view .LVU92
+ 228 00de 0EED058A 		vstr.32	s16, [lr, #-20]
+ 244:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[3] = t1[3] - t2[3];    // for col 2
+ 229              		.loc 1 244 23 view .LVU93
+ 230 00e2 36EE636A 		vsub.f32	s12, s12, s7
+ 231              	.LVL27:
+ 245:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 232              		.loc 1 245 9 is_stmt 1 view .LVU94
+ 247:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pMid1++ = t3[1] + t4[1];
+ 233              		.loc 1 247 9 view .LVU95
+ 248:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pMid1++ = t3[2] + t4[2];
+ 234              		.loc 1 248 9 view .LVU96
+ 249:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pMid1++ = t3[3] + t4[3]; // col 1
+ 235              		.loc 1 249 9 view .LVU97
+ 250:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 236              		.loc 1 250 9 view .LVU98
+ 252:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[1] = t4[1] - t3[1];
+ 237              		.loc 1 252 9 view .LVU99
+ 238              		.loc 1 253 9 view .LVU100
+ 254:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[2] = t4[2] - t3[2];
+ 239              		.loc 1 254 9 view .LVU101
+ 255:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[3] = t4[3] - t3[3];    // for col 2
+ 256:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 257:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         twR = *tw++;
+ 240              		.loc 1 257 13 is_stmt 0 view .LVU102
+ 241 00e6 50ED084A 		vldr.32	s9, [r0, #-32]
+ 242              	.LVL28:
+ 254:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[2] = t4[2] - t3[2];
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 11
+
+
+ 243              		.loc 1 254 23 view .LVU103
+ 244 00ea 77EEE07A 		vsub.f32	s15, s15, s1
+ 245              	.LVL29:
+ 255:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[3] = t4[3] - t3[3];    // for col 2
+ 246              		.loc 1 255 9 is_stmt 1 view .LVU104
+ 258:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         twI = *tw++;
+ 247              		.loc 1 258 13 is_stmt 0 view .LVU105
+ 248 00ee 10ED075A 		vldr.32	s10, [r0, #-28]
+ 249              	.LVL30:
+ 255:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[3] = t4[3] - t3[3];    // for col 2
+ 250              		.loc 1 255 23 view .LVU106
+ 251 00f2 76EEC06A 		vsub.f32	s13, s13, s0
+ 252              	.LVL31:
+ 257:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         twI = *tw++;
+ 253              		.loc 1 257 9 is_stmt 1 view .LVU107
+ 254              		.loc 1 258 9 view .LVU108
+ 259:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 260:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // multiply by twiddle factors
+ 261:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m0 = t2[0] * twR;
+ 255              		.loc 1 261 9 view .LVU109
+ 262:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m1 = t2[1] * twI;
+ 256              		.loc 1 262 9 view .LVU110
+ 263:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m2 = t2[1] * twR;
+ 257              		.loc 1 263 9 view .LVU111
+ 264:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m3 = t2[0] * twI;
+ 258              		.loc 1 264 9 view .LVU112
+ 265:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 266:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // R  =  R  *  Tr - I * Ti
+ 267:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p2++ = m0 + m1;
+ 259              		.loc 1 267 9 view .LVU113
+ 268:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // I  =  I  *  Tr + R * Ti
+ 269:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p2++ = m2 - m3;
+ 270:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 271:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // use vertical symmetry
+ 272:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         //  0.9988 - 0.0491i <==> -0.0491 - 0.9988i
+ 273:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m0 = t4[0] * twI;
+ 274:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m1 = t4[1] * twR;
+ 275:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m2 = t4[1] * twI;
+ 276:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m3 = t4[0] * twR;
+ 260              		.loc 1 276 12 is_stmt 0 view .LVU114
+ 261 00f6 22EE244A 		vmul.f32	s8, s4, s9
+ 215:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 262              		.loc 1 215 25 discriminator 1 view .LVU115
+ 263 00fa 8B42     		cmp	r3, r1
+ 262:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m2 = t2[1] * twR;
+ 264              		.loc 1 262 12 view .LVU116
+ 265 00fc 61EE852A 		vmul.f32	s5, s3, s10
+ 266              	.LVL32:
+ 269:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 267              		.loc 1 269 15 view .LVU117
+ 268 0100 25EE413A 		vnmul.f32	s6, s10, s2
+ 277:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 278:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pMid2++ = m0 - m1;
+ 269              		.loc 1 278 18 view .LVU118
+ 270 0104 64EEE53A 		vnmul.f32	s7, s9, s11
+ 267:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // I  =  I  *  Tr + R * Ti
+ 271              		.loc 1 267 15 view .LVU119
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 12
+
+
+ 272 0108 E1EE242A 		vfma.f32	s5, s2, s9
+ 273              	.LVL33:
+ 269:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 274              		.loc 1 269 15 view .LVU120
+ 275 010c A1EEA43A 		vfma.f32	s6, s3, s9
+ 279:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pMid2++ = m2 + m3;
+ 276              		.loc 1 279 18 view .LVU121
+ 277 0110 F0EE444A 		vmov.f32	s9, s8
+ 278              	.LVL34:
+ 278:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pMid2++ = m2 + m3;
+ 279              		.loc 1 278 18 view .LVU122
+ 280 0114 E2EE053A 		vfma.f32	s7, s4, s10
+ 281              		.loc 1 279 18 view .LVU123
+ 282 0118 E5EE854A 		vfma.f32	s9, s11, s10
+ 267:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // I  =  I  *  Tr + R * Ti
+ 283              		.loc 1 267 15 view .LVU124
+ 284 011c 42ED082A 		vstr.32	s5, [r2, #-32]
+ 285              	.LVL35:
+ 269:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 286              		.loc 1 269 9 is_stmt 1 view .LVU125
+ 269:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 287              		.loc 1 269 15 is_stmt 0 view .LVU126
+ 288 0120 02ED073A 		vstr.32	s6, [r2, #-28]
+ 273:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m1 = t4[1] * twR;
+ 289              		.loc 1 273 9 is_stmt 1 view .LVU127
+ 290              	.LVL36:
+ 274:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m2 = t4[1] * twI;
+ 291              		.loc 1 274 9 view .LVU128
+ 275:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m3 = t4[0] * twR;
+ 292              		.loc 1 275 9 view .LVU129
+ 276:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 293              		.loc 1 276 9 view .LVU130
+ 278:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pMid2++ = m2 + m3;
+ 294              		.loc 1 278 9 view .LVU131
+ 278:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pMid2++ = m2 + m3;
+ 295              		.loc 1 278 18 is_stmt 0 view .LVU132
+ 296 0124 4CED083A 		vstr.32	s7, [ip, #-32]
+ 297              		.loc 1 279 9 is_stmt 1 view .LVU133
+ 298              		.loc 1 279 18 is_stmt 0 view .LVU134
+ 299 0128 4CED074A 		vstr.32	s9, [ip, #-28]
+ 280:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 281:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         twR = *tw++;
+ 300              		.loc 1 281 9 is_stmt 1 view .LVU135
+ 301              		.loc 1 281 13 is_stmt 0 view .LVU136
+ 302 012c 10ED065A 		vldr.32	s10, [r0, #-24]
+ 303              	.LVL37:
+ 282:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         twI = *tw++;
+ 304              		.loc 1 282 9 is_stmt 1 view .LVU137
+ 305              		.loc 1 282 13 is_stmt 0 view .LVU138
+ 306 0130 50ED055A 		vldr.32	s11, [r0, #-20]
+ 307              	.LVL38:
+ 283:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 284:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m0 = t2[2] * twR;
+ 308              		.loc 1 284 9 is_stmt 1 view .LVU139
+ 285:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m1 = t2[3] * twI;
+ 309              		.loc 1 285 9 view .LVU140
+ 286:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m2 = t2[3] * twR;
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 13
+
+
+ 310              		.loc 1 286 9 view .LVU141
+ 287:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m3 = t2[2] * twI;
+ 311              		.loc 1 287 9 view .LVU142
+ 288:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 289:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p2++ = m0 + m1;
+ 312              		.loc 1 289 9 view .LVU143
+ 290:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p2++ = m2 - m3;
+ 291:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 292:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m0 = t4[2] * twI;
+ 293:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m1 = t4[3] * twR;
+ 294:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m2 = t4[3] * twI;
+ 295:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m3 = t4[2] * twR;
+ 313              		.loc 1 295 12 is_stmt 0 view .LVU144
+ 314 0134 67EE854A 		vmul.f32	s9, s15, s10
+ 285:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m2 = t2[3] * twR;
+ 315              		.loc 1 285 12 view .LVU145
+ 316 0138 27EE253A 		vmul.f32	s6, s14, s11
+ 317              	.LVL39:
+ 290:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p2++ = m2 - m3;
+ 318              		.loc 1 290 15 view .LVU146
+ 319 013c 65EEC63A 		vnmul.f32	s7, s11, s12
+ 296:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 297:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pMid2++ = m0 - m1;
+ 320              		.loc 1 297 18 view .LVU147
+ 321 0140 25EE664A 		vnmul.f32	s8, s10, s13
+ 289:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p2++ = m2 - m3;
+ 322              		.loc 1 289 15 view .LVU148
+ 323 0144 A6EE053A 		vfma.f32	s6, s12, s10
+ 324              	.LVL40:
+ 298:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pMid2++ = m2 + m3;
+ 325              		.loc 1 298 18 view .LVU149
+ 326 0148 B0EE646A 		vmov.f32	s12, s9
+ 327              	.LVL41:
+ 328              		.loc 1 298 18 view .LVU150
+ 329 014c A6EEA56A 		vfma.f32	s12, s13, s11
+ 290:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 330              		.loc 1 290 15 view .LVU151
+ 331 0150 F0EE636A 		vmov.f32	s13, s7
+ 332              	.LVL42:
+ 289:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p2++ = m2 - m3;
+ 333              		.loc 1 289 15 view .LVU152
+ 334 0154 02ED063A 		vstr.32	s6, [r2, #-24]
+ 290:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 335              		.loc 1 290 15 view .LVU153
+ 336 0158 E7EE056A 		vfma.f32	s13, s14, s10
+ 290:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 337              		.loc 1 290 9 is_stmt 1 view .LVU154
+ 297:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pMid2++ = m2 + m3;
+ 338              		.loc 1 297 18 is_stmt 0 view .LVU155
+ 339 015c B0EE447A 		vmov.f32	s14, s8
+ 340              	.LVL43:
+ 297:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pMid2++ = m2 + m3;
+ 341              		.loc 1 297 18 view .LVU156
+ 342 0160 A7EEA57A 		vfma.f32	s14, s15, s11
+ 290:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 343              		.loc 1 290 15 view .LVU157
+ 344 0164 42ED056A 		vstr.32	s13, [r2, #-20]
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 14
+
+
+ 292:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m1 = t4[3] * twR;
+ 345              		.loc 1 292 9 is_stmt 1 view .LVU158
+ 346              	.LVL44:
+ 293:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m2 = t4[3] * twI;
+ 347              		.loc 1 293 9 view .LVU159
+ 294:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m3 = t4[2] * twR;
+ 348              		.loc 1 294 9 view .LVU160
+ 295:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 349              		.loc 1 295 9 view .LVU161
+ 297:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pMid2++ = m2 + m3;
+ 350              		.loc 1 297 9 view .LVU162
+ 351              		.loc 1 298 18 is_stmt 0 view .LVU163
+ 352 0168 0CED056A 		vstr.32	s12, [ip, #-20]
+ 297:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pMid2++ = m2 + m3;
+ 353              		.loc 1 297 18 view .LVU164
+ 354 016c 0CED067A 		vstr.32	s14, [ip, #-24]
+ 355              		.loc 1 298 9 is_stmt 1 view .LVU165
+ 215:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 356              		.loc 1 215 31 discriminator 3 view .LVU166
+ 215:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 357              		.loc 1 215 25 discriminator 1 view .LVU167
+ 358 0170 7FF466AF 		bne	.L3
+ 359              	.LVL45:
+ 360              	.L2:
+ 299:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     }
+ 300:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 301:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // first col
+ 302:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     arm_radix8_butterfly_f32( pCol1, L, (float32_t *) S->pTwiddle, 2u);
+ 361              		.loc 1 302 5 view .LVU168
+ 362 0174 4246     		mov	r2, r8
+ 363 0176 3846     		mov	r0, r7
+ 364 0178 B1B2     		uxth	r1, r6
+ 365 017a 0223     		movs	r3, #2
+ 366 017c FFF7FEFF 		bl	arm_radix8_butterfly_f32
+ 367              	.LVL46:
+ 303:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // second col
+ 304:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     arm_radix8_butterfly_f32( pCol2, L, (float32_t *) S->pTwiddle, 2u);
+ 368              		.loc 1 304 5 view .LVU169
+ 369 0180 6268     		ldr	r2, [r4, #4]
+ 370 0182 B1B2     		uxth	r1, r6
+ 371 0184 2846     		mov	r0, r5
+ 372 0186 0223     		movs	r3, #2
+ 305:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** }
+ 373              		.loc 1 305 1 is_stmt 0 view .LVU170
+ 374 0188 BDEC088B 		vldm	sp!, {d8-d11}
+ 375              		.cfi_restore 86
+ 376              		.cfi_restore 87
+ 377              		.cfi_restore 84
+ 378              		.cfi_restore 85
+ 379              		.cfi_restore 82
+ 380              		.cfi_restore 83
+ 381              		.cfi_restore 80
+ 382              		.cfi_restore 81
+ 383              		.cfi_def_cfa_offset 24
+ 384 018c BDE8F041 		pop	{r4, r5, r6, r7, r8, lr}
+ 385              		.cfi_restore 14
+ 386              		.cfi_restore 8
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 15
+
+
+ 387              		.cfi_restore 7
+ 388              		.cfi_restore 6
+ 389              		.cfi_restore 5
+ 390              		.cfi_restore 4
+ 391              		.cfi_def_cfa_offset 0
+ 392              	.LVL47:
+ 304:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** }
+ 393              		.loc 1 304 5 view .LVU171
+ 394 0190 FFF7FEBF 		b	arm_radix8_butterfly_f32
+ 395              	.LVL48:
+ 304:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** }
+ 396              		.loc 1 304 5 view .LVU172
+ 397              		.cfi_endproc
+ 398              	.LFE353:
+ 400              		.section	.text.arm_cfft_radix8by4_f32,"ax",%progbits
+ 401              		.align	1
+ 402              		.p2align 2,,3
+ 403              		.global	arm_cfft_radix8by4_f32
+ 404              		.syntax unified
+ 405              		.thumb
+ 406              		.thumb_func
+ 408              	arm_cfft_radix8by4_f32:
+ 409              	.LVL49:
+ 410              	.LFB354:
+ 306:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 307:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** void arm_cfft_radix8by4_f32( arm_cfft_instance_f32 * S, float32_t * p1)
+ 308:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** {
+ 411              		.loc 1 308 1 is_stmt 1 view -0
+ 412              		.cfi_startproc
+ 413              		@ args = 0, pretend = 0, frame = 56
+ 414              		@ frame_needed = 0, uses_anonymous_args = 0
+ 309:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint32_t    L  = S->fftLen >> 1;
+ 415              		.loc 1 309 5 view .LVU174
+ 416              		.loc 1 309 32 is_stmt 0 view .LVU175
+ 417 0000 0388     		ldrh	r3, [r0]
+ 308:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint32_t    L  = S->fftLen >> 1;
+ 418              		.loc 1 308 1 view .LVU176
+ 419 0002 0A46     		mov	r2, r1
+ 310:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t * pCol1, *pCol2, *pCol3, *pCol4, *pEnd1, *pEnd2, *pEnd3, *pEnd4;
+ 311:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     const float32_t *tw2, *tw3, *tw4;
+ 312:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t * p2 = p1 + L;
+ 313:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t * p3 = p2 + L;
+ 314:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t * p4 = p3 + L;
+ 315:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t t2[4], t3[4], t4[4], twR, twI;
+ 316:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t p1ap3_0, p1sp3_0, p1ap3_1, p1sp3_1;
+ 317:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t m0, m1, m2, m3;
+ 318:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint32_t l, twMod2, twMod3, twMod4;
+ 319:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 320:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pCol1 = p1;         // points to real values by default
+ 321:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pCol2 = p2;
+ 322:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pCol3 = p3;
+ 323:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pCol4 = p4;
+ 324:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pEnd1 = p2 - 1;     // points to imaginary values by default
+ 325:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pEnd2 = p3 - 1;
+ 326:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pEnd3 = p4 - 1;
+ 327:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pEnd4 = pEnd3 + L;
+ 328:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 16
+
+
+ 329:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     tw2 = tw3 = tw4 = (float32_t *) S->pTwiddle;
+ 330:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 331:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     L >>= 1;
+ 332:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 333:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // do four dot Fourier transform
+ 334:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 335:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     twMod2 = 2;
+ 336:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     twMod3 = 4;
+ 337:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     twMod4 = 6;
+ 338:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 339:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // TOP
+ 340:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1ap3_0 = p1[0] + p3[0];
+ 420              		.loc 1 340 17 view .LVU177
+ 421 0004 D1ED007A 		vldr.32	s15, [r1]
+ 309:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t * pCol1, *pCol2, *pCol3, *pCol4, *pEnd1, *pEnd2, *pEnd3, *pEnd4;
+ 422              		.loc 1 309 17 view .LVU178
+ 423 0008 5B08     		lsrs	r3, r3, #1
+ 424              	.LVL50:
+ 310:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t * pCol1, *pCol2, *pCol3, *pCol4, *pEnd1, *pEnd2, *pEnd3, *pEnd4;
+ 425              		.loc 1 310 5 is_stmt 1 view .LVU179
+ 311:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t * p2 = p1 + L;
+ 426              		.loc 1 311 5 view .LVU180
+ 312:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t * p3 = p2 + L;
+ 427              		.loc 1 312 5 view .LVU181
+ 341:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1sp3_0 = p1[0] - p3[0];
+ 342:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1ap3_1 = p1[1] + p3[1];
+ 428              		.loc 1 342 17 is_stmt 0 view .LVU182
+ 429 000a D1ED015A 		vldr.32	s11, [r1, #4]
+ 308:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint32_t    L  = S->fftLen >> 1;
+ 430              		.loc 1 308 1 view .LVU183
+ 431 000e 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 432              		.cfi_def_cfa_offset 36
+ 433              		.cfi_offset 4, -36
+ 434              		.cfi_offset 5, -32
+ 435              		.cfi_offset 6, -28
+ 436              		.cfi_offset 7, -24
+ 437              		.cfi_offset 8, -20
+ 438              		.cfi_offset 9, -16
+ 439              		.cfi_offset 10, -12
+ 440              		.cfi_offset 11, -8
+ 441              		.cfi_offset 14, -4
+ 442 0012 2DED028B 		vpush.64	{d8}
+ 443              		.cfi_def_cfa_offset 44
+ 444              		.cfi_offset 80, -44
+ 445              		.cfi_offset 81, -40
+ 446 0016 8FB0     		sub	sp, sp, #60
+ 447              		.cfi_def_cfa_offset 104
+ 312:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t * p3 = p2 + L;
+ 448              		.loc 1 312 17 view .LVU184
+ 449 0018 02EB8306 		add	r6, r2, r3, lsl #2
+ 450              	.LVL51:
+ 313:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t * p4 = p3 + L;
+ 451              		.loc 1 313 5 is_stmt 1 view .LVU185
+ 329:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 452              		.loc 1 329 21 is_stmt 0 view .LVU186
+ 453 001c 4468     		ldr	r4, [r0, #4]
+ 331:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 17
+
+
+ 454              		.loc 1 331 7 view .LVU187
+ 455 001e 5F08     		lsrs	r7, r3, #1
+ 308:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint32_t    L  = S->fftLen >> 1;
+ 456              		.loc 1 308 1 view .LVU188
+ 457 0020 0D91     		str	r1, [sp, #52]
+ 313:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t * p4 = p3 + L;
+ 458              		.loc 1 313 17 view .LVU189
+ 459 0022 01EBC301 		add	r1, r1, r3, lsl #3
+ 460              	.LVL52:
+ 314:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t t2[4], t3[4], t4[4], twR, twI;
+ 461              		.loc 1 314 5 is_stmt 1 view .LVU190
+ 343:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1sp3_1 = p1[1] - p3[1];
+ 344:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 345:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 2
+ 346:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t2[0] = p1sp3_0 + p2[1] - p4[1];
+ 347:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t2[1] = p1sp3_1 - p2[0] + p4[0];
+ 462              		.loc 1 347 25 is_stmt 0 view .LVU191
+ 463 0026 96ED007A 		vldr.32	s14, [r6]
+ 348:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 3
+ 349:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t3[0] = p1ap3_0 - p2[0] - p4[0];
+ 350:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t3[1] = p1ap3_1 - p2[1] - p4[1];
+ 351:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 4
+ 352:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t4[0] = p1sp3_0 - p2[1] + p4[1];
+ 353:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t4[1] = p1sp3_1 + p2[0] - p4[0];
+ 354:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 1
+ 355:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p1++ = p1ap3_0 + p2[0] + p4[0];
+ 356:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p1++ = p1ap3_1 + p2[1] + p4[1];
+ 357:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 358:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // Twiddle factors are ones
+ 359:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p2++ = t2[0];
+ 464              		.loc 1 359 11 view .LVU192
+ 465 002a 06F10809 		add	r9, r6, #8
+ 340:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1sp3_0 = p1[0] - p3[0];
+ 466              		.loc 1 340 25 view .LVU193
+ 467 002e 91ED006A 		vldr.32	s12, [r1]
+ 314:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t t2[4], t3[4], t4[4], twR, twI;
+ 468              		.loc 1 314 17 view .LVU194
+ 469 0032 01EB8305 		add	r5, r1, r3, lsl #2
+ 342:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1sp3_1 = p1[1] - p3[1];
+ 470              		.loc 1 342 25 view .LVU195
+ 471 0036 91ED015A 		vldr.32	s10, [r1, #4]
+ 340:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1sp3_0 = p1[0] - p3[0];
+ 472              		.loc 1 340 13 view .LVU196
+ 473 003a 77EE866A 		vadd.f32	s13, s15, s12
+ 346:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t2[1] = p1sp3_1 - p2[0] + p4[0];
+ 474              		.loc 1 346 25 view .LVU197
+ 475 003e 96ED013A 		vldr.32	s6, [r6, #4]
+ 341:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1ap3_1 = p1[1] + p3[1];
+ 476              		.loc 1 341 13 view .LVU198
+ 477 0042 77EEC67A 		vsub.f32	s15, s15, s12
+ 308:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint32_t    L  = S->fftLen >> 1;
+ 478              		.loc 1 308 1 view .LVU199
+ 479 0046 0C90     		str	r0, [sp, #48]
+ 342:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1sp3_1 = p1[1] - p3[1];
+ 480              		.loc 1 342 13 view .LVU200
+ 481 0048 35EE856A 		vadd.f32	s12, s11, s10
+ 355:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p1++ = p1ap3_1 + p2[1] + p4[1];
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 18
+
+
+ 482              		.loc 1 355 11 view .LVU201
+ 483 004c 02F10800 		add	r0, r2, #8
+ 484              	.LVL53:
+ 343:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 485              		.loc 1 343 13 view .LVU202
+ 486 0050 75EEC55A 		vsub.f32	s11, s11, s10
+ 329:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 487              		.loc 1 329 21 view .LVU203
+ 488 0054 0A94     		str	r4, [sp, #40]
+ 355:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p1++ = p1ap3_1 + p2[1] + p4[1];
+ 489              		.loc 1 355 21 view .LVU204
+ 490 0056 77EE263A 		vadd.f32	s7, s14, s13
+ 355:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p1++ = p1ap3_1 + p2[1] + p4[1];
+ 491              		.loc 1 355 11 view .LVU205
+ 492 005a 0390     		str	r0, [sp, #12]
+ 349:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t3[1] = p1ap3_1 - p2[1] - p4[1];
+ 493              		.loc 1 349 21 view .LVU206
+ 494 005c 76EEC76A 		vsub.f32	s13, s13, s14
+ 356:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 495              		.loc 1 356 11 view .LVU207
+ 496 0060 1046     		mov	r0, r2
+ 347:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 3
+ 497              		.loc 1 347 21 view .LVU208
+ 498 0062 75EEC74A 		vsub.f32	s9, s11, s14
+ 331:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 499              		.loc 1 331 7 view .LVU209
+ 500 0066 0B97     		str	r7, [sp, #44]
+ 353:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 1
+ 501              		.loc 1 353 21 view .LVU210
+ 502 0068 37EE257A 		vadd.f32	s14, s14, s11
+ 347:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 3
+ 503              		.loc 1 347 33 view .LVU211
+ 504 006c D5ED005A 		vldr.32	s11, [r5]
+ 346:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t2[1] = p1sp3_1 - p2[0] + p4[0];
+ 505              		.loc 1 346 21 view .LVU212
+ 506 0070 33EE274A 		vadd.f32	s8, s6, s15
+ 360:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p2++ = t2[1];
+ 507              		.loc 1 360 11 view .LVU213
+ 508 0074 0296     		str	r6, [sp, #8]
+ 355:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p1++ = p1ap3_1 + p2[1] + p4[1];
+ 509              		.loc 1 355 29 view .LVU214
+ 510 0076 73EEA53A 		vadd.f32	s7, s7, s11
+ 313:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t * p4 = p3 + L;
+ 511              		.loc 1 313 17 view .LVU215
+ 512 007a 0991     		str	r1, [sp, #36]
+ 350:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 4
+ 513              		.loc 1 350 21 view .LVU216
+ 514 007c 36EE435A 		vsub.f32	s10, s12, s6
+ 352:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t4[1] = p1sp3_1 + p2[0] - p4[0];
+ 515              		.loc 1 352 21 view .LVU217
+ 516 0080 77EEC37A 		vsub.f32	s15, s15, s6
+ 517              	.LVL54:
+ 315:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t p1ap3_0, p1sp3_0, p1ap3_1, p1sp3_1;
+ 518              		.loc 1 315 5 is_stmt 1 view .LVU218
+ 316:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t m0, m1, m2, m3;
+ 519              		.loc 1 316 5 view .LVU219
+ 317:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint32_t l, twMod2, twMod3, twMod4;
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 19
+
+
+ 520              		.loc 1 317 5 view .LVU220
+ 318:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 521              		.loc 1 318 5 view .LVU221
+ 320:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pCol2 = p2;
+ 522              		.loc 1 320 5 view .LVU222
+ 321:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pCol3 = p3;
+ 523              		.loc 1 321 5 view .LVU223
+ 322:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pCol4 = p4;
+ 524              		.loc 1 322 5 view .LVU224
+ 323:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pEnd1 = p2 - 1;     // points to imaginary values by default
+ 525              		.loc 1 323 5 view .LVU225
+ 324:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pEnd2 = p3 - 1;
+ 526              		.loc 1 324 5 view .LVU226
+ 325:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pEnd3 = p4 - 1;
+ 527              		.loc 1 325 5 view .LVU227
+ 326:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     pEnd4 = pEnd3 + L;
+ 528              		.loc 1 326 5 view .LVU228
+ 327:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 529              		.loc 1 327 5 view .LVU229
+ 329:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 530              		.loc 1 329 5 view .LVU230
+ 346:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t2[1] = p1sp3_1 - p2[0] + p4[0];
+ 531              		.loc 1 346 33 is_stmt 0 view .LVU231
+ 532 0084 95ED013A 		vldr.32	s6, [r5, #4]
+ 355:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p1++ = p1ap3_1 + p2[1] + p4[1];
+ 533              		.loc 1 355 11 view .LVU232
+ 534 0088 C2ED003A 		vstr.32	s7, [r2]
+ 347:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 3
+ 535              		.loc 1 347 29 view .LVU233
+ 536 008c 74EEA54A 		vadd.f32	s9, s9, s11
+ 356:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 537              		.loc 1 356 21 view .LVU234
+ 538 0090 D6ED013A 		vldr.32	s7, [r6, #4]
+ 349:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t3[1] = p1ap3_1 - p2[1] - p4[1];
+ 539              		.loc 1 349 29 view .LVU235
+ 540 0094 76EEE56A 		vsub.f32	s13, s13, s11
+ 353:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 1
+ 541              		.loc 1 353 29 view .LVU236
+ 542 0098 37EE657A 		vsub.f32	s14, s14, s11
+ 356:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 543              		.loc 1 356 29 view .LVU237
+ 544 009c D5ED015A 		vldr.32	s11, [r5, #4]
+ 356:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 545              		.loc 1 356 21 view .LVU238
+ 546 00a0 36EE236A 		vadd.f32	s12, s12, s7
+ 346:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t2[1] = p1sp3_1 - p2[0] + p4[0];
+ 547              		.loc 1 346 29 view .LVU239
+ 548 00a4 34EE434A 		vsub.f32	s8, s8, s6
+ 350:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 4
+ 549              		.loc 1 350 29 view .LVU240
+ 550 00a8 35EE435A 		vsub.f32	s10, s10, s6
+ 356:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 551              		.loc 1 356 29 view .LVU241
+ 552 00ac 36EE256A 		vadd.f32	s12, s12, s11
+ 352:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t4[1] = p1sp3_1 + p2[0] - p4[0];
+ 553              		.loc 1 352 29 view .LVU242
+ 554 00b0 77EE837A 		vadd.f32	s15, s15, s6
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 20
+
+
+ 555              	.LVL55:
+ 331:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 556              		.loc 1 331 5 is_stmt 1 view .LVU243
+ 335:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     twMod3 = 4;
+ 557              		.loc 1 335 5 view .LVU244
+ 336:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     twMod4 = 6;
+ 558              		.loc 1 336 5 view .LVU245
+ 337:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 559              		.loc 1 337 5 view .LVU246
+ 340:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1sp3_0 = p1[0] - p3[0];
+ 560              		.loc 1 340 5 view .LVU247
+ 341:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1ap3_1 = p1[1] + p3[1];
+ 561              		.loc 1 341 5 view .LVU248
+ 342:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1sp3_1 = p1[1] - p3[1];
+ 562              		.loc 1 342 5 view .LVU249
+ 343:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 563              		.loc 1 343 5 view .LVU250
+ 346:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t2[1] = p1sp3_1 - p2[0] + p4[0];
+ 564              		.loc 1 346 5 view .LVU251
+ 347:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 3
+ 565              		.loc 1 347 5 view .LVU252
+ 349:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t3[1] = p1ap3_1 - p2[1] - p4[1];
+ 566              		.loc 1 349 5 view .LVU253
+ 350:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 4
+ 567              		.loc 1 350 5 view .LVU254
+ 352:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t4[1] = p1sp3_1 + p2[0] - p4[0];
+ 568              		.loc 1 352 5 view .LVU255
+ 353:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 1
+ 569              		.loc 1 353 5 view .LVU256
+ 355:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p1++ = p1ap3_1 + p2[1] + p4[1];
+ 570              		.loc 1 355 5 view .LVU257
+ 356:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 571              		.loc 1 356 5 view .LVU258
+ 359:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p2++ = t2[1];
+ 572              		.loc 1 359 5 view .LVU259
+ 356:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 573              		.loc 1 356 11 is_stmt 0 view .LVU260
+ 574 00b4 82ED016A 		vstr.32	s12, [r2, #4]
+ 361:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p3++ = t3[0];
+ 575              		.loc 1 361 11 view .LVU261
+ 576 00b8 01F10802 		add	r2, r1, #8
+ 577              	.LVL56:
+ 359:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p2++ = t2[1];
+ 578              		.loc 1 359 11 view .LVU262
+ 579 00bc 86ED004A 		vstr.32	s8, [r6]
+ 360:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p3++ = t3[0];
+ 580              		.loc 1 360 5 is_stmt 1 view .LVU263
+ 581              	.LVL57:
+ 582              		.loc 1 361 11 is_stmt 0 view .LVU264
+ 583 00c0 0692     		str	r2, [sp, #24]
+ 362:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p3++ = t3[1];
+ 363:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p4++ = t4[0];
+ 584              		.loc 1 363 11 view .LVU265
+ 585 00c2 05F10802 		add	r2, r5, #8
+ 360:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p3++ = t3[0];
+ 586              		.loc 1 360 11 view .LVU266
+ 587 00c6 C6ED014A 		vstr.32	s9, [r6, #4]
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 21
+
+
+ 361:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p3++ = t3[1];
+ 588              		.loc 1 361 5 is_stmt 1 view .LVU267
+ 589              	.LVL58:
+ 362:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p3++ = t3[1];
+ 590              		.loc 1 362 5 view .LVU268
+ 361:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p3++ = t3[1];
+ 591              		.loc 1 361 11 is_stmt 0 view .LVU269
+ 592 00ca C1ED006A 		vstr.32	s13, [r1]
+ 362:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p3++ = t3[1];
+ 593              		.loc 1 362 11 view .LVU270
+ 594 00ce 81ED015A 		vstr.32	s10, [r1, #4]
+ 595              		.loc 1 363 5 is_stmt 1 view .LVU271
+ 596              	.LVL59:
+ 597              		.loc 1 363 11 is_stmt 0 view .LVU272
+ 598 00d2 C5ED007A 		vstr.32	s15, [r5]
+ 599 00d6 0792     		str	r2, [sp, #28]
+ 364:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p4++ = t4[1];
+ 600              		.loc 1 364 5 is_stmt 1 view .LVU273
+ 601              	.LVL60:
+ 365:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 366:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     tw2 += twMod2;
+ 367:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     tw3 += twMod3;
+ 368:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     tw4 += twMod4;
+ 369:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 370:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     for (l = (L - 2) >> 1; l > 0; l-- )
+ 602              		.loc 1 370 17 is_stmt 0 view .LVU274
+ 603 00d8 BA1E     		subs	r2, r7, #2
+ 604              	.LVL61:
+ 366:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     tw3 += twMod3;
+ 605              		.loc 1 366 9 view .LVU275
+ 606 00da 2746     		mov	r7, r4
+ 607              	.LVL62:
+ 366:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     tw3 += twMod3;
+ 608              		.loc 1 366 9 view .LVU276
+ 609 00dc 0834     		adds	r4, r4, #8
+ 610              	.LVL63:
+ 364:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p4++ = t4[1];
+ 611              		.loc 1 364 11 view .LVU277
+ 612 00de 85ED017A 		vstr.32	s14, [r5, #4]
+ 366:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     tw3 += twMod3;
+ 613              		.loc 1 366 5 is_stmt 1 view .LVU278
+ 368:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 614              		.loc 1 368 9 is_stmt 0 view .LVU279
+ 615 00e2 07F11806 		add	r6, r7, #24
+ 616              	.LVL64:
+ 366:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     tw3 += twMod3;
+ 617              		.loc 1 366 9 view .LVU280
+ 618 00e6 0494     		str	r4, [sp, #16]
+ 619              	.LVL65:
+ 367:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     tw4 += twMod4;
+ 620              		.loc 1 367 5 is_stmt 1 view .LVU281
+ 368:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 621              		.loc 1 368 5 view .LVU282
+ 367:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     tw4 += twMod4;
+ 622              		.loc 1 367 9 is_stmt 0 view .LVU283
+ 623 00e8 07F11004 		add	r4, r7, #16
+ 624              	.LVL66:
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 22
+
+
+ 368:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 625              		.loc 1 368 9 view .LVU284
+ 626 00ec 0596     		str	r6, [sp, #20]
+ 627              	.LVL67:
+ 628              		.loc 1 370 5 is_stmt 1 view .LVU285
+ 629              		.loc 1 370 30 discriminator 1 view .LVU286
+ 630 00ee 5608     		lsrs	r6, r2, #1
+ 631              	.LVL68:
+ 367:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     tw4 += twMod4;
+ 632              		.loc 1 367 9 is_stmt 0 view .LVU287
+ 633 00f0 0194     		str	r4, [sp, #4]
+ 634              	.LVL69:
+ 635              		.loc 1 370 30 discriminator 1 view .LVU288
+ 636 00f2 0896     		str	r6, [sp, #32]
+ 637 00f4 00F03581 		beq	.L11
+ 638 00f8 029A     		ldr	r2, [sp, #8]
+ 327:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 639              		.loc 1 327 11 view .LVU289
+ 640 00fa 05EB8303 		add	r3, r5, r3, lsl #2
+ 641              	.LVL70:
+ 327:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 642              		.loc 1 327 11 view .LVU290
+ 643 00fe 00F11006 		add	r6, r0, #16
+ 644              	.LVL71:
+ 327:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 645              		.loc 1 327 11 view .LVU291
+ 646 0102 07F12008 		add	r8, r7, #32
+ 647 0106 A2F10C04 		sub	r4, r2, #12
+ 648 010a 02F11000 		add	r0, r2, #16
+ 649              	.LVL72:
+ 327:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 650              		.loc 1 327 11 view .LVU292
+ 651 010e 0A46     		mov	r2, r1
+ 652 0110 0C3B     		subs	r3, r3, #12
+ 653 0112 DDF804A0 		ldr	r10, [sp, #4]
+ 654 0116 0C39     		subs	r1, r1, #12
+ 655              	.LVL73:
+ 327:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 656              		.loc 1 327 11 view .LVU293
+ 657 0118 02F1100E 		add	lr, r2, #16
+ 658 011c A5F10C0C 		sub	ip, r5, #12
+ 659 0120 3037     		adds	r7, r7, #48
+ 660 0122 05F11002 		add	r2, r5, #16
+ 661              	.LVL74:
+ 662              		.loc 1 370 12 view .LVU294
+ 663 0126 DDF820B0 		ldr	fp, [sp, #32]
+ 664              	.LVL75:
+ 665              	.L12:
+ 371:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 372:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // TOP
+ 373:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1ap3_0 = p1[0] + p3[0];
+ 666              		.loc 1 373 9 is_stmt 1 view .LVU295
+ 667              		.loc 1 373 29 is_stmt 0 view .LVU296
+ 668 012a 1EED027A 		vldr.32	s14, [lr, #-8]
+ 370:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 669              		.loc 1 370 30 discriminator 1 view .LVU297
+ 670 012e BBF1010B 		subs	fp, fp, #1
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 23
+
+
+ 671              	.LVL76:
+ 672              		.loc 1 373 21 view .LVU298
+ 673 0132 56ED027A 		vldr.32	s15, [r6, #-8]
+ 370:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 674              		.loc 1 370 30 discriminator 1 view .LVU299
+ 675 0136 A4F10804 		sub	r4, r4, #8
+ 676              	.LVL77:
+ 374:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1sp3_0 = p1[0] - p3[0];
+ 375:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1ap3_1 = p1[1] + p3[1];
+ 376:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1sp3_1 = p1[1] - p3[1];
+ 377:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 2
+ 378:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[0] = p1sp3_0 + p2[1] - p4[1];
+ 379:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[1] = p1sp3_1 - p2[0] + p4[0];
+ 677              		.loc 1 379 29 view .LVU300
+ 678 013a 50ED026A 		vldr.32	s13, [r0, #-8]
+ 370:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 679              		.loc 1 370 30 discriminator 1 view .LVU301
+ 680 013e 06F10806 		add	r6, r6, #8
+ 681              	.LVL78:
+ 373:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1sp3_0 = p1[0] - p3[0];
+ 682              		.loc 1 373 17 view .LVU302
+ 683 0142 77EE872A 		vadd.f32	s5, s15, s14
+ 684              	.LVL79:
+ 374:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1sp3_0 = p1[0] - p3[0];
+ 685              		.loc 1 374 9 is_stmt 1 view .LVU303
+ 686              		.loc 1 379 37 is_stmt 0 view .LVU304
+ 687 0146 12ED025A 		vldr.32	s10, [r2, #-8]
+ 375:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1sp3_1 = p1[1] - p3[1];
+ 688              		.loc 1 375 29 view .LVU305
+ 689 014a 5EED013A 		vldr.32	s7, [lr, #-4]
+ 374:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1sp3_0 = p1[0] - p3[0];
+ 690              		.loc 1 374 17 view .LVU306
+ 691 014e 77EEC77A 		vsub.f32	s15, s15, s14
+ 692              	.LVL80:
+ 375:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1sp3_1 = p1[1] - p3[1];
+ 693              		.loc 1 375 9 is_stmt 1 view .LVU307
+ 375:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1sp3_1 = p1[1] - p3[1];
+ 694              		.loc 1 375 21 is_stmt 0 view .LVU308
+ 695 0152 56ED035A 		vldr.32	s11, [r6, #-12]
+ 370:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 696              		.loc 1 370 30 discriminator 1 view .LVU309
+ 697 0156 0AF1080A 		add	r10, r10, #8
+ 380:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 3
+ 381:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t3[0] = p1ap3_0 - p2[0] - p4[0];
+ 382:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t3[1] = p1ap3_1 - p2[1] - p4[1];
+ 383:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 4
+ 384:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[0] = p1sp3_0 - p2[1] + p4[1];
+ 385:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[1] = p1sp3_1 + p2[0] - p4[0];
+ 386:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 1 - top
+ 387:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p1++ = p1ap3_0 + p2[0] + p4[0];
+ 698              		.loc 1 387 25 view .LVU310
+ 699 015a 36EEA24A 		vadd.f32	s8, s13, s5
+ 378:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[1] = p1sp3_1 - p2[0] + p4[0];
+ 700              		.loc 1 378 37 view .LVU311
+ 701 015e 52ED014A 		vldr.32	s9, [r2, #-4]
+ 375:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1sp3_1 = p1[1] - p3[1];
+ 702              		.loc 1 375 17 view .LVU312
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 24
+
+
+ 703 0162 35EEA37A 		vadd.f32	s14, s11, s7
+ 704              	.LVL81:
+ 376:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 2
+ 705              		.loc 1 376 9 is_stmt 1 view .LVU313
+ 378:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[1] = p1sp3_1 - p2[0] + p4[0];
+ 706              		.loc 1 378 29 is_stmt 0 view .LVU314
+ 707 0166 10ED016A 		vldr.32	s12, [r0, #-4]
+ 376:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 2
+ 708              		.loc 1 376 17 view .LVU315
+ 709 016a 75EEE35A 		vsub.f32	s11, s11, s7
+ 710              	.LVL82:
+ 378:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[1] = p1sp3_1 - p2[0] + p4[0];
+ 711              		.loc 1 378 9 is_stmt 1 view .LVU316
+ 370:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 712              		.loc 1 370 30 is_stmt 0 discriminator 1 view .LVU317
+ 713 016e 00F10800 		add	r0, r0, #8
+ 714              		.loc 1 387 33 view .LVU318
+ 715 0172 34EE054A 		vadd.f32	s8, s8, s10
+ 370:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 716              		.loc 1 370 30 discriminator 1 view .LVU319
+ 717 0176 A1F10801 		sub	r1, r1, #8
+ 378:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[1] = p1sp3_1 - p2[0] + p4[0];
+ 718              		.loc 1 378 25 view .LVU320
+ 719 017a 36EE272A 		vadd.f32	s4, s12, s15
+ 370:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 720              		.loc 1 370 30 discriminator 1 view .LVU321
+ 721 017e 08F11008 		add	r8, r8, #16
+ 722              	.LVL83:
+ 384:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[1] = p1sp3_1 + p2[0] - p4[0];
+ 723              		.loc 1 384 25 view .LVU322
+ 724 0182 77EEC67A 		vsub.f32	s15, s15, s12
+ 725              	.LVL84:
+ 370:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 726              		.loc 1 370 30 discriminator 1 view .LVU323
+ 727 0186 0EF1080E 		add	lr, lr, #8
+ 728              	.LVL85:
+ 729              		.loc 1 387 15 view .LVU324
+ 730 018a 06ED044A 		vstr.32	s8, [r6, #-16]
+ 731              	.LVL86:
+ 382:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 4
+ 732              		.loc 1 382 25 view .LVU325
+ 733 018e 37EE466A 		vsub.f32	s12, s14, s12
+ 388:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p1++ = p1ap3_1 + p2[1] + p4[1];
+ 734              		.loc 1 388 25 view .LVU326
+ 735 0192 10ED034A 		vldr.32	s8, [r0, #-12]
+ 379:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 3
+ 736              		.loc 1 379 25 view .LVU327
+ 737 0196 75EEE61A 		vsub.f32	s3, s11, s13
+ 381:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t3[1] = p1ap3_1 - p2[1] - p4[1];
+ 738              		.loc 1 381 25 view .LVU328
+ 739 019a 72EEE62A 		vsub.f32	s5, s5, s13
+ 740              	.LVL87:
+ 370:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 741              		.loc 1 370 30 discriminator 1 view .LVU329
+ 742 019e ACF1080C 		sub	ip, ip, #8
+ 743              		.loc 1 388 25 view .LVU330
+ 744 01a2 37EE047A 		vadd.f32	s14, s14, s8
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 25
+
+
+ 745              	.LVL88:
+ 370:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 746              		.loc 1 370 30 discriminator 1 view .LVU331
+ 747 01a6 07F11807 		add	r7, r7, #24
+ 748              	.LVL89:
+ 385:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 1 - top
+ 749              		.loc 1 385 25 view .LVU332
+ 750 01aa 76EEA56A 		vadd.f32	s13, s13, s11
+ 751              		.loc 1 388 33 view .LVU333
+ 752 01ae 52ED015A 		vldr.32	s11, [r2, #-4]
+ 753              	.LVL90:
+ 382:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 4
+ 754              		.loc 1 382 33 view .LVU334
+ 755 01b2 36EE644A 		vsub.f32	s8, s12, s9
+ 370:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 756              		.loc 1 370 30 discriminator 1 view .LVU335
+ 757 01b6 02F10802 		add	r2, r2, #8
+ 758              		.loc 1 388 33 view .LVU336
+ 759 01ba 37EE257A 		vadd.f32	s14, s14, s11
+ 370:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 760              		.loc 1 370 30 discriminator 1 view .LVU337
+ 761 01be A3F10803 		sub	r3, r3, #8
+ 385:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 1 - top
+ 762              		.loc 1 385 33 view .LVU338
+ 763 01c2 36EEC56A 		vsub.f32	s12, s13, s10
+ 378:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[1] = p1sp3_1 - p2[0] + p4[0];
+ 764              		.loc 1 378 33 view .LVU339
+ 765 01c6 32EE642A 		vsub.f32	s4, s4, s9
+ 766              	.LVL91:
+ 379:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 3
+ 767              		.loc 1 379 9 is_stmt 1 view .LVU340
+ 768              		.loc 1 388 15 is_stmt 0 view .LVU341
+ 769 01ca 06ED037A 		vstr.32	s14, [r6, #-12]
+ 770              	.LVL92:
+ 384:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[1] = p1sp3_1 + p2[0] - p4[0];
+ 771              		.loc 1 384 33 view .LVU342
+ 772 01ce 77EEA47A 		vadd.f32	s15, s15, s9
+ 389:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 390:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // BOTTOM
+ 391:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1ap3_1 = pEnd1[-1] + pEnd3[-1];
+ 392:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1sp3_1 = pEnd1[-1] - pEnd3[-1];
+ 393:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1ap3_0 = pEnd1[0] + pEnd3[0];
+ 773              		.loc 1 393 35 view .LVU343
+ 774 01d2 9CED041A 		vldr.32	s2, [ip, #16]
+ 381:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t3[1] = p1ap3_1 - p2[1] - p4[1];
+ 775              		.loc 1 381 33 view .LVU344
+ 776 01d6 72EEC52A 		vsub.f32	s5, s5, s10
+ 777              		.loc 1 393 24 view .LVU345
+ 778 01da D4ED045A 		vldr.32	s11, [r4, #16]
+ 379:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 3
+ 779              		.loc 1 379 33 view .LVU346
+ 780 01de 71EE851A 		vadd.f32	s3, s3, s10
+ 781              	.LVL93:
+ 381:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t3[1] = p1ap3_1 - p2[1] - p4[1];
+ 782              		.loc 1 381 9 is_stmt 1 view .LVU347
+ 382:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 4
+ 783              		.loc 1 382 9 view .LVU348
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 26
+
+
+ 384:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[1] = p1sp3_1 + p2[0] - p4[0];
+ 784              		.loc 1 384 9 view .LVU349
+ 385:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 1 - top
+ 785              		.loc 1 385 9 view .LVU350
+ 387:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p1++ = p1ap3_1 + p2[1] + p4[1];
+ 786              		.loc 1 387 9 view .LVU351
+ 388:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 787              		.loc 1 388 9 view .LVU352
+ 391:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1sp3_1 = pEnd1[-1] - pEnd3[-1];
+ 788              		.loc 1 391 9 view .LVU353
+ 394:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1sp3_0 = pEnd1[0] - pEnd3[0];
+ 395:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 2
+ 396:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[2] = pEnd2[0]  - pEnd4[0] + p1sp3_1;
+ 789              		.loc 1 396 22 is_stmt 0 view .LVU354
+ 790 01e2 D1ED043A 		vldr.32	s7, [r1, #16]
+ 393:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1sp3_0 = pEnd1[0] - pEnd3[0];
+ 791              		.loc 1 393 17 view .LVU355
+ 792 01e6 75EE816A 		vadd.f32	s13, s11, s2
+ 391:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1sp3_1 = pEnd1[-1] - pEnd3[-1];
+ 793              		.loc 1 391 36 view .LVU356
+ 794 01ea 9CED033A 		vldr.32	s6, [ip, #12]
+ 391:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1sp3_1 = pEnd1[-1] - pEnd3[-1];
+ 795              		.loc 1 391 24 view .LVU357
+ 796 01ee D4ED034A 		vldr.32	s9, [r4, #12]
+ 394:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1sp3_0 = pEnd1[0] - pEnd3[0];
+ 797              		.loc 1 394 17 view .LVU358
+ 798 01f2 75EEC15A 		vsub.f32	s11, s11, s2
+ 799              		.loc 1 396 34 view .LVU359
+ 800 01f6 93ED040A 		vldr.32	s0, [r3, #16]
+ 391:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1sp3_1 = pEnd1[-1] - pEnd3[-1];
+ 801              		.loc 1 391 17 view .LVU360
+ 802 01fa 34EE837A 		vadd.f32	s14, s9, s6
+ 803              	.LVL94:
+ 392:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1ap3_0 = pEnd1[0] + pEnd3[0];
+ 804              		.loc 1 392 9 is_stmt 1 view .LVU361
+ 397:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[3] = pEnd1[0] - pEnd3[0] - pEnd2[-1] + pEnd4[-1];
+ 805              		.loc 1 397 44 is_stmt 0 view .LVU362
+ 806 01fe 91ED035A 		vldr.32	s10, [r1, #12]
+ 398:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 3
+ 399:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t3[2] = p1ap3_1 - pEnd2[-1] - pEnd4[-1];
+ 400:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t3[3] = p1ap3_0 - pEnd2[0]  - pEnd4[0];
+ 401:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 4
+ 402:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[2] = pEnd2[0]  - pEnd4[0]  - p1sp3_1;
+ 403:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[3] = pEnd4[-1] - pEnd2[-1] - p1sp3_0;
+ 404:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 1 - Bottom
+ 405:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pEnd1-- = p1ap3_0 + pEnd2[0] + pEnd4[0];
+ 807              		.loc 1 405 28 view .LVU363
+ 808 0202 33EEA61A 		vadd.f32	s2, s7, s13
+ 397:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[3] = pEnd1[0] - pEnd3[0] - pEnd2[-1] + pEnd4[-1];
+ 809              		.loc 1 397 56 view .LVU364
+ 810 0206 D3ED030A 		vldr.32	s1, [r3, #12]
+ 396:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[3] = pEnd1[0] - pEnd3[0] - pEnd2[-1] + pEnd4[-1];
+ 811              		.loc 1 396 27 view .LVU365
+ 812 020a 33EEC08A 		vsub.f32	s16, s7, s0
+ 392:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1ap3_0 = pEnd1[0] + pEnd3[0];
+ 813              		.loc 1 392 17 view .LVU366
+ 814 020e 74EEC34A 		vsub.f32	s9, s9, s6
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 27
+
+
+ 815              	.LVL95:
+ 393:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         p1sp3_0 = pEnd1[0] - pEnd3[0];
+ 816              		.loc 1 393 9 is_stmt 1 view .LVU367
+ 394:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 2
+ 817              		.loc 1 394 9 view .LVU368
+ 396:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[3] = pEnd1[0] - pEnd3[0] - pEnd2[-1] + pEnd4[-1];
+ 818              		.loc 1 396 9 view .LVU369
+ 819              		.loc 1 405 39 is_stmt 0 view .LVU370
+ 820 0212 31EE001A 		vadd.f32	s2, s2, s0
+ 397:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 3
+ 821              		.loc 1 397 37 view .LVU371
+ 822 0216 35EEC53A 		vsub.f32	s6, s11, s10
+ 400:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 4
+ 823              		.loc 1 400 25 view .LVU372
+ 824 021a 76EEE36A 		vsub.f32	s13, s13, s7
+ 825              	.LVL96:
+ 399:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t3[3] = p1ap3_0 - pEnd2[0]  - pEnd4[0];
+ 826              		.loc 1 399 25 view .LVU373
+ 827 021e 77EE453A 		vsub.f32	s7, s14, s10
+ 828              		.loc 1 405 18 view .LVU374
+ 829 0222 84ED041A 		vstr.32	s2, [r4, #16]
+ 830              	.LVL97:
+ 397:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 3
+ 831              		.loc 1 397 49 view .LVU375
+ 832 0226 33EE203A 		vadd.f32	s6, s6, s1
+ 406:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pEnd1-- = p1ap3_1 + pEnd2[-1] + pEnd4[-1];
+ 833              		.loc 1 406 40 view .LVU376
+ 834 022a 93ED031A 		vldr.32	s2, [r3, #12]
+ 403:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 1 - Bottom
+ 835              		.loc 1 403 27 view .LVU377
+ 836 022e 30EEC55A 		vsub.f32	s10, s1, s10
+ 399:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t3[3] = p1ap3_0 - pEnd2[0]  - pEnd4[0];
+ 837              		.loc 1 399 37 view .LVU378
+ 838 0232 73EEE03A 		vsub.f32	s7, s7, s1
+ 839              		.loc 1 406 28 view .LVU379
+ 840 0236 D1ED030A 		vldr.32	s1, [r1, #12]
+ 396:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t2[3] = pEnd1[0] - pEnd3[0] - pEnd2[-1] + pEnd4[-1];
+ 841              		.loc 1 396 38 view .LVU380
+ 842 023a 78EE248A 		vadd.f32	s17, s16, s9
+ 843              	.LVL98:
+ 397:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 3
+ 844              		.loc 1 397 9 is_stmt 1 view .LVU381
+ 399:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t3[3] = p1ap3_0 - pEnd2[0]  - pEnd4[0];
+ 845              		.loc 1 399 9 view .LVU382
+ 400:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 4
+ 846              		.loc 1 400 9 view .LVU383
+ 847              		.loc 1 406 28 is_stmt 0 view .LVU384
+ 848 023e 37EE207A 		vadd.f32	s14, s14, s1
+ 849              	.LVL99:
+ 403:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 1 - Bottom
+ 850              		.loc 1 403 39 view .LVU385
+ 851 0242 35EE655A 		vsub.f32	s10, s10, s11
+ 400:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 4
+ 852              		.loc 1 400 37 view .LVU386
+ 853 0246 76EEC06A 		vsub.f32	s13, s13, s0
+ 854              	.LVL100:
+ 402:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[3] = pEnd4[-1] - pEnd2[-1] - p1sp3_0;
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 28
+
+
+ 855              		.loc 1 402 9 is_stmt 1 view .LVU387
+ 856              		.loc 1 406 40 is_stmt 0 view .LVU388
+ 857 024a 37EE017A 		vadd.f32	s14, s14, s2
+ 402:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         t4[3] = pEnd4[-1] - pEnd2[-1] - p1sp3_0;
+ 858              		.loc 1 402 39 view .LVU389
+ 859 024e 78EE644A 		vsub.f32	s9, s16, s9
+ 860              	.LVL101:
+ 403:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // col 1 - Bottom
+ 861              		.loc 1 403 9 is_stmt 1 view .LVU390
+ 405:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pEnd1-- = p1ap3_1 + pEnd2[-1] + pEnd4[-1];
+ 862              		.loc 1 405 9 view .LVU391
+ 863              		.loc 1 406 9 view .LVU392
+ 864              		.loc 1 406 18 is_stmt 0 view .LVU393
+ 865 0252 84ED037A 		vstr.32	s14, [r4, #12]
+ 407:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 408:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // COL 2
+ 409:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // read twiddle factors
+ 410:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         twR = *tw2++;
+ 866              		.loc 1 410 9 is_stmt 1 view .LVU394
+ 867              		.loc 1 410 13 is_stmt 0 view .LVU395
+ 868 0256 1AED047A 		vldr.32	s14, [r10, #-16]
+ 869              	.LVL102:
+ 411:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         twI = *tw2++;
+ 870              		.loc 1 411 9 is_stmt 1 view .LVU396
+ 871              		.loc 1 411 13 is_stmt 0 view .LVU397
+ 872 025a 5AED035A 		vldr.32	s11, [r10, #-12]
+ 873              	.LVL103:
+ 412:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // multiply by twiddle factors
+ 413:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         //  let    Z1 = a + i(b),   Z2 = c + i(d)
+ 414:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         //   =>  Z1 * Z2  =  (a*c - b*d) + i(b*c + a*d)
+ 415:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 416:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // Top
+ 417:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m0 = t2[0] * twR;
+ 874              		.loc 1 417 9 is_stmt 1 view .LVU398
+ 418:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m1 = t2[1] * twI;
+ 875              		.loc 1 418 9 view .LVU399
+ 419:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m2 = t2[1] * twR;
+ 876              		.loc 1 419 9 view .LVU400
+ 420:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m3 = t2[0] * twI;
+ 877              		.loc 1 420 9 view .LVU401
+ 421:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 422:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p2++ = m0 + m1;
+ 878              		.loc 1 422 9 view .LVU402
+ 423:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p2++ = m2 - m3;
+ 424:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // use vertical symmetry col 2
+ 425:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // 0.9997 - 0.0245i  <==>  0.0245 - 0.9997i
+ 426:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // Bottom
+ 427:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m0 = t2[3] * twI;
+ 428:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m1 = t2[2] * twR;
+ 429:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m2 = t2[2] * twI;
+ 430:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m3 = t2[3] * twR;
+ 879              		.loc 1 430 12 is_stmt 0 view .LVU403
+ 880 025e 23EE071A 		vmul.f32	s2, s6, s14
+ 431:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 432:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pEnd2-- = m0 - m1;
+ 881              		.loc 1 432 18 view .LVU404
+ 882 0262 67EE680A 		vnmul.f32	s1, s14, s17
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 29
+
+
+ 418:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m2 = t2[1] * twR;
+ 883              		.loc 1 418 12 view .LVU405
+ 884 0266 21EEA58A 		vmul.f32	s16, s3, s11
+ 885              	.LVL104:
+ 423:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p2++ = m2 - m3;
+ 886              		.loc 1 423 15 view .LVU406
+ 887 026a 25EEC20A 		vnmul.f32	s0, s11, s4
+ 888              		.loc 1 432 18 view .LVU407
+ 889 026e E3EE250A 		vfma.f32	s1, s6, s11
+ 433:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pEnd2-- = m2 + m3;
+ 890              		.loc 1 433 18 view .LVU408
+ 891 0272 B0EE413A 		vmov.f32	s6, s2
+ 892              	.LVL105:
+ 422:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p2++ = m2 - m3;
+ 893              		.loc 1 422 15 view .LVU409
+ 894 0276 B0EE481A 		vmov.f32	s2, s16
+ 895              		.loc 1 433 18 view .LVU410
+ 896 027a A8EEA53A 		vfma.f32	s6, s17, s11
+ 423:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // use vertical symmetry col 2
+ 897              		.loc 1 423 15 view .LVU411
+ 898 027e F0EE405A 		vmov.f32	s11, s0
+ 899              	.LVL106:
+ 422:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p2++ = m2 - m3;
+ 900              		.loc 1 422 15 view .LVU412
+ 901 0282 A2EE071A 		vfma.f32	s2, s4, s14
+ 423:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // use vertical symmetry col 2
+ 902              		.loc 1 423 15 view .LVU413
+ 903 0286 E1EE875A 		vfma.f32	s11, s3, s14
+ 422:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p2++ = m2 - m3;
+ 904              		.loc 1 422 15 view .LVU414
+ 905 028a 00ED041A 		vstr.32	s2, [r0, #-16]
+ 906              	.LVL107:
+ 423:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // use vertical symmetry col 2
+ 907              		.loc 1 423 9 is_stmt 1 view .LVU415
+ 423:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // use vertical symmetry col 2
+ 908              		.loc 1 423 15 is_stmt 0 view .LVU416
+ 909 028e 40ED035A 		vstr.32	s11, [r0, #-12]
+ 427:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m1 = t2[2] * twR;
+ 910              		.loc 1 427 9 is_stmt 1 view .LVU417
+ 911              	.LVL108:
+ 428:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m2 = t2[2] * twI;
+ 912              		.loc 1 428 9 view .LVU418
+ 429:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m3 = t2[3] * twR;
+ 913              		.loc 1 429 9 view .LVU419
+ 430:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 914              		.loc 1 430 9 view .LVU420
+ 432:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pEnd2-- = m2 + m3;
+ 915              		.loc 1 432 9 view .LVU421
+ 916              		.loc 1 433 18 is_stmt 0 view .LVU422
+ 917 0292 81ED033A 		vstr.32	s6, [r1, #12]
+ 432:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pEnd2-- = m2 + m3;
+ 918              		.loc 1 432 18 view .LVU423
+ 919 0296 C1ED040A 		vstr.32	s1, [r1, #16]
+ 920              		.loc 1 433 9 is_stmt 1 view .LVU424
+ 434:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 435:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // COL 3
+ 436:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         twR = tw3[0];
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 30
+
+
+ 921              		.loc 1 436 9 view .LVU425
+ 437:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         twI = tw3[1];
+ 922              		.loc 1 437 13 is_stmt 0 view .LVU426
+ 923 029a 18ED077A 		vldr.32	s14, [r8, #-28]
+ 924              	.LVL109:
+ 436:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         twI = tw3[1];
+ 925              		.loc 1 436 13 view .LVU427
+ 926 029e 58ED085A 		vldr.32	s11, [r8, #-32]
+ 927              	.LVL110:
+ 928              		.loc 1 437 9 is_stmt 1 view .LVU428
+ 438:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         tw3 += twMod3;
+ 929              		.loc 1 438 9 view .LVU429
+ 439:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // Top
+ 440:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m0 = t3[0] * twR;
+ 930              		.loc 1 440 9 view .LVU430
+ 441:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m1 = t3[1] * twI;
+ 931              		.loc 1 441 9 view .LVU431
+ 442:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m2 = t3[1] * twR;
+ 932              		.loc 1 442 9 view .LVU432
+ 443:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m3 = t3[0] * twI;
+ 933              		.loc 1 443 9 view .LVU433
+ 444:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 445:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p3++ = m0 + m1;
+ 934              		.loc 1 445 9 view .LVU434
+ 441:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m2 = t3[1] * twR;
+ 935              		.loc 1 441 12 is_stmt 0 view .LVU435
+ 936 02a2 64EE071A 		vmul.f32	s3, s8, s14
+ 937              	.LVL111:
+ 446:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p3++ = m2 - m3;
+ 447:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // use vertical symmetry col 3
+ 448:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // 0.9988 - 0.0491i  <==>  -0.9988 - 0.0491i
+ 449:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // Bottom
+ 450:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m0 = -t3[3] * twR;
+ 451:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m1 = t3[2] * twI;
+ 452:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m2 = t3[2] * twR;
+ 453:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m3 = t3[3] * twI;
+ 938              		.loc 1 453 12 view .LVU436
+ 939 02a6 26EE873A 		vmul.f32	s6, s13, s14
+ 446:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p3++ = m2 - m3;
+ 940              		.loc 1 446 15 view .LVU437
+ 941 02aa 27EE622A 		vnmul.f32	s4, s14, s5
+ 942              	.LVL112:
+ 454:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 455:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pEnd3-- = m0 - m1;
+ 943              		.loc 1 455 18 view .LVU438
+ 944 02ae 27EE637A 		vnmul.f32	s14, s14, s7
+ 945              	.LVL113:
+ 445:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p3++ = m2 - m3;
+ 946              		.loc 1 445 15 view .LVU439
+ 947 02b2 E2EEA51A 		vfma.f32	s3, s5, s11
+ 948              	.LVL114:
+ 446:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p3++ = m2 - m3;
+ 949              		.loc 1 446 15 view .LVU440
+ 950 02b6 F0EE422A 		vmov.f32	s5, s4
+ 951              	.LVL115:
+ 952              		.loc 1 455 18 view .LVU441
+ 953 02ba A6EEE57A 		vfms.f32	s14, s13, s11
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 31
+
+
+ 456:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pEnd3-- = m3 - m2;
+ 954              		.loc 1 456 18 view .LVU442
+ 955 02be F0EE436A 		vmov.f32	s13, s6
+ 956              	.LVL116:
+ 446:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // use vertical symmetry col 3
+ 957              		.loc 1 446 15 view .LVU443
+ 958 02c2 E4EE252A 		vfma.f32	s5, s8, s11
+ 959              		.loc 1 456 18 view .LVU444
+ 960 02c6 E3EEE56A 		vfms.f32	s13, s7, s11
+ 445:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p3++ = m2 - m3;
+ 961              		.loc 1 445 15 view .LVU445
+ 962 02ca 4EED041A 		vstr.32	s3, [lr, #-16]
+ 963              	.LVL117:
+ 446:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // use vertical symmetry col 3
+ 964              		.loc 1 446 9 is_stmt 1 view .LVU446
+ 446:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // use vertical symmetry col 3
+ 965              		.loc 1 446 15 is_stmt 0 view .LVU447
+ 966 02ce 4EED032A 		vstr.32	s5, [lr, #-12]
+ 450:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m1 = t3[2] * twI;
+ 967              		.loc 1 450 9 is_stmt 1 view .LVU448
+ 451:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m2 = t3[2] * twR;
+ 968              		.loc 1 451 9 view .LVU449
+ 452:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m3 = t3[3] * twI;
+ 969              		.loc 1 452 9 view .LVU450
+ 970              	.LVL118:
+ 453:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 971              		.loc 1 453 9 view .LVU451
+ 455:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pEnd3-- = m3 - m2;
+ 972              		.loc 1 455 9 view .LVU452
+ 455:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pEnd3-- = m3 - m2;
+ 973              		.loc 1 455 18 is_stmt 0 view .LVU453
+ 974 02d2 8CED047A 		vstr.32	s14, [ip, #16]
+ 975              		.loc 1 456 9 is_stmt 1 view .LVU454
+ 976              		.loc 1 456 18 is_stmt 0 view .LVU455
+ 977 02d6 CCED036A 		vstr.32	s13, [ip, #12]
+ 457:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 458:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // COL 4
+ 459:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         twR = tw4[0];
+ 978              		.loc 1 459 9 is_stmt 1 view .LVU456
+ 979              		.loc 1 459 13 is_stmt 0 view .LVU457
+ 980 02da 57ED0C6A 		vldr.32	s13, [r7, #-48]
+ 981              	.LVL119:
+ 460:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         twI = tw4[1];
+ 982              		.loc 1 460 9 is_stmt 1 view .LVU458
+ 983              		.loc 1 460 13 is_stmt 0 view .LVU459
+ 984 02de 17ED0B7A 		vldr.32	s14, [r7, #-44]
+ 985              	.LVL120:
+ 461:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         tw4 += twMod4;
+ 986              		.loc 1 461 9 is_stmt 1 view .LVU460
+ 462:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // Top
+ 463:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m0 = t4[0] * twR;
+ 987              		.loc 1 463 9 view .LVU461
+ 464:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m1 = t4[1] * twI;
+ 988              		.loc 1 464 9 view .LVU462
+ 465:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m2 = t4[1] * twR;
+ 989              		.loc 1 465 9 view .LVU463
+ 466:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m3 = t4[0] * twI;
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 32
+
+
+ 990              		.loc 1 466 9 view .LVU464
+ 467:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 468:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p4++ = m0 + m1;
+ 991              		.loc 1 468 9 view .LVU465
+ 469:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p4++ = m2 - m3;
+ 470:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // use vertical symmetry col 4
+ 471:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // 0.9973 - 0.0736i  <==>  -0.0736 + 0.9973i
+ 472:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // Bottom
+ 473:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m0 = t4[3] * twI;
+ 474:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m1 = t4[2] * twR;
+ 475:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m2 = t4[2] * twI;
+ 476:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m3 = t4[3] * twR;
+ 992              		.loc 1 476 12 is_stmt 0 view .LVU466
+ 993 02e2 65EE265A 		vmul.f32	s11, s10, s13
+ 469:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p4++ = m2 - m3;
+ 994              		.loc 1 469 15 view .LVU467
+ 995 02e6 67EE673A 		vnmul.f32	s7, s14, s15
+ 996              	.LVL121:
+ 464:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m2 = t4[1] * twR;
+ 997              		.loc 1 464 12 view .LVU468
+ 998 02ea 26EE073A 		vmul.f32	s6, s12, s14
+ 999              	.LVL122:
+ 477:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 478:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pEnd4-- = m0 - m1;
+ 1000              		.loc 1 478 18 view .LVU469
+ 1001 02ee 26EEE44A 		vnmul.f32	s8, s13, s9
+ 1002              	.LVL123:
+ 469:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // use vertical symmetry col 4
+ 1003              		.loc 1 469 15 view .LVU470
+ 1004 02f2 E6EE263A 		vfma.f32	s7, s12, s13
+ 468:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p4++ = m2 - m3;
+ 1005              		.loc 1 468 15 view .LVU471
+ 1006 02f6 A7EEA63A 		vfma.f32	s6, s15, s13
+ 1007              	.LVL124:
+ 1008              		.loc 1 478 18 view .LVU472
+ 1009 02fa F0EE446A 		vmov.f32	s13, s8
+ 1010              	.LVL125:
+ 479:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pEnd4-- = m2 + m3;
+ 1011              		.loc 1 479 18 view .LVU473
+ 1012 02fe F0EE657A 		vmov.f32	s15, s11
+ 1013              	.LVL126:
+ 478:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pEnd4-- = m2 + m3;
+ 1014              		.loc 1 478 18 view .LVU474
+ 1015 0302 E5EE076A 		vfma.f32	s13, s10, s14
+ 1016              		.loc 1 479 18 view .LVU475
+ 1017 0306 E4EE877A 		vfma.f32	s15, s9, s14
+ 469:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // use vertical symmetry col 4
+ 1018              		.loc 1 469 15 view .LVU476
+ 1019 030a 42ED033A 		vstr.32	s7, [r2, #-12]
+ 1020              	.LVL127:
+ 468:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *p4++ = m2 - m3;
+ 1021              		.loc 1 468 15 view .LVU477
+ 1022 030e 02ED043A 		vstr.32	s6, [r2, #-16]
+ 469:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         // use vertical symmetry col 4
+ 1023              		.loc 1 469 9 is_stmt 1 view .LVU478
+ 473:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m1 = t4[2] * twR;
+ 1024              		.loc 1 473 9 view .LVU479
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 33
+
+
+ 1025              	.LVL128:
+ 474:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m2 = t4[2] * twI;
+ 1026              		.loc 1 474 9 view .LVU480
+ 475:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         m3 = t4[3] * twR;
+ 1027              		.loc 1 475 9 view .LVU481
+ 476:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1028              		.loc 1 476 9 view .LVU482
+ 478:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pEnd4-- = m2 + m3;
+ 1029              		.loc 1 478 9 view .LVU483
+ 478:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         *pEnd4-- = m2 + m3;
+ 1030              		.loc 1 478 18 is_stmt 0 view .LVU484
+ 1031 0312 C3ED046A 		vstr.32	s13, [r3, #16]
+ 1032              		.loc 1 479 9 is_stmt 1 view .LVU485
+ 1033              		.loc 1 479 18 is_stmt 0 view .LVU486
+ 1034 0316 C3ED037A 		vstr.32	s15, [r3, #12]
+ 370:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 1035              		.loc 1 370 36 is_stmt 1 discriminator 3 view .LVU487
+ 1036              	.LVL129:
+ 370:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 1037              		.loc 1 370 30 discriminator 1 view .LVU488
+ 1038 031a 7FF406AF 		bne	.L12
+ 1039 031e 089B     		ldr	r3, [sp, #32]
+ 1040 0320 09F10809 		add	r9, r9, #8
+ 1041 0324 059C     		ldr	r4, [sp, #20]
+ 1042 0326 5A1E     		subs	r2, r3, #1
+ 1043 0328 019B     		ldr	r3, [sp, #4]
+ 1044 032a 1834     		adds	r4, r4, #24
+ 1045 032c 0399     		ldr	r1, [sp, #12]
+ 1046 032e 1033     		adds	r3, r3, #16
+ 1047 0330 0498     		ldr	r0, [sp, #16]
+ 1048 0332 0831     		adds	r1, r1, #8
+ 1049 0334 03EB0213 		add	r3, r3, r2, lsl #4
+ 1050 0338 0830     		adds	r0, r0, #8
+ 1051 033a 0193     		str	r3, [sp, #4]
+ 1052 033c D300     		lsls	r3, r2, #3
+ 1053 033e 02EB4202 		add	r2, r2, r2, lsl #1
+ 1054 0342 1844     		add	r0, r0, r3
+ 1055 0344 9944     		add	r9, r9, r3
+ 1056 0346 04EBC202 		add	r2, r4, r2, lsl #3
+ 1057 034a 0490     		str	r0, [sp, #16]
+ 1058 034c 0592     		str	r2, [sp, #20]
+ 1059 034e 069A     		ldr	r2, [sp, #24]
+ 1060 0350 1A44     		add	r2, r2, r3
+ 1061 0352 0832     		adds	r2, r2, #8
+ 1062 0354 0692     		str	r2, [sp, #24]
+ 1063 0356 CA18     		adds	r2, r1, r3
+ 1064 0358 0833     		adds	r3, r3, #8
+ 1065 035a 0392     		str	r2, [sp, #12]
+ 1066 035c 079A     		ldr	r2, [sp, #28]
+ 1067 035e 1A44     		add	r2, r2, r3
+ 1068 0360 0792     		str	r2, [sp, #28]
+ 1069              	.LVL130:
+ 1070              	.L11:
+ 480:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     }
+ 481:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 482:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     //MIDDLE
+ 483:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // Twiddle factors are
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 34
+
+
+ 484:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     //  1.0000  0.7071-0.7071i  -1.0000i  -0.7071-0.7071i
+ 485:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1ap3_0 = p1[0] + p3[0];
+ 1071              		.loc 1 485 5 view .LVU489
+ 1072              		.loc 1 485 17 is_stmt 0 view .LVU490
+ 1073 0362 0399     		ldr	r1, [sp, #12]
+ 1074              		.loc 1 485 25 view .LVU491
+ 1075 0364 069E     		ldr	r6, [sp, #24]
+ 1076              		.loc 1 485 17 view .LVU492
+ 1077 0366 D1ED007A 		vldr.32	s15, [r1]
+ 1078              		.loc 1 485 25 view .LVU493
+ 1079 036a D6ED005A 		vldr.32	s11, [r6]
+ 486:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1sp3_0 = p1[0] - p3[0];
+ 487:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1ap3_1 = p1[1] + p3[1];
+ 488:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1sp3_1 = p1[1] - p3[1];
+ 489:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 490:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 2
+ 491:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t2[0] = p1sp3_0 + p2[1] - p4[1];
+ 492:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t2[1] = p1sp3_1 - p2[0] + p4[0];
+ 1080              		.loc 1 492 25 view .LVU494
+ 1081 036e 99ED007A 		vldr.32	s14, [r9]
+ 485:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1sp3_0 = p1[0] - p3[0];
+ 1082              		.loc 1 485 13 view .LVU495
+ 1083 0372 37EEA56A 		vadd.f32	s12, s15, s11
+ 1084              	.LVL131:
+ 486:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1sp3_0 = p1[0] - p3[0];
+ 1085              		.loc 1 486 5 is_stmt 1 view .LVU496
+ 1086              		.loc 1 492 33 is_stmt 0 view .LVU497
+ 1087 0376 079B     		ldr	r3, [sp, #28]
+ 487:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1sp3_1 = p1[1] - p3[1];
+ 1088              		.loc 1 487 25 view .LVU498
+ 1089 0378 D6ED014A 		vldr.32	s9, [r6, #4]
+ 486:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1sp3_0 = p1[0] - p3[0];
+ 1090              		.loc 1 486 13 view .LVU499
+ 1091 037c 77EEE57A 		vsub.f32	s15, s15, s11
+ 1092              	.LVL132:
+ 487:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1sp3_1 = p1[1] - p3[1];
+ 1093              		.loc 1 487 5 is_stmt 1 view .LVU500
+ 1094              		.loc 1 492 33 is_stmt 0 view .LVU501
+ 1095 0380 D3ED003A 		vldr.32	s7, [r3]
+ 493:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 3
+ 494:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t3[0] = p1ap3_0 - p2[0] - p4[0];
+ 495:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t3[1] = p1ap3_1 - p2[1] - p4[1];
+ 496:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 4
+ 497:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t4[0] = p1sp3_0 - p2[1] + p4[1];
+ 498:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t4[1] = p1sp3_1 + p2[0] - p4[0];
+ 499:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 1 - Top
+ 500:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p1++ = p1ap3_0 + p2[0] + p4[0];
+ 1096              		.loc 1 500 21 view .LVU502
+ 1097 0384 77EE062A 		vadd.f32	s5, s14, s12
+ 487:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1sp3_1 = p1[1] - p3[1];
+ 1098              		.loc 1 487 17 view .LVU503
+ 1099 0388 91ED015A 		vldr.32	s10, [r1, #4]
+ 491:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t2[1] = p1sp3_1 - p2[0] + p4[0];
+ 1100              		.loc 1 491 33 view .LVU504
+ 1101 038c 93ED013A 		vldr.32	s6, [r3, #4]
+ 494:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t3[1] = p1ap3_1 - p2[1] - p4[1];
+ 1102              		.loc 1 494 21 view .LVU505
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 35
+
+
+ 1103 0390 36EE476A 		vsub.f32	s12, s12, s14
+ 1104              	.LVL133:
+ 487:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     p1sp3_1 = p1[1] - p3[1];
+ 1105              		.loc 1 487 13 view .LVU506
+ 1106 0394 75EE245A 		vadd.f32	s11, s10, s9
+ 1107              	.LVL134:
+ 488:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1108              		.loc 1 488 5 is_stmt 1 view .LVU507
+ 491:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t2[1] = p1sp3_1 - p2[0] + p4[0];
+ 1109              		.loc 1 491 25 is_stmt 0 view .LVU508
+ 1110 0398 D9ED016A 		vldr.32	s13, [r9, #4]
+ 488:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1111              		.loc 1 488 13 view .LVU509
+ 1112 039c 35EE645A 		vsub.f32	s10, s10, s9
+ 1113              	.LVL135:
+ 491:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t2[1] = p1sp3_1 - p2[0] + p4[0];
+ 1114              		.loc 1 491 5 is_stmt 1 view .LVU510
+ 501:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p1++ = p1ap3_1 + p2[1] + p4[1];
+ 502:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 503:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // COL 2
+ 504:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     twR = tw2[0];
+ 505:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     twI = tw2[1];
+ 506:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 507:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m0 = t2[0] * twR;
+ 508:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m1 = t2[1] * twI;
+ 509:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m2 = t2[1] * twR;
+ 510:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m3 = t2[0] * twI;
+ 511:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 512:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p2++ = m0 + m1;
+ 513:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p2++ = m2 - m3;
+ 514:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // COL 3
+ 515:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     twR = tw3[0];
+ 516:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     twI = tw3[1];
+ 517:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 518:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m0 = t3[0] * twR;
+ 519:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m1 = t3[1] * twI;
+ 520:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m2 = t3[1] * twR;
+ 521:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m3 = t3[0] * twI;
+ 522:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 523:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p3++ = m0 + m1;
+ 524:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p3++ = m2 - m3;
+ 525:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // COL 4
+ 526:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     twR = tw4[0];
+ 527:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     twI = tw4[1];
+ 528:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 529:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m0 = t4[0] * twR;
+ 530:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m1 = t4[1] * twI;
+ 531:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m2 = t4[1] * twR;
+ 532:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m3 = t4[0] * twI;
+ 533:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 534:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p4++ = m0 + m1;
+ 535:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p4++ = m2 - m3;
+ 536:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 537:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // first col
+ 538:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     arm_radix8_butterfly_f32( pCol1, L, (float32_t *) S->pTwiddle, 4u);
+ 1115              		.loc 1 538 5 is_stmt 0 view .LVU511
+ 1116 03a0 BDF82C40 		ldrh	r4, [sp, #44]
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 36
+
+
+ 500:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p1++ = p1ap3_1 + p2[1] + p4[1];
+ 1117              		.loc 1 500 29 view .LVU512
+ 1118 03a4 72EEA32A 		vadd.f32	s5, s5, s7
+ 1119              		.loc 1 538 5 view .LVU513
+ 1120 03a8 0A9A     		ldr	r2, [sp, #40]
+ 491:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t2[1] = p1sp3_1 - p2[0] + p4[0];
+ 1121              		.loc 1 491 21 view .LVU514
+ 1122 03aa 36EEA74A 		vadd.f32	s8, s13, s15
+ 1123              		.loc 1 538 5 view .LVU515
+ 1124 03ae 0D98     		ldr	r0, [sp, #52]
+ 492:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 3
+ 1125              		.loc 1 492 21 view .LVU516
+ 1126 03b0 75EE474A 		vsub.f32	s9, s10, s14
+ 500:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p1++ = p1ap3_1 + p2[1] + p4[1];
+ 1127              		.loc 1 500 11 view .LVU517
+ 1128 03b4 C1ED002A 		vstr.32	s5, [r1]
+ 1129              	.LVL136:
+ 497:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t4[1] = p1sp3_1 + p2[0] - p4[0];
+ 1130              		.loc 1 497 21 view .LVU518
+ 1131 03b8 77EEE67A 		vsub.f32	s15, s15, s13
+ 1132              	.LVL137:
+ 501:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1133              		.loc 1 501 21 view .LVU519
+ 1134 03bc D9ED012A 		vldr.32	s5, [r9, #4]
+ 495:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 4
+ 1135              		.loc 1 495 21 view .LVU520
+ 1136 03c0 75EEE66A 		vsub.f32	s13, s11, s13
+ 498:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 1 - Top
+ 1137              		.loc 1 498 21 view .LVU521
+ 1138 03c4 37EE057A 		vadd.f32	s14, s14, s10
+ 501:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1139              		.loc 1 501 21 view .LVU522
+ 1140 03c8 75EEA25A 		vadd.f32	s11, s11, s5
+ 1141              	.LVL138:
+ 492:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 3
+ 1142              		.loc 1 492 29 view .LVU523
+ 1143 03cc 34EEA35A 		vadd.f32	s10, s9, s7
+ 1144              	.LVL139:
+ 501:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1145              		.loc 1 501 29 view .LVU524
+ 1146 03d0 D3ED014A 		vldr.32	s9, [r3, #4]
+ 491:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t2[1] = p1sp3_1 - p2[0] + p4[0];
+ 1147              		.loc 1 491 29 view .LVU525
+ 1148 03d4 34EE434A 		vsub.f32	s8, s8, s6
+ 1149              	.LVL140:
+ 492:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 3
+ 1150              		.loc 1 492 5 is_stmt 1 view .LVU526
+ 494:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t3[1] = p1ap3_1 - p2[1] - p4[1];
+ 1151              		.loc 1 494 5 view .LVU527
+ 501:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1152              		.loc 1 501 29 is_stmt 0 view .LVU528
+ 1153 03d8 75EEA45A 		vadd.f32	s11, s11, s9
+ 498:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 1 - Top
+ 1154              		.loc 1 498 29 view .LVU529
+ 1155 03dc 37EE637A 		vsub.f32	s14, s14, s7
+ 494:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t3[1] = p1ap3_1 - p2[1] - p4[1];
+ 1156              		.loc 1 494 29 view .LVU530
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 37
+
+
+ 1157 03e0 36EE636A 		vsub.f32	s12, s12, s7
+ 1158              	.LVL141:
+ 495:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 4
+ 1159              		.loc 1 495 5 is_stmt 1 view .LVU531
+ 501:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1160              		.loc 1 501 11 is_stmt 0 view .LVU532
+ 1161 03e4 C1ED015A 		vstr.32	s11, [r1, #4]
+ 495:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 4
+ 1162              		.loc 1 495 29 view .LVU533
+ 1163 03e8 76EEC36A 		vsub.f32	s13, s13, s6
+ 1164              	.LVL142:
+ 497:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t4[1] = p1sp3_1 + p2[0] - p4[0];
+ 1165              		.loc 1 497 5 is_stmt 1 view .LVU534
+ 505:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1166              		.loc 1 505 9 is_stmt 0 view .LVU535
+ 1167 03ec 0499     		ldr	r1, [sp, #16]
+ 497:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     t4[1] = p1sp3_1 + p2[0] - p4[0];
+ 1168              		.loc 1 497 29 view .LVU536
+ 1169 03ee 77EE837A 		vadd.f32	s15, s15, s6
+ 1170              	.LVL143:
+ 498:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // col 1 - Top
+ 1171              		.loc 1 498 5 is_stmt 1 view .LVU537
+ 500:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p1++ = p1ap3_1 + p2[1] + p4[1];
+ 1172              		.loc 1 500 5 view .LVU538
+ 501:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1173              		.loc 1 501 5 view .LVU539
+ 504:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     twI = tw2[1];
+ 1174              		.loc 1 504 5 view .LVU540
+ 505:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1175              		.loc 1 505 9 is_stmt 0 view .LVU541
+ 1176 03f2 D1ED015A 		vldr.32	s11, [r1, #4]
+ 504:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     twI = tw2[1];
+ 1177              		.loc 1 504 9 view .LVU542
+ 1178 03f6 D1ED003A 		vldr.32	s7, [r1]
+ 1179              	.LVL144:
+ 505:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1180              		.loc 1 505 5 is_stmt 1 view .LVU543
+ 507:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m1 = t2[1] * twI;
+ 1181              		.loc 1 507 5 view .LVU544
+ 508:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m2 = t2[1] * twR;
+ 1182              		.loc 1 508 5 view .LVU545
+ 509:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m3 = t2[0] * twI;
+ 1183              		.loc 1 509 5 view .LVU546
+ 510:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1184              		.loc 1 510 5 view .LVU547
+ 512:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p2++ = m2 - m3;
+ 1185              		.loc 1 512 5 view .LVU548
+ 508:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m2 = t2[1] * twR;
+ 1186              		.loc 1 508 8 is_stmt 0 view .LVU549
+ 1187 03fa 65EE254A 		vmul.f32	s9, s10, s11
+ 1188              	.LVL145:
+ 516:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1189              		.loc 1 516 9 view .LVU550
+ 1190 03fe 0199     		ldr	r1, [sp, #4]
+ 513:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // COL 3
+ 1191              		.loc 1 513 11 view .LVU551
+ 1192 0400 65EEC45A 		vnmul.f32	s11, s11, s8
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 38
+
+
+ 1193              	.LVL146:
+ 512:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p2++ = m2 - m3;
+ 1194              		.loc 1 512 11 view .LVU552
+ 1195 0404 E4EE234A 		vfma.f32	s9, s8, s7
+ 1196              	.LVL147:
+ 513:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // COL 3
+ 1197              		.loc 1 513 11 view .LVU553
+ 1198 0408 E5EE235A 		vfma.f32	s11, s10, s7
+ 512:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p2++ = m2 - m3;
+ 1199              		.loc 1 512 11 view .LVU554
+ 1200 040c C9ED004A 		vstr.32	s9, [r9]
+ 1201              	.LVL148:
+ 513:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // COL 3
+ 1202              		.loc 1 513 5 is_stmt 1 view .LVU555
+ 513:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // COL 3
+ 1203              		.loc 1 513 11 is_stmt 0 view .LVU556
+ 1204 0410 C9ED015A 		vstr.32	s11, [r9, #4]
+ 515:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     twI = tw3[1];
+ 1205              		.loc 1 515 5 is_stmt 1 view .LVU557
+ 516:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1206              		.loc 1 516 9 is_stmt 0 view .LVU558
+ 1207 0414 D1ED015A 		vldr.32	s11, [r1, #4]
+ 515:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     twI = tw3[1];
+ 1208              		.loc 1 515 9 view .LVU559
+ 1209 0418 D1ED004A 		vldr.32	s9, [r1]
+ 1210              	.LVL149:
+ 516:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1211              		.loc 1 516 5 is_stmt 1 view .LVU560
+ 518:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m1 = t3[1] * twI;
+ 1212              		.loc 1 518 5 view .LVU561
+ 519:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m2 = t3[1] * twR;
+ 1213              		.loc 1 519 5 view .LVU562
+ 520:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m3 = t3[0] * twI;
+ 1214              		.loc 1 520 5 view .LVU563
+ 521:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1215              		.loc 1 521 5 view .LVU564
+ 523:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p3++ = m2 - m3;
+ 1216              		.loc 1 523 5 view .LVU565
+ 519:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m2 = t3[1] * twR;
+ 1217              		.loc 1 519 8 is_stmt 0 view .LVU566
+ 1218 041c 26EEA55A 		vmul.f32	s10, s13, s11
+ 1219              	.LVL150:
+ 527:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1220              		.loc 1 527 9 view .LVU567
+ 1221 0420 0599     		ldr	r1, [sp, #20]
+ 524:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // COL 4
+ 1222              		.loc 1 524 11 view .LVU568
+ 1223 0422 65EEC65A 		vnmul.f32	s11, s11, s12
+ 1224              	.LVL151:
+ 523:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p3++ = m2 - m3;
+ 1225              		.loc 1 523 11 view .LVU569
+ 1226 0426 A6EE245A 		vfma.f32	s10, s12, s9
+ 1227              	.LVL152:
+ 524:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // COL 4
+ 1228              		.loc 1 524 11 view .LVU570
+ 1229 042a E6EEA45A 		vfma.f32	s11, s13, s9
+ 523:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p3++ = m2 - m3;
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 39
+
+
+ 1230              		.loc 1 523 11 view .LVU571
+ 1231 042e 86ED005A 		vstr.32	s10, [r6]
+ 1232              	.LVL153:
+ 524:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // COL 4
+ 1233              		.loc 1 524 5 is_stmt 1 view .LVU572
+ 524:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // COL 4
+ 1234              		.loc 1 524 11 is_stmt 0 view .LVU573
+ 1235 0432 C6ED015A 		vstr.32	s11, [r6, #4]
+ 526:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     twI = tw4[1];
+ 1236              		.loc 1 526 5 is_stmt 1 view .LVU574
+ 527:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1237              		.loc 1 527 9 is_stmt 0 view .LVU575
+ 1238 0436 D1ED016A 		vldr.32	s13, [r1, #4]
+ 1239              	.LVL154:
+ 526:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     twI = tw4[1];
+ 1240              		.loc 1 526 9 view .LVU576
+ 1241 043a D1ED005A 		vldr.32	s11, [r1]
+ 1242              	.LVL155:
+ 527:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1243              		.loc 1 527 5 is_stmt 1 view .LVU577
+ 529:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m1 = t4[1] * twI;
+ 1244              		.loc 1 529 5 view .LVU578
+ 530:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m2 = t4[1] * twR;
+ 1245              		.loc 1 530 5 view .LVU579
+ 531:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m3 = t4[0] * twI;
+ 1246              		.loc 1 531 5 view .LVU580
+ 532:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1247              		.loc 1 532 5 view .LVU581
+ 534:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p4++ = m2 - m3;
+ 1248              		.loc 1 534 5 view .LVU582
+ 1249              		.loc 1 538 5 is_stmt 0 view .LVU583
+ 1250 043e 2146     		mov	r1, r4
+ 530:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     m2 = t4[1] * twR;
+ 1251              		.loc 1 530 8 view .LVU584
+ 1252 0440 27EE266A 		vmul.f32	s12, s14, s13
+ 1253              	.LVL156:
+ 535:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1254              		.loc 1 535 11 view .LVU585
+ 1255 0444 66EEE76A 		vnmul.f32	s13, s13, s15
+ 1256              	.LVL157:
+ 534:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p4++ = m2 - m3;
+ 1257              		.loc 1 534 11 view .LVU586
+ 1258 0448 A7EEA56A 		vfma.f32	s12, s15, s11
+ 1259              	.LVL158:
+ 535:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1260              		.loc 1 535 11 view .LVU587
+ 1261 044c E7EE256A 		vfma.f32	s13, s14, s11
+ 534:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     *p4++ = m2 - m3;
+ 1262              		.loc 1 534 11 view .LVU588
+ 1263 0450 83ED006A 		vstr.32	s12, [r3]
+ 1264              	.LVL159:
+ 535:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1265              		.loc 1 535 5 is_stmt 1 view .LVU589
+ 535:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1266              		.loc 1 535 11 is_stmt 0 view .LVU590
+ 1267 0454 C3ED016A 		vstr.32	s13, [r3, #4]
+ 1268              		.loc 1 538 5 is_stmt 1 view .LVU591
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 40
+
+
+ 1269 0458 0423     		movs	r3, #4
+ 1270              	.LVL160:
+ 1271              		.loc 1 538 5 is_stmt 0 view .LVU592
+ 1272 045a FFF7FEFF 		bl	arm_radix8_butterfly_f32
+ 1273              	.LVL161:
+ 539:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // second col
+ 540:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     arm_radix8_butterfly_f32( pCol2, L, (float32_t *) S->pTwiddle, 4u);
+ 1274              		.loc 1 540 5 is_stmt 1 view .LVU593
+ 1275 045e 0C9E     		ldr	r6, [sp, #48]
+ 1276              	.LVL162:
+ 1277              		.loc 1 540 5 is_stmt 0 view .LVU594
+ 1278 0460 0298     		ldr	r0, [sp, #8]
+ 1279 0462 2146     		mov	r1, r4
+ 1280 0464 7268     		ldr	r2, [r6, #4]
+ 1281 0466 0423     		movs	r3, #4
+ 1282 0468 FFF7FEFF 		bl	arm_radix8_butterfly_f32
+ 1283              	.LVL163:
+ 541:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // third col
+ 542:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     arm_radix8_butterfly_f32( pCol3, L, (float32_t *) S->pTwiddle, 4u);
+ 1284              		.loc 1 542 5 is_stmt 1 view .LVU595
+ 1285 046c 0998     		ldr	r0, [sp, #36]
+ 1286 046e 7268     		ldr	r2, [r6, #4]
+ 1287 0470 2146     		mov	r1, r4
+ 1288 0472 0423     		movs	r3, #4
+ 1289 0474 FFF7FEFF 		bl	arm_radix8_butterfly_f32
+ 1290              	.LVL164:
+ 543:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     // fourth col
+ 544:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     arm_radix8_butterfly_f32( pCol4, L, (float32_t *) S->pTwiddle, 4u);
+ 1291              		.loc 1 544 5 view .LVU596
+ 1292 0478 0423     		movs	r3, #4
+ 1293 047a 7268     		ldr	r2, [r6, #4]
+ 1294 047c 2146     		mov	r1, r4
+ 1295 047e 2846     		mov	r0, r5
+ 545:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** }
+ 1296              		.loc 1 545 1 is_stmt 0 view .LVU597
+ 1297 0480 0FB0     		add	sp, sp, #60
+ 1298              		.cfi_def_cfa_offset 44
+ 1299              		@ sp needed
+ 1300 0482 BDEC028B 		vldm	sp!, {d8}
+ 1301              		.cfi_restore 80
+ 1302              		.cfi_restore 81
+ 1303              		.cfi_def_cfa_offset 36
+ 1304 0486 BDE8F04F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 1305              		.cfi_restore 14
+ 1306              		.cfi_restore 11
+ 1307              		.cfi_restore 10
+ 1308              		.cfi_restore 9
+ 1309              		.cfi_restore 8
+ 1310              		.cfi_restore 7
+ 1311              		.cfi_restore 6
+ 1312              		.cfi_restore 5
+ 1313              		.cfi_restore 4
+ 1314              		.cfi_def_cfa_offset 0
+ 1315              	.LVL165:
+ 544:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** }
+ 1316              		.loc 1 544 5 view .LVU598
+ 1317 048a FFF7FEBF 		b	arm_radix8_butterfly_f32
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 41
+
+
+ 1318              	.LVL166:
+ 544:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** }
+ 1319              		.loc 1 544 5 view .LVU599
+ 1320              		.cfi_endproc
+ 1321              	.LFE354:
+ 1323 048e 00BF     		.section	.text.arm_cfft_f32,"ax",%progbits
+ 1324              		.align	1
+ 1325              		.p2align 2,,3
+ 1326              		.global	arm_cfft_f32
+ 1327              		.syntax unified
+ 1328              		.thumb
+ 1329              		.thumb_func
+ 1331              	arm_cfft_f32:
+ 1332              	.LVL167:
+ 1333              	.LFB355:
+ 546:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 547:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** /**
+ 548:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * @addtogroup ComplexFFT
+ 549:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * @{
+ 550:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** */
+ 551:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 552:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** /**
+ 553:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * @details
+ 554:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * @brief       Processing function for the floating-point complex FFT.
+ 555:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * @param[in]      *S    points to an instance of the floating-point CFFT structure.
+ 556:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * @param[in, out] *p1   points to the complex data buffer of size <code>2*fftLen</code>. Processing
+ 557:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * @param[in]     ifftFlag       flag that selects forward (ifftFlag=0) or inverse (ifftFlag=1) tran
+ 558:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * @param[in]     bitReverseFlag flag that enables (bitReverseFlag=1) or disables (bitReverseFlag=0)
+ 559:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** * @return none.
+ 560:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** */
+ 561:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 562:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** void arm_cfft_f32(
+ 563:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     const arm_cfft_instance_f32 * S,
+ 564:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t * p1,
+ 565:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint8_t ifftFlag,
+ 566:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint8_t bitReverseFlag)
+ 567:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** {
+ 1334              		.loc 1 567 1 is_stmt 1 view -0
+ 1335              		.cfi_startproc
+ 1336              		@ args = 0, pretend = 0, frame = 0
+ 1337              		@ frame_needed = 0, uses_anonymous_args = 0
+ 568:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint32_t  L = S->fftLen, l;
+ 1338              		.loc 1 568 5 view .LVU601
+ 569:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t invL, * pSrc;
+ 570:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 571:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     if (ifftFlag == 1u)
+ 1339              		.loc 1 571 8 is_stmt 0 view .LVU602
+ 1340 0000 012A     		cmp	r2, #1
+ 567:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint32_t  L = S->fftLen, l;
+ 1341              		.loc 1 567 1 view .LVU603
+ 1342 0002 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 1343              		.cfi_def_cfa_offset 24
+ 1344              		.cfi_offset 4, -24
+ 1345              		.cfi_offset 5, -20
+ 1346              		.cfi_offset 6, -16
+ 1347              		.cfi_offset 7, -12
+ 1348              		.cfi_offset 8, -8
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 42
+
+
+ 1349              		.cfi_offset 14, -4
+ 567:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint32_t  L = S->fftLen, l;
+ 1350              		.loc 1 567 1 view .LVU604
+ 1351 0006 0646     		mov	r6, r0
+ 1352 0008 1746     		mov	r7, r2
+ 1353 000a 0C46     		mov	r4, r1
+ 1354 000c 9846     		mov	r8, r3
+ 568:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     uint32_t  L = S->fftLen, l;
+ 1355              		.loc 1 568 20 view .LVU605
+ 1356 000e 0588     		ldrh	r5, [r0]
+ 1357              	.LVL168:
+ 569:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     float32_t invL, * pSrc;
+ 1358              		.loc 1 569 5 is_stmt 1 view .LVU606
+ 1359              		.loc 1 571 5 view .LVU607
+ 1360              		.loc 1 571 8 is_stmt 0 view .LVU608
+ 1361 0010 54D0     		beq	.L108
+ 1362              	.LVL169:
+ 1363              	.L19:
+ 572:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 573:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         /*  Conjugate input data  */
+ 574:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         pSrc = p1 + 1;
+ 575:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         for(l=0; l<L; l++)
+ 576:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         {
+ 577:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****             *pSrc = -*pSrc;
+ 578:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****             pSrc += 2;
+ 579:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         }
+ 580:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     }
+ 581:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 582:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     switch (L)
+ 1364              		.loc 1 582 5 is_stmt 1 view .LVU609
+ 1365 0012 B5F5807F 		cmp	r5, #256
+ 1366 0016 60D0     		beq	.L22
+ 1367 0018 2ED8     		bhi	.L23
+ 1368 001a 402D     		cmp	r5, #64
+ 1369 001c 44D0     		beq	.L24
+ 1370 001e 64D8     		bhi	.L25
+ 1371 0020 102D     		cmp	r5, #16
+ 1372 0022 33D0     		beq	.L26
+ 1373 0024 202D     		cmp	r5, #32
+ 1374 0026 58D0     		beq	.L22
+ 583:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 584:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     case 16:
+ 585:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     case 128:
+ 586:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     case 1024:
+ 587:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         arm_cfft_radix8by2_f32  ( (arm_cfft_instance_f32 *) S, p1);
+ 588:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         break;
+ 589:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     case 32:
+ 590:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     case 256:
+ 591:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     case 2048:
+ 592:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         arm_cfft_radix8by4_f32  ( (arm_cfft_instance_f32 *) S, p1);
+ 593:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         break;
+ 594:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     case 64:
+ 595:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     case 512:
+ 596:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     case 4096:
+ 597:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         arm_radix8_butterfly_f32( p1, L, (float32_t *) S->pTwiddle, 1);
+ 598:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         break;
+ 599:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     }
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 43
+
+
+ 600:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 601:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     if ( bitReverseFlag )
+ 1375              		.loc 1 601 5 view .LVU610
+ 1376              		.loc 1 601 8 is_stmt 0 view .LVU611
+ 1377 0028 B8F1000F 		cmp	r8, #0
+ 1378 002c 04D0     		beq	.L35
+ 1379              	.LVL170:
+ 1380              	.L28:
+ 602:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         arm_bitreversal_32((uint32_t*)p1,S->bitRevLength,S->pBitRevTable);
+ 1381              		.loc 1 602 9 is_stmt 1 view .LVU612
+ 1382 002e B268     		ldr	r2, [r6, #8]
+ 1383 0030 2046     		mov	r0, r4
+ 1384 0032 B189     		ldrh	r1, [r6, #12]
+ 1385 0034 FFF7FEFF 		bl	arm_bitreversal_32
+ 1386              	.LVL171:
+ 1387              	.L35:
+ 603:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 604:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     if (ifftFlag == 1u)
+ 1388              		.loc 1 604 5 view .LVU613
+ 1389              		.loc 1 604 8 is_stmt 0 view .LVU614
+ 1390 0038 012F     		cmp	r7, #1
+ 1391 003a 30D1     		bne	.L18
+ 605:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 606:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         invL = 1.0f/(float32_t)L;
+ 1392              		.loc 1 606 9 is_stmt 1 view .LVU615
+ 1393              	.LVL172:
+ 607:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         /*  Conjugate and scale output data */
+ 608:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         pSrc = p1;
+ 1394              		.loc 1 608 9 view .LVU616
+ 609:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         for(l=0; l<L; l++)
+ 1395              		.loc 1 609 9 view .LVU617
+ 1396              		.loc 1 609 19 discriminator 1 view .LVU618
+ 1397 003c 7DB3     		cbz	r5, .L18
+ 1398              	.LVL173:
+ 1399              	.L29:
+ 606:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         /*  Conjugate and scale output data */
+ 1400              		.loc 1 606 21 is_stmt 0 view .LVU619
+ 1401 003e 07EE905A 		vmov	s15, r5	@ int
+ 606:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         /*  Conjugate and scale output data */
+ 1402              		.loc 1 606 14 view .LVU620
+ 1403 0042 B7EE007A 		vmov.f32	s14, #1.0e+0
+ 1404 0046 04F10801 		add	r1, r4, #8
+ 1405              		.loc 1 609 14 view .LVU621
+ 1406 004a 0023     		movs	r3, #0
+ 606:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         /*  Conjugate and scale output data */
+ 1407              		.loc 1 606 21 view .LVU622
+ 1408 004c F8EE677A 		vcvt.f32.u32	s15, s15
+ 606:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         /*  Conjugate and scale output data */
+ 1409              		.loc 1 606 14 view .LVU623
+ 1410 0050 C7EE276A 		vdiv.f32	s13, s14, s15
+ 1411              	.L36:
+ 1412              	.LVL174:
+ 610:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         {
+ 611:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****             *pSrc++ *=   invL ;
+ 1413              		.loc 1 611 13 is_stmt 1 view .LVU624
+ 1414              		.loc 1 611 21 is_stmt 0 view .LVU625
+ 1415 0054 11ED027A 		vldr.32	s14, [r1, #-8]
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 44
+
+
+ 609:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         {
+ 1416              		.loc 1 609 24 discriminator 3 view .LVU626
+ 1417 0058 0133     		adds	r3, r3, #1
+ 1418              	.LVL175:
+ 612:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****             *pSrc  = -(*pSrc) * invL;
+ 1419              		.loc 1 612 22 view .LVU627
+ 1420 005a 51ED017A 		vldr.32	s15, [r1, #-4]
+ 609:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         {
+ 1421              		.loc 1 609 19 discriminator 1 view .LVU628
+ 1422 005e 0831     		adds	r1, r1, #8
+ 1423              	.LVL176:
+ 609:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         {
+ 1424              		.loc 1 609 19 discriminator 1 view .LVU629
+ 1425 0060 9D42     		cmp	r5, r3
+ 611:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****             *pSrc  = -(*pSrc) * invL;
+ 1426              		.loc 1 611 21 view .LVU630
+ 1427 0062 27EE267A 		vmul.f32	s14, s14, s13
+ 1428              		.loc 1 612 31 view .LVU631
+ 1429 0066 67EEE67A 		vnmul.f32	s15, s15, s13
+ 611:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****             *pSrc  = -(*pSrc) * invL;
+ 1430              		.loc 1 611 21 view .LVU632
+ 1431 006a 01ED047A 		vstr.32	s14, [r1, #-16]
+ 1432              		.loc 1 612 13 is_stmt 1 view .LVU633
+ 1433              		.loc 1 612 20 is_stmt 0 view .LVU634
+ 1434 006e 41ED037A 		vstr.32	s15, [r1, #-12]
+ 613:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****             pSrc++;
+ 1435              		.loc 1 613 13 is_stmt 1 view .LVU635
+ 1436              	.LVL177:
+ 609:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         {
+ 1437              		.loc 1 609 24 discriminator 3 view .LVU636
+ 609:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         {
+ 1438              		.loc 1 609 19 discriminator 1 view .LVU637
+ 1439 0072 EFD1     		bne	.L36
+ 614:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         }
+ 615:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     }
+ 616:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** }
+ 1440              		.loc 1 616 1 is_stmt 0 view .LVU638
+ 1441 0074 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1442              	.LVL178:
+ 1443              	.L23:
+ 582:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 1444              		.loc 1 582 5 view .LVU639
+ 1445 0078 B5F5006F 		cmp	r5, #2048
+ 1446 007c 2DD0     		beq	.L22
+ 1447 007e 10D8     		bhi	.L31
+ 1448 0080 B5F5007F 		cmp	r5, #512
+ 1449 0084 10D0     		beq	.L24
+ 1450 0086 B5F5806F 		cmp	r5, #1024
+ 1451 008a 30D1     		bne	.L95
+ 1452              	.L26:
+ 587:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         break;
+ 1453              		.loc 1 587 9 is_stmt 1 view .LVU640
+ 1454 008c 2146     		mov	r1, r4
+ 1455              	.LVL179:
+ 587:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         break;
+ 1456              		.loc 1 587 9 is_stmt 0 view .LVU641
+ 1457 008e 3046     		mov	r0, r6
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 45
+
+
+ 1458              	.LVL180:
+ 587:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         break;
+ 1459              		.loc 1 587 9 view .LVU642
+ 1460 0090 FFF7FEFF 		bl	arm_cfft_radix8by2_f32
+ 1461              	.LVL181:
+ 588:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     case 32:
+ 1462              		.loc 1 588 9 is_stmt 1 view .LVU643
+ 601:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         arm_bitreversal_32((uint32_t*)p1,S->bitRevLength,S->pBitRevTable);
+ 1463              		.loc 1 601 5 view .LVU644
+ 601:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         arm_bitreversal_32((uint32_t*)p1,S->bitRevLength,S->pBitRevTable);
+ 1464              		.loc 1 601 8 is_stmt 0 view .LVU645
+ 1465 0094 B8F1000F 		cmp	r8, #0
+ 1466 0098 C9D1     		bne	.L28
+ 1467              	.L101:
+ 604:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 1468              		.loc 1 604 5 is_stmt 1 view .LVU646
+ 604:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 1469              		.loc 1 604 8 is_stmt 0 view .LVU647
+ 1470 009a 012F     		cmp	r7, #1
+ 1471 009c CFD0     		beq	.L29
+ 1472              	.L18:
+ 1473              		.loc 1 616 1 view .LVU648
+ 1474 009e BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1475              	.LVL182:
+ 1476              	.L31:
+ 582:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 1477              		.loc 1 582 5 view .LVU649
+ 1478 00a2 B5F5805F 		cmp	r5, #4096
+ 1479 00a6 22D1     		bne	.L95
+ 1480              	.L24:
+ 597:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         break;
+ 1481              		.loc 1 597 9 is_stmt 1 view .LVU650
+ 1482 00a8 0123     		movs	r3, #1
+ 1483 00aa 7268     		ldr	r2, [r6, #4]
+ 1484 00ac 2946     		mov	r1, r5
+ 1485              	.LVL183:
+ 597:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         break;
+ 1486              		.loc 1 597 9 is_stmt 0 view .LVU651
+ 1487 00ae 2046     		mov	r0, r4
+ 1488              	.LVL184:
+ 597:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         break;
+ 1489              		.loc 1 597 9 view .LVU652
+ 1490 00b0 FFF7FEFF 		bl	arm_radix8_butterfly_f32
+ 1491              	.LVL185:
+ 598:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     }
+ 1492              		.loc 1 598 9 is_stmt 1 view .LVU653
+ 601:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         arm_bitreversal_32((uint32_t*)p1,S->bitRevLength,S->pBitRevTable);
+ 1493              		.loc 1 601 5 view .LVU654
+ 601:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         arm_bitreversal_32((uint32_t*)p1,S->bitRevLength,S->pBitRevTable);
+ 1494              		.loc 1 601 8 is_stmt 0 view .LVU655
+ 1495 00b4 B8F1000F 		cmp	r8, #0
+ 1496 00b8 EFD0     		beq	.L101
+ 1497 00ba B8E7     		b	.L28
+ 1498              	.LVL186:
+ 1499              	.L108:
+ 574:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         for(l=0; l<L; l++)
+ 1500              		.loc 1 574 9 is_stmt 1 view .LVU656
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 46
+
+
+ 575:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         {
+ 1501              		.loc 1 575 9 view .LVU657
+ 575:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         {
+ 1502              		.loc 1 575 19 discriminator 1 view .LVU658
+ 1503 00bc DDB1     		cbz	r5, .L20
+ 1504 00be 01F10C03 		add	r3, r1, #12
+ 1505              	.LVL187:
+ 575:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         {
+ 1506              		.loc 1 575 14 is_stmt 0 view .LVU659
+ 1507 00c2 0022     		movs	r2, #0
+ 1508              	.LVL188:
+ 1509              	.L21:
+ 577:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****             pSrc += 2;
+ 1510              		.loc 1 577 13 is_stmt 1 view .LVU660
+ 577:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****             pSrc += 2;
+ 1511              		.loc 1 577 21 is_stmt 0 view .LVU661
+ 1512 00c4 53ED027A 		vldr.32	s15, [r3, #-8]
+ 575:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         {
+ 1513              		.loc 1 575 24 discriminator 3 view .LVU662
+ 1514 00c8 0132     		adds	r2, r2, #1
+ 1515              	.LVL189:
+ 575:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         {
+ 1516              		.loc 1 575 19 discriminator 1 view .LVU663
+ 1517 00ca 0833     		adds	r3, r3, #8
+ 1518              	.LVL190:
+ 577:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****             pSrc += 2;
+ 1519              		.loc 1 577 21 view .LVU664
+ 1520 00cc F1EE677A 		vneg.f32	s15, s15
+ 575:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         {
+ 1521              		.loc 1 575 19 discriminator 1 view .LVU665
+ 1522 00d0 9542     		cmp	r5, r2
+ 577:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****             pSrc += 2;
+ 1523              		.loc 1 577 19 view .LVU666
+ 1524 00d2 43ED047A 		vstr.32	s15, [r3, #-16]
+ 578:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         }
+ 1525              		.loc 1 578 13 is_stmt 1 view .LVU667
+ 1526              	.LVL191:
+ 575:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         {
+ 1527              		.loc 1 575 24 discriminator 3 view .LVU668
+ 575:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         {
+ 1528              		.loc 1 575 19 discriminator 1 view .LVU669
+ 1529 00d6 F5D1     		bne	.L21
+ 1530 00d8 9BE7     		b	.L19
+ 1531              	.LVL192:
+ 1532              	.L22:
+ 592:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         break;
+ 1533              		.loc 1 592 9 view .LVU670
+ 1534 00da 2146     		mov	r1, r4
+ 1535              	.LVL193:
+ 592:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         break;
+ 1536              		.loc 1 592 9 is_stmt 0 view .LVU671
+ 1537 00dc 3046     		mov	r0, r6
+ 1538              	.LVL194:
+ 592:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         break;
+ 1539              		.loc 1 592 9 view .LVU672
+ 1540 00de FFF7FEFF 		bl	arm_cfft_radix8by4_f32
+ 1541              	.LVL195:
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 47
+
+
+ 593:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     case 64:
+ 1542              		.loc 1 593 9 is_stmt 1 view .LVU673
+ 601:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         arm_bitreversal_32((uint32_t*)p1,S->bitRevLength,S->pBitRevTable);
+ 1543              		.loc 1 601 5 view .LVU674
+ 601:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         arm_bitreversal_32((uint32_t*)p1,S->bitRevLength,S->pBitRevTable);
+ 1544              		.loc 1 601 8 is_stmt 0 view .LVU675
+ 1545 00e2 B8F1000F 		cmp	r8, #0
+ 1546 00e6 D8D0     		beq	.L101
+ 1547 00e8 A1E7     		b	.L28
+ 1548              	.LVL196:
+ 1549              	.L25:
+ 582:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 1550              		.loc 1 582 5 view .LVU676
+ 1551 00ea 802D     		cmp	r5, #128
+ 1552 00ec CED0     		beq	.L26
+ 1553              	.L95:
+ 601:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         arm_bitreversal_32((uint32_t*)p1,S->bitRevLength,S->pBitRevTable);
+ 1554              		.loc 1 601 5 is_stmt 1 view .LVU677
+ 601:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         arm_bitreversal_32((uint32_t*)p1,S->bitRevLength,S->pBitRevTable);
+ 1555              		.loc 1 601 8 is_stmt 0 view .LVU678
+ 1556 00ee B8F1000F 		cmp	r8, #0
+ 1557 00f2 D2D0     		beq	.L101
+ 1558 00f4 9BE7     		b	.L28
+ 1559              	.LVL197:
+ 1560              	.L20:
+ 582:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 1561              		.loc 1 582 5 is_stmt 1 view .LVU679
+ 601:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         arm_bitreversal_32((uint32_t*)p1,S->bitRevLength,S->pBitRevTable);
+ 1562              		.loc 1 601 5 view .LVU680
+ 601:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****         arm_bitreversal_32((uint32_t*)p1,S->bitRevLength,S->pBitRevTable);
+ 1563              		.loc 1 601 8 is_stmt 0 view .LVU681
+ 1564 00f6 002B     		cmp	r3, #0
+ 1565 00f8 D1D0     		beq	.L18
+ 602:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1566              		.loc 1 602 9 is_stmt 1 view .LVU682
+ 1567 00fa 8268     		ldr	r2, [r0, #8]
+ 1568              	.LVL198:
+ 602:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1569              		.loc 1 602 9 is_stmt 0 view .LVU683
+ 1570 00fc 8189     		ldrh	r1, [r0, #12]
+ 1571              	.LVL199:
+ 602:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1572              		.loc 1 602 9 view .LVU684
+ 1573 00fe 2046     		mov	r0, r4
+ 1574              	.LVL200:
+ 602:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c **** 
+ 1575              		.loc 1 602 9 view .LVU685
+ 1576 0100 FFF7FEFF 		bl	arm_bitreversal_32
+ 1577              	.LVL201:
+ 604:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_cfft_f32.c ****     {
+ 1578              		.loc 1 604 5 is_stmt 1 view .LVU686
+ 1579 0104 CBE7     		b	.L18
+ 1580              		.cfi_endproc
+ 1581              	.LFE355:
+ 1583 0106 00BF     		.text
+ 1584              	.Letext0:
+ 1585              		.file 2 "/Applications/ArmGNUToolchain/15.2.rel1/arm-none-eabi/arm-none-eabi/include/machine/_defa
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 48
+
+
+ 1586              		.file 3 "/Applications/ArmGNUToolchain/15.2.rel1/arm-none-eabi/arm-none-eabi/include/sys/_stdint.h
+ 1587              		.file 4 "../libDaisy/Drivers/CMSIS/DSP/Include/arm_math.h"
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s 			page 49
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 arm_cfft_f32.c
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s:20     .text.arm_cfft_radix8by2_f32:00000000 $t
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s:27     .text.arm_cfft_radix8by2_f32:00000000 arm_cfft_radix8by2_f32
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s:401    .text.arm_cfft_radix8by4_f32:00000000 $t
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s:408    .text.arm_cfft_radix8by4_f32:00000000 arm_cfft_radix8by4_f32
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s:1324   .text.arm_cfft_f32:00000000 $t
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccufD371.s:1331   .text.arm_cfft_f32:00000000 arm_cfft_f32
+
+UNDEFINED SYMBOLS
+arm_radix8_butterfly_f32
+arm_bitreversal_32
