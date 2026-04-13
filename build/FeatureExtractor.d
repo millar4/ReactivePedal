@@ -93,7 +93,7 @@ build/FeatureExtractor.o: FeatureExtractor.cpp \
  ../libDaisy/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usb.h \
  ../libDaisy/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd_ex.h \
  ../libDaisy/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_hcd.h \
- FeatureExtractor.h ../libDaisy/Drivers/CMSIS/DSP/Include/arm_math.h
+ FeatureExtractor.h
 ../libDaisy/Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h:
 ../libDaisy/Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h750xx.h:
 ../libDaisy/Drivers/CMSIS/Include/core_cm7.h:
@@ -189,4 +189,3 @@ build/FeatureExtractor.o: FeatureExtractor.cpp \
 ../libDaisy/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd_ex.h:
 ../libDaisy/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_hcd.h:
 FeatureExtractor.h:
-../libDaisy/Drivers/CMSIS/DSP/Include/arm_math.h:

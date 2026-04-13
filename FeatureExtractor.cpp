@@ -1,104 +1,120 @@
 #include "FeatureExtractor.h"
-#include <cstdio>
 
-void FeatureExtractor::Init(size_t frameSize, float samplingRate)
-{
-    frameSize_ = frameSize;
+void FeatureExtractor::Init(size_t frameSize, float samplingRate){
+    if(frameSize > kMaxFrameSize) {
+        frameSize = kMaxFrameSize;
+    }
+
+    if(frameSize != 256) {
+
+        frameSize = 256;
+    }
+
+    frameSize_    = frameSize;
     samplingRate_ = samplingRate;
-    fftSize_ = frameSize;
-    writePos_ = 0;
+    writePos_     = 0;
+    frameReady_   = false;
 
-    std::memset(frame_, 0, sizeof(frame_));
-    std::memset(prevMag_, 0, sizeof(prevMag_));
+    std::memset(captureBuffer_, 0, sizeof(captureBuffer_));
+    std::memset(analysisBuffer_, 0, sizeof(analysisBuffer_));
     std::memset(fftIn_, 0, sizeof(fftIn_));
-    std::memset(fftOut_, 0, sizeof(fftOut_));
+    std::memset(prevMag_, 0, sizeof(prevMag_));
+    std::memset(window_, 0, sizeof(window_));
 
     ComputeHannWindow();
+}
 
-    arm_status result = arm_rfft_fast_init_f32(&fft_, fftSize_);
-    if(result != ARM_MATH_SUCCESS)
-    {
-        printf("ARM FFT FAILED\n");
+
+void FeatureExtractor::PushSample(float x){
+    if(frameReady_){
+        return;
+    }
+
+    captureBuffer_[writePos_++] = x;
+
+    if(writePos_ >= frameSize_){
+        std::memcpy(analysisBuffer_, captureBuffer_, frameSize_ * sizeof(float));
+        writePos_   = 0;
+        frameReady_ = true;
     }
 }
 
-bool FeatureExtractor::ProcessSample(float x, AudioFeatures& outFeatures)
-{
-    if(writePos_ < frameSize_)
-    {
-        frame_[writePos_++] = x;
-    }
-
-    if(writePos_ >= frameSize_)
-    {
-        ComputeFeatures(outFeatures);
-        writePos_ = 0;
-        return true;
-    }
-
-    return false;
+bool FeatureExtractor::FrameReady() const{
+    return frameReady_;
 }
 
-void FeatureExtractor::ComputeHannWindow()
-{
+bool FeatureExtractor::ProcessFrame(AudioFeatures& outFeatures){
+    if(!frameReady_){
+        return false;
+    }
+
+    ComputeTimeDomainFeatures(analysisBuffer_, outFeatures);
+    ComputeSpectralFeatures(analysisBuffer_, outFeatures);
+
+    frameReady_ = false;
+    return true;
+}
+
+void FeatureExtractor::ComputeHannWindow(){
     for(size_t n = 0; n < frameSize_; n++)
     {
-        window_[n] = 0.5f * (1.0f - std::cos((2.0f * kPi * static_cast<float>(n)))
-                                      / static_cast<float>(frameSize_ - 1));
+        window_[n] = 0.5f * (1.0f - cosf((2.0f * kPi * static_cast<float>(n))
+                                         / static_cast<float>(frameSize_ - 1)));
     }
 }
 
-void FeatureExtractor::ComputeFeatures(AudioFeatures& features)
-{
-    float total = 0.0f;
-    for(size_t n = 0; n < frameSize_; n++)
-    {
-        float x = frame_[n];
-        total += x * x;
-    }
-    features.rms = std::sqrt(total / static_cast<float>(frameSize_));
+void FeatureExtractor::ComputeTimeDomainFeatures(const float* frame, AudioFeatures& features){
+    float sumSquares = 0.0f;
+    float peak       = 0.0f;
+    float crossings  = 0.0f;
 
-    float maximumAmplitude = 0.0f;
     for(size_t n = 0; n < frameSize_; n++)
     {
-        float a = fabsf(frame_[n]);
-        if(a > maximumAmplitude)
-        {
-            maximumAmplitude = a;
+        float x = frame[n];
+        sumSquares += x * x;
+
+        float a = fabsf(x);
+        if(a > peak){
+            peak = a;
+        }
+
+        if(n > 0){
+            if(frame[n] * frame[n - 1] < 0.0f){
+                crossings += 1.0f;
+            }
         }
     }
-    features.peak = maximumAmplitude;
+    features.rms  = sqrtf(sumSquares / static_cast<float>(frameSize_));
+    features.peak = peak;
+    features.zcr  = crossings / static_cast<float>(frameSize_ - 1);
+}
 
-    float runningTotal = 0.0f;
-    for(size_t n = 1; n < frameSize_; n++)
-    {
-        if(frame_[n] * frame_[n - 1] < 0.0f)
-        {
-            runningTotal += 1.0f;
-        }
+void FeatureExtractor::ComputeSpectralFeatures(const float* frame, AudioFeatures& features){
+    for(size_t n = 0; n < frameSize_; n++){
+        fftIn_[n] = frame[n] * window_[n];
     }
-    features.zcr = runningTotal / static_cast<float>(frameSize_ - 1);
 
     float runningNum = 0.0f;
     float runningDen = 0.0f;
     float spectralTotal = 0.0f;
     float binWidth = samplingRate_ / static_cast<float>(frameSize_);
 
-    for(size_t n = 0; n < frameSize_; n++)
+    for(size_t k = 1; k < (frameSize_ / 2); k++)
     {
-        fftIn_[n] = frame_[n] * window_[n];
-    }
+        float real = 0.0f;
+        float imag = 0.0f;
 
-    arm_rfft_fast_f32(&fft_, fftIn_, fftOut_, 0);
+        for(size_t n = 0; n < frameSize_; n++){
+            float angle = 2.0f * kPi * static_cast<float>(k * n)
+                        / static_cast<float>(frameSize_);
+            real += fftIn_[n] * cosf(angle);
+            imag -= fftIn_[n] * sinf(angle);
+        }
 
-    for(size_t k = 1; k < (fftSize_ / 2); k++)
-    {
-        float real = fftOut_[2 * k];
-        float imaginary = fftOut_[2 * k + 1];
-        float magnitude = sqrtf(real * real + imaginary * imaginary);
+        float magnitude = sqrtf(real * real + imag * imag);
+        float freq = static_cast<float>(k) * binWidth;
 
-        float fk = static_cast<float>(k) * binWidth;
-        runningNum += fk * magnitude;
+        runningNum += freq * magnitude;
         runningDen += magnitude;
 
         float diff = magnitude - prevMag_[k];
@@ -106,6 +122,11 @@ void FeatureExtractor::ComputeFeatures(AudioFeatures& features)
         prevMag_[k] = magnitude;
     }
 
-    features.spectralCentroid = (runningDen > 0.0f) ? (runningNum / runningDen) : 0.0f;
+    if(runningDen > 1e-8f){
+        features.spectralCentroid = runningNum / runningDen;
+    }
+    else{
+        features.spectralCentroid = 0.0f;
+    }
     features.spectralFlux = spectralTotal;
 }
