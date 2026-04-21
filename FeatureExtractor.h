@@ -5,11 +5,18 @@
 #include <cstring>
 
 struct AudioFeatures{
-    float rms; //Signal Energy/Loudness
-    float peak; //Peak , captures pick attacks
-    float zcr; //How noisy how much it fluctuates (within one frame)
-    float spectralCentroid; //Centre of mass of frequencies
-    float spectralFlux; //Frequenecy changes between frames (Over frames)
+    float rms;
+    float peak;
+    float zcr;
+    float spectralCentroid;
+    float spectralFlux;
+    float rmsDelta;
+    float envelope;
+    float envelopeDelta;
+    float rmsVariance;
+    float centroidVariance;
+    float onsetCount;
+    float timeSinceLastOnset;
 }; 
 
 class FeatureExtractor{
@@ -40,6 +47,20 @@ private:
     size_t writePos_  = 0;
 
     float samplingRate_ = 48000.0f;
+    float prevRms_ = 0.0f;
+    float prevEnvelope_ = 0.0f;
+    float prevPeak_ = 0.0f;
+
+    float rmsHistory_[8];
+    float centroidHistory_[8];
+    int historyIndex_ = 0;
+    int historyCount_ = 0;
+
+    float onsetTimes_[8];
+    int onsetIndex_ = 0;
+    int onsetCount_ = 0;
+    float elapsedTime_ = 0.0f;
+    float lastOnsetTime_ = -1000.0f;
 
     bool frameReady_ = false;
 

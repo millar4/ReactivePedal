@@ -3,7 +3,7 @@ TARGET = ReactivePedal
 APP_TYPE = BOOT_SRAM
 
 # Sources
-CPP_SOURCES = ReactivePedal.cpp FeatureExtractor.cpp
+CPP_SOURCES = ReactivePedal.cpp FeatureExtractor.cpp NeuralNet.cpp
 
 ASM_SOURCES = arm_bitreversal2.s
 
