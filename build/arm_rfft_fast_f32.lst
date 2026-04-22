@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 1
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s 			page 1
 
 
    1              		.cpu cortex-m7
@@ -58,7 +58,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 1
   27:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c ****  */
   28:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c **** 
   29:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c **** #include "arm_math.h"
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 2
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s 			page 2
 
 
   30:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c **** 
@@ -118,7 +118,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 1
   44              		.loc 1 65 19 view .LVU7
   45 000c B6EE004A 		vmov.f32	s8, #5.0e-1
   61:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c **** 
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 3
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s 			page 3
 
 
   46              		.loc 1 61 8 view .LVU8
@@ -178,7 +178,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 1
   81 002c A6EE267A 		vfma.f32	s14, s12, s13
   82              	.LVL6:
   83              		.loc 1 66 19 view .LVU30
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 4
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s 			page 4
 
 
   84 0030 67EE847A 		vmul.f32	s15, s15, s8
@@ -238,7 +238,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 1
  109 004a 12ED027A 		vldr.32	s14, [r2, #-8]
   92:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c ****       xAI = pA[1];
   93:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c **** 
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 5
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s 			page 5
 
 
   94:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c ****       twR = *pCoeff++;
@@ -298,7 +298,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 1
  135              		.loc 1 94 11 view .LVU55
  136 006c 13ED046A 		vldr.32	s12, [r3, #-16]
  137              	.LVL17:
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 6
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s 			page 6
 
 
   95:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c **** 
@@ -358,7 +358,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 1
  173              		.loc 1 107 15 view .LVU75
  174 009c 40ED047A 		vstr.32	s15, [r0, #-16]
  175              	.LVL23:
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 7
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s 			page 7
 
 
  108:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c **** 
@@ -418,7 +418,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 1
  133:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c **** 
  134:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c ****    pCoeff += 2 ;
  135:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c **** 
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 8
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s 			page 8
 
 
  136:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c ****    *pOut++ = 0.5f * ( xAR + xAI );
@@ -478,7 +478,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 1
  239              		.loc 1 137 19 view .LVU105
  240 0022 67EE847A 		vmul.f32	s15, s15, s8
  136:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c ****    *pOut++ = 0.5f * ( xAR - xAI );
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 9
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s 			page 9
 
 
  241              		.loc 1 136 12 view .LVU106
@@ -538,7 +538,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 1
  142:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c ****    {
  277              		.loc 1 142 13 is_stmt 0 view .LVU122
  278 0048 BCF1010C 		subs	ip, ip, #1
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 10
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s 			page 10
 
 
  279              	.LVL37:
@@ -598,7 +598,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 1
  308              		.loc 1 166 29 is_stmt 0 view .LVU137
  309 006c 34EEE67A 		vsub.f32	s14, s9, s13
  310              	.LVL44:
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 11
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s 			page 11
 
 
  142:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c ****    {
@@ -658,7 +658,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 1
  172:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c **** 
  173:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c **** }
  348              		.loc 1 173 1 is_stmt 0 view .LVU158
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 12
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s 			page 12
 
 
  349 009a 7047     		bx	lr
@@ -718,7 +718,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 1
  215:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c ****  * domain. The second half of the data equals the conjugate of the first
  216:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c ****  * half flipped in frequency. Looking at the data, we see that we can
  217:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c ****  * uniquely represent the FFT using only N/2 complex numbers. These are
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 13
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s 			page 13
 
 
  218:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c ****  * packed into the output array in alternating real and imaginary
@@ -778,7 +778,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 1
  272:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c ****  */
  273:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c **** 
  274:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c **** /**
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 14
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s 			page 14
 
 
  275:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c **** * @addtogroup RealFFT
@@ -838,7 +838,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 1
  297:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c ****    if (ifftFlag)
  392              		.loc 1 297 4 is_stmt 1 view .LVU168
  393              		.loc 1 297 7 is_stmt 0 view .LVU169
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 15
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s 			page 15
 
 
  394 0010 4DB1     		cbz	r5, .L13
@@ -898,7 +898,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 1
  311:../libDaisy/Drivers/CMSIS/DSP/Source/TransformFunctions/arm_rfft_fast_f32.c ****    }
  428              		.loc 1 311 7 is_stmt 1 view .LVU177
  429 0030 3246     		mov	r2, r6
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 16
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s 			page 16
 
 
  430 0032 3946     		mov	r1, r7
@@ -926,17 +926,17 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 1
  451              		.file 2 "/Applications/ArmGNUToolchain/15.2.rel1/arm-none-eabi/arm-none-eabi/include/machine/_defa
  452              		.file 3 "/Applications/ArmGNUToolchain/15.2.rel1/arm-none-eabi/arm-none-eabi/include/sys/_stdint.h
  453              		.file 4 "../libDaisy/Drivers/CMSIS/DSP/Include/arm_math.h"
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s 			page 17
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s 			page 17
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 arm_rfft_fast_f32.c
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s:20     .text.stage_rfft_f32:00000000 $t
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s:27     .text.stage_rfft_f32:00000000 stage_rfft_f32
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s:191    .text.merge_rfft_f32:00000000 $t
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s:198    .text.merge_rfft_f32:00000000 merge_rfft_f32
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s:354    .text.arm_rfft_fast_f32:00000000 $t
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccGtbMz3.s:361    .text.arm_rfft_fast_f32:00000000 arm_rfft_fast_f32
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s:20     .text.stage_rfft_f32:00000000 $t
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s:27     .text.stage_rfft_f32:00000000 stage_rfft_f32
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s:191    .text.merge_rfft_f32:00000000 $t
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s:198    .text.merge_rfft_f32:00000000 merge_rfft_f32
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s:354    .text.arm_rfft_fast_f32:00000000 $t
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccn2t5hJ.s:361    .text.arm_rfft_fast_f32:00000000 arm_rfft_fast_f32
 
 UNDEFINED SYMBOLS
 arm_cfft_f32

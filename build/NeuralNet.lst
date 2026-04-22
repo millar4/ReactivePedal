@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 1
 
 
    1              		.cpu cortex-m7
@@ -58,7 +58,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
   48 0004 0746     		mov	r7, r0
   49              	.LBB36:
    7:NeuralNet.cpp ****         mean_[i] = 0.0f;
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 2
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 2
 
 
   50              		.loc 1 7 18 view .LVU5
@@ -118,7 +118,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
   95 0048 B8EEC77A 		vcvt.f32.s32	s14, s14
   96              		.loc 1 14 59 discriminator 1 view .LVU20
   97 004c DFED1A6A 		vldr.32	s13, .L14+4
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 3
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 3
 
 
   98 0050 E7EE067A 		vfma.f32	s15, s14, s12
@@ -178,7 +178,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  140              		.loc 1 21 26 discriminator 1 view .LVU34
  141 008e B8EEC77A 		vcvt.f32.s32	s14, s14
  142              		.loc 1 21 59 discriminator 1 view .LVU35
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 4
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 4
 
 
  143 0092 DFED096A 		vldr.32	s13, .L14+4
@@ -238,7 +238,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  189              	.LBB43:
  190              		.loc 1 27 22 discriminator 1 view .LVU45
  191 0000 01F1300C 		add	ip, r1, #48
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 5
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 5
 
 
  192              	.LVL10:
@@ -298,7 +298,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  235              	_ZNK9NeuralNet14NormaliseInputERK13AudioFeaturesPf:
  236              	.LVL11:
  237              	.LFB557:
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 6
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 6
 
 
   35:NeuralNet.cpp **** 
@@ -358,7 +358,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  274 005a CDF824C0 		str	ip, [sp, #36]	@ float
  275 005e D1F82CC0 		ldr	ip, [r1, #44]	@ float
  276 0062 00F13001 		add	r1, r0, #48
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 7
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 7
 
 
  277              	.LVL12:
@@ -418,7 +418,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  323              		.loc 1 57 37 is_stmt 1 view -0
  324              		.cfi_startproc
  325              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 8
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 8
 
 
  326              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -478,7 +478,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  371              		.cfi_offset 7, -12
  372              		.cfi_offset 8, -8
  373              		.cfi_offset 14, -4
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 9
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 9
 
 
  374 0004 0E46     		mov	r6, r1
@@ -538,7 +538,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  421              	.LBB48:
   72:NeuralNet.cpp ****             sum += W1_[i][j] * input[j];
  422              		.loc 1 72 13 is_stmt 1 view .LVU103
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 10
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 10
 
 
  423              		.loc 1 72 39 is_stmt 0 view .LVU104
@@ -598,7 +598,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
   69:NeuralNet.cpp ****         float sum = b1_[i];
  466              		.loc 1 69 22 is_stmt 0 discriminator 1 view .LVU121
  467 0066 10A9     		add	r1, sp, #64
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 11
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 11
 
 
  468 0068 6F46     		mov	r7, sp
@@ -658,7 +658,7 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  508              		.loc 1 83 19 view .LVU137
  509 0088 E7EC017A 		vstmia.32	r7!, {s15}
  510              	.LBE56:
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 12
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 12
 
 
   78:NeuralNet.cpp ****         float sum = b2_[i];
@@ -669,242 +669,241 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  514              	.LBE52:
   84:NeuralNet.cpp ****     }
   85:NeuralNet.cpp **** 
-  86:NeuralNet.cpp ****     // 🔥 STABLE SOFTMAX (THIS FIXES "CHORUS TAKES OVER")
-  87:NeuralNet.cpp ****     float maxLogit = output[0];
- 515              		.loc 1 87 5 view .LVU140
- 516              		.loc 1 87 11 is_stmt 0 view .LVU141
+  86:NeuralNet.cpp ****     float maxLogit = output[0];
+ 515              		.loc 1 86 5 view .LVU140
+ 516              		.loc 1 86 11 is_stmt 0 view .LVU141
  517 008e DDED006A 		vldr.32	s13, [sp]
-  88:NeuralNet.cpp ****     for(int i = 1; i < outputSize; i++){
- 518              		.loc 1 88 5 is_stmt 1 view .LVU142
+  87:NeuralNet.cpp ****     for(int i = 1; i < outputSize; i++){
+ 518              		.loc 1 87 5 is_stmt 1 view .LVU142
  519              	.LVL30:
  520              	.LBB57:
- 521              		.loc 1 88 22 discriminator 1 view .LVU143
-  89:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 522              		.loc 1 89 9 view .LVU144
+ 521              		.loc 1 87 22 discriminator 1 view .LVU143
+  88:NeuralNet.cpp ****         if(output[i] > maxLogit){
+ 522              		.loc 1 88 9 view .LVU144
  523 0092 04AE     		add	r6, sp, #16
  524              	.LVL31:
- 525              		.loc 1 89 20 is_stmt 0 view .LVU145
+ 525              		.loc 1 88 20 is_stmt 0 view .LVU145
  526 0094 9DED017A 		vldr.32	s14, [sp, #4]
  527 0098 05F11008 		add	r8, r5, #16
  528 009c DDED027A 		vldr.32	s15, [sp, #8]
  529              	.LVL32:
- 530              		.loc 1 89 20 view .LVU146
+ 530              		.loc 1 88 20 view .LVU146
  531 00a0 3746     		mov	r7, r6
  532              	.LVL33:
- 533              		.loc 1 89 20 view .LVU147
+ 533              		.loc 1 88 20 view .LVU147
  534 00a2 B4EEE67A 		vcmpe.f32	s14, s13
  535 00a6 DDED038A 		vldr.32	s17, [sp, #12]
  536              	.LBE57:
-  90:NeuralNet.cpp ****             maxLogit = output[i];
-  91:NeuralNet.cpp ****         }
-  92:NeuralNet.cpp ****     }
-  93:NeuralNet.cpp **** 
-  94:NeuralNet.cpp ****     float sumExp = 0.0f;
- 537              		.loc 1 94 11 view .LVU148
+  89:NeuralNet.cpp ****             maxLogit = output[i];
+  90:NeuralNet.cpp ****         }
+  91:NeuralNet.cpp ****     }
+  92:NeuralNet.cpp **** 
+  93:NeuralNet.cpp ****     float sumExp = 0.0f;
+ 537              		.loc 1 93 11 view .LVU148
  538 00aa 9FED218A 		vldr.32	s16, .L47
  539 00ae F1EE10FA 		vmrs	APSR_nzcv, FPSCR
  540 00b2 37FE267A 		vselgt.f32	s14, s14, s13
  541              	.LBB58:
-  88:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 542              		.loc 1 88 5 is_stmt 1 discriminator 2 view .LVU149
+  87:NeuralNet.cpp ****         if(output[i] > maxLogit){
+ 542              		.loc 1 87 5 is_stmt 1 discriminator 2 view .LVU149
  543              	.LVL34:
+  87:NeuralNet.cpp ****         if(output[i] > maxLogit){
+ 544              		.loc 1 87 22 discriminator 1 view .LVU150
   88:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 544              		.loc 1 88 22 discriminator 1 view .LVU150
-  89:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 545              		.loc 1 89 9 view .LVU151
+ 545              		.loc 1 88 9 view .LVU151
  546 00b6 F4EEC77A 		vcmpe.f32	s15, s14
  547 00ba F1EE10FA 		vmrs	APSR_nzcv, FPSCR
  548 00be 77FE877A 		vselgt.f32	s15, s15, s14
-  88:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 549              		.loc 1 88 5 discriminator 2 view .LVU152
+  87:NeuralNet.cpp ****         if(output[i] > maxLogit){
+ 549              		.loc 1 87 5 discriminator 2 view .LVU152
  550              	.LVL35:
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 13
+  87:NeuralNet.cpp ****         if(output[i] > maxLogit){
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 13
 
 
+ 551              		.loc 1 87 22 discriminator 1 view .LVU153
   88:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 551              		.loc 1 88 22 discriminator 1 view .LVU153
-  89:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 552              		.loc 1 89 9 view .LVU154
+ 552              		.loc 1 88 9 view .LVU154
  553 00c2 F4EEE78A 		vcmpe.f32	s17, s15
  554 00c6 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
  555 00ca 78FEA78A 		vselgt.f32	s17, s17, s15
-  88:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 556              		.loc 1 88 5 discriminator 2 view .LVU155
+  87:NeuralNet.cpp ****         if(output[i] > maxLogit){
+ 556              		.loc 1 87 5 discriminator 2 view .LVU155
  557              	.LVL36:
-  88:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 558              		.loc 1 88 22 discriminator 1 view .LVU156
-  88:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 559              		.loc 1 88 22 is_stmt 0 discriminator 1 view .LVU157
+  87:NeuralNet.cpp ****         if(output[i] > maxLogit){
+ 558              		.loc 1 87 22 discriminator 1 view .LVU156
+  87:NeuralNet.cpp ****         if(output[i] > maxLogit){
+ 559              		.loc 1 87 22 is_stmt 0 discriminator 1 view .LVU157
  560              	.LBE58:
  561              	.LBB59:
-  95:NeuralNet.cpp ****     float probs[outputSize];
-  96:NeuralNet.cpp **** 
-  97:NeuralNet.cpp ****     for(int i = 0; i < outputSize; i++){
- 562              		.loc 1 97 22 is_stmt 1 discriminator 1 view .LVU158
+  94:NeuralNet.cpp ****     float probs[outputSize];
+  95:NeuralNet.cpp **** 
+  96:NeuralNet.cpp ****     for(int i = 0; i < outputSize; i++){
+ 562              		.loc 1 96 22 is_stmt 1 discriminator 1 view .LVU158
  563              	.L35:
-  98:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
- 564              		.loc 1 98 9 view .LVU159
- 565              		.loc 1 98 33 is_stmt 0 view .LVU160
+  97:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
+ 564              		.loc 1 97 9 view .LVU159
+ 565              		.loc 1 97 33 is_stmt 0 view .LVU160
  566 00ce B5EC010A 		vldmia.32	r5!, {s0}
- 567              		.loc 1 98 24 view .LVU161
+ 567              		.loc 1 97 24 view .LVU161
  568 00d2 30EE680A 		vsub.f32	s0, s0, s17
  569 00d6 FFF7FEFF 		bl	expf
  570              	.LVL37:
-  97:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
- 571              		.loc 1 97 22 discriminator 1 view .LVU162
+  96:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
+ 571              		.loc 1 96 22 discriminator 1 view .LVU162
  572 00da 4545     		cmp	r5, r8
-  99:NeuralNet.cpp ****         sumExp += probs[i];
- 573              		.loc 1 99 16 view .LVU163
+  98:NeuralNet.cpp ****         sumExp += probs[i];
+ 573              		.loc 1 98 16 view .LVU163
  574 00dc 38EE008A 		vadd.f32	s16, s16, s0
  575              	.LVL38:
-  98:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
- 576              		.loc 1 98 18 discriminator 1 view .LVU164
+  97:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
+ 576              		.loc 1 97 18 discriminator 1 view .LVU164
  577 00e0 A7EC010A 		vstmia.32	r7!, {s0}
- 578              		.loc 1 99 9 is_stmt 1 view .LVU165
-  97:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
- 579              		.loc 1 97 5 discriminator 3 view .LVU166
+ 578              		.loc 1 98 9 is_stmt 1 view .LVU165
+  96:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
+ 579              		.loc 1 96 5 discriminator 3 view .LVU166
  580              	.LVL39:
-  97:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
- 581              		.loc 1 97 22 discriminator 1 view .LVU167
+  96:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
+ 581              		.loc 1 96 22 discriminator 1 view .LVU167
  582 00e4 F3D1     		bne	.L35
  583              	.LBE59:
  584              	.LBB60:
- 100:NeuralNet.cpp ****     }
- 101:NeuralNet.cpp **** 
- 102:NeuralNet.cpp ****     int best = 0;
- 103:NeuralNet.cpp ****     float bestVal = 0.0f;
- 104:NeuralNet.cpp **** 
- 105:NeuralNet.cpp ****     for(int i = 0; i < outputSize; i++){
- 585              		.loc 1 105 13 is_stmt 0 view .LVU168
+  99:NeuralNet.cpp ****     }
+ 100:NeuralNet.cpp **** 
+ 101:NeuralNet.cpp ****     int best = 0;
+ 102:NeuralNet.cpp ****     float bestVal = 0.0f;
+ 103:NeuralNet.cpp **** 
+ 104:NeuralNet.cpp ****     for(int i = 0; i < outputSize; i++){
+ 585              		.loc 1 104 13 is_stmt 0 view .LVU168
  586 00e6 0023     		movs	r3, #0
  587              	.LBE60:
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 14
+ 102:NeuralNet.cpp **** 
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 14
 
 
- 103:NeuralNet.cpp **** 
- 588              		.loc 1 103 11 view .LVU169
+ 588              		.loc 1 102 11 view .LVU169
  589 00e8 DFED116A 		vldr.32	s13, .L47
- 102:NeuralNet.cpp ****     float bestVal = 0.0f;
- 590              		.loc 1 102 9 view .LVU170
+ 101:NeuralNet.cpp ****     float bestVal = 0.0f;
+ 590              		.loc 1 101 9 view .LVU170
  591 00ec 1A46     		mov	r2, r3
  592              	.L38:
  593              	.LVL40:
  594              	.LBB61:
- 106:NeuralNet.cpp ****         probs[i] /= sumExp;
- 595              		.loc 1 106 9 is_stmt 1 view .LVU171
- 596              		.loc 1 106 16 is_stmt 0 view .LVU172
+ 105:NeuralNet.cpp ****         probs[i] /= sumExp;
+ 595              		.loc 1 105 9 is_stmt 1 view .LVU171
+ 596              		.loc 1 105 16 is_stmt 0 view .LVU172
  597 00ee 96ED007A 		vldr.32	s14, [r6]
- 598              		.loc 1 106 18 view .LVU173
+ 598              		.loc 1 105 18 view .LVU173
  599 00f2 C7EE087A 		vdiv.f32	s15, s14, s16
- 107:NeuralNet.cpp ****         if(probs[i] > bestVal){
- 600              		.loc 1 107 9 view .LVU174
+ 106:NeuralNet.cpp ****         if(probs[i] > bestVal){
+ 600              		.loc 1 106 9 view .LVU174
  601 00f6 F4EEE67A 		vcmpe.f32	s15, s13
- 106:NeuralNet.cpp ****         probs[i] /= sumExp;
- 602              		.loc 1 106 18 view .LVU175
+ 105:NeuralNet.cpp ****         probs[i] /= sumExp;
+ 602              		.loc 1 105 18 view .LVU175
  603 00fa E6EC017A 		vstmia.32	r6!, {s15}
- 604              		.loc 1 107 9 is_stmt 1 view .LVU176
+ 604              		.loc 1 106 9 is_stmt 1 view .LVU176
  605 00fe F1EE10FA 		vmrs	APSR_nzcv, FPSCR
  606 0102 02DD     		ble	.L36
- 108:NeuralNet.cpp ****             bestVal = probs[i];
- 607              		.loc 1 108 21 is_stmt 0 view .LVU177
+ 107:NeuralNet.cpp ****             bestVal = probs[i];
+ 607              		.loc 1 107 21 is_stmt 0 view .LVU177
  608 0104 F0EE676A 		vmov.f32	s13, s15
  609              	.LVL41:
- 109:NeuralNet.cpp ****             best = i;
- 610              		.loc 1 109 18 view .LVU178
+ 108:NeuralNet.cpp ****             best = i;
+ 610              		.loc 1 108 18 view .LVU178
  611 0108 1A46     		mov	r2, r3
  612              	.L36:
  613              	.LVL42:
- 105:NeuralNet.cpp ****         probs[i] /= sumExp;
- 614              		.loc 1 105 5 is_stmt 1 discriminator 2 view .LVU179
+ 104:NeuralNet.cpp ****         probs[i] /= sumExp;
+ 614              		.loc 1 104 5 is_stmt 1 discriminator 2 view .LVU179
  615 010a 0133     		adds	r3, r3, #1
  616              	.LVL43:
- 105:NeuralNet.cpp ****         probs[i] /= sumExp;
- 617              		.loc 1 105 22 discriminator 1 view .LVU180
+ 104:NeuralNet.cpp ****         probs[i] /= sumExp;
+ 617              		.loc 1 104 22 discriminator 1 view .LVU180
  618 010c 042B     		cmp	r3, #4
  619 010e EED1     		bne	.L38
  620              	.LVL44:
- 105:NeuralNet.cpp ****         probs[i] /= sumExp;
- 621              		.loc 1 105 22 is_stmt 0 discriminator 1 view .LVU181
+ 104:NeuralNet.cpp ****         probs[i] /= sumExp;
+ 621              		.loc 1 104 22 is_stmt 0 discriminator 1 view .LVU181
  622              	.LBE61:
  623              	.LBB62:
- 110:NeuralNet.cpp ****         }
- 111:NeuralNet.cpp ****     }
- 112:NeuralNet.cpp **** 
- 113:NeuralNet.cpp ****     NNOutput out;
- 114:NeuralNet.cpp ****     for(int i = 0; i < outputSize; i++){
- 624              		.loc 1 114 22 is_stmt 1 discriminator 1 view .LVU182
- 115:NeuralNet.cpp ****         out.scores[i] = probs[i];
- 625              		.loc 1 115 9 view .LVU183
- 626              		.loc 1 115 23 is_stmt 0 view .LVU184
+ 109:NeuralNet.cpp ****         }
+ 110:NeuralNet.cpp ****     }
+ 111:NeuralNet.cpp **** 
+ 112:NeuralNet.cpp ****     NNOutput out;
+ 113:NeuralNet.cpp ****     for(int i = 0; i < outputSize; i++){
+ 624              		.loc 1 113 22 is_stmt 1 discriminator 1 view .LVU182
+ 114:NeuralNet.cpp ****         out.scores[i] = probs[i];
+ 625              		.loc 1 114 9 view .LVU183
+ 626              		.loc 1 114 23 is_stmt 0 view .LVU184
  627 0110 0498     		ldr	r0, [sp, #16]	@ float
  628 0112 059B     		ldr	r3, [sp, #20]	@ float
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 15
-
-
  629              	.LVL45:
- 630              		.loc 1 115 23 view .LVU185
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 15
+
+
+ 630              		.loc 1 114 23 view .LVU185
  631 0114 0699     		ldr	r1, [sp, #24]	@ float
  632 0116 2060     		str	r0, [r4]	@ float
- 114:NeuralNet.cpp ****         out.scores[i] = probs[i];
- 633              		.loc 1 114 5 is_stmt 1 discriminator 3 view .LVU186
+ 113:NeuralNet.cpp ****         out.scores[i] = probs[i];
+ 633              		.loc 1 113 5 is_stmt 1 discriminator 3 view .LVU186
  634              	.LVL46:
- 114:NeuralNet.cpp ****         out.scores[i] = probs[i];
- 635              		.loc 1 114 22 discriminator 1 view .LVU187
- 636              		.loc 1 115 9 view .LVU188
+ 113:NeuralNet.cpp ****         out.scores[i] = probs[i];
+ 635              		.loc 1 113 22 discriminator 1 view .LVU187
+ 636              		.loc 1 114 9 view .LVU188
  637              	.LBE62:
- 116:NeuralNet.cpp ****     }
- 117:NeuralNet.cpp ****     out.predictedClass = best;
- 118:NeuralNet.cpp **** 
- 119:NeuralNet.cpp ****     return out;
- 120:NeuralNet.cpp **** }
- 638              		.loc 1 120 1 is_stmt 0 view .LVU189
+ 115:NeuralNet.cpp ****     }
+ 116:NeuralNet.cpp ****     out.predictedClass = best;
+ 117:NeuralNet.cpp **** 
+ 118:NeuralNet.cpp ****     return out;
+ 119:NeuralNet.cpp **** }
+ 638              		.loc 1 119 1 is_stmt 0 view .LVU189
  639 0118 2046     		mov	r0, r4
  640              	.LBB63:
- 115:NeuralNet.cpp ****     }
- 641              		.loc 1 115 23 view .LVU190
+ 114:NeuralNet.cpp ****     }
+ 641              		.loc 1 114 23 view .LVU190
  642 011a 6360     		str	r3, [r4, #4]	@ float
- 114:NeuralNet.cpp ****         out.scores[i] = probs[i];
- 643              		.loc 1 114 5 is_stmt 1 discriminator 3 view .LVU191
+ 113:NeuralNet.cpp ****         out.scores[i] = probs[i];
+ 643              		.loc 1 113 5 is_stmt 1 discriminator 3 view .LVU191
  644              	.LVL47:
- 114:NeuralNet.cpp ****         out.scores[i] = probs[i];
- 645              		.loc 1 114 22 discriminator 1 view .LVU192
- 115:NeuralNet.cpp ****     }
- 646              		.loc 1 115 9 view .LVU193
- 115:NeuralNet.cpp ****     }
- 647              		.loc 1 115 23 is_stmt 0 view .LVU194
+ 113:NeuralNet.cpp ****         out.scores[i] = probs[i];
+ 645              		.loc 1 113 22 discriminator 1 view .LVU192
+ 114:NeuralNet.cpp ****     }
+ 646              		.loc 1 114 9 view .LVU193
+ 114:NeuralNet.cpp ****     }
+ 647              		.loc 1 114 23 is_stmt 0 view .LVU194
  648 011c 079B     		ldr	r3, [sp, #28]	@ float
  649              	.LBE63:
- 117:NeuralNet.cpp **** 
- 650              		.loc 1 117 24 view .LVU195
+ 116:NeuralNet.cpp **** 
+ 650              		.loc 1 116 24 view .LVU195
  651 011e 2261     		str	r2, [r4, #16]
  652              	.LBB64:
- 115:NeuralNet.cpp ****     }
- 653              		.loc 1 115 23 view .LVU196
+ 114:NeuralNet.cpp ****     }
+ 653              		.loc 1 114 23 view .LVU196
  654 0120 A160     		str	r1, [r4, #8]	@ float
- 114:NeuralNet.cpp ****         out.scores[i] = probs[i];
- 655              		.loc 1 114 5 is_stmt 1 discriminator 3 view .LVU197
+ 113:NeuralNet.cpp ****         out.scores[i] = probs[i];
+ 655              		.loc 1 113 5 is_stmt 1 discriminator 3 view .LVU197
  656              	.LVL48:
- 114:NeuralNet.cpp ****         out.scores[i] = probs[i];
- 657              		.loc 1 114 22 discriminator 1 view .LVU198
- 115:NeuralNet.cpp ****     }
- 658              		.loc 1 115 9 view .LVU199
- 115:NeuralNet.cpp ****     }
- 659              		.loc 1 115 23 is_stmt 0 view .LVU200
+ 113:NeuralNet.cpp ****         out.scores[i] = probs[i];
+ 657              		.loc 1 113 22 discriminator 1 view .LVU198
+ 114:NeuralNet.cpp ****     }
+ 658              		.loc 1 114 9 view .LVU199
+ 114:NeuralNet.cpp ****     }
+ 659              		.loc 1 114 23 is_stmt 0 view .LVU200
  660 0122 E360     		str	r3, [r4, #12]	@ float
- 114:NeuralNet.cpp ****         out.scores[i] = probs[i];
- 661              		.loc 1 114 5 is_stmt 1 discriminator 3 view .LVU201
+ 113:NeuralNet.cpp ****         out.scores[i] = probs[i];
+ 661              		.loc 1 113 5 is_stmt 1 discriminator 3 view .LVU201
  662              	.LVL49:
- 114:NeuralNet.cpp ****         out.scores[i] = probs[i];
- 663              		.loc 1 114 22 discriminator 1 view .LVU202
+ 113:NeuralNet.cpp ****         out.scores[i] = probs[i];
+ 663              		.loc 1 113 22 discriminator 1 view .LVU202
  664              	.LBE64:
- 117:NeuralNet.cpp **** 
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 16
+ 116:NeuralNet.cpp **** 
+ 665              		.loc 1 116 5 view .LVU203
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 16
 
 
- 665              		.loc 1 117 5 view .LVU203
- 119:NeuralNet.cpp **** }
- 666              		.loc 1 119 5 view .LVU204
- 667              		.loc 1 120 1 is_stmt 0 view .LVU205
+ 118:NeuralNet.cpp **** }
+ 666              		.loc 1 118 5 view .LVU204
+ 667              		.loc 1 119 1 is_stmt 0 view .LVU205
  668 0124 1CB0     		add	sp, sp, #112
  669              		.cfi_def_cfa_offset 32
  670              		@ sp needed
@@ -913,11 +912,11 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  673              		.cfi_restore 81
  674              		.cfi_def_cfa_offset 24
  675              	.LVL50:
- 676              		.loc 1 120 1 view .LVU206
+ 676              		.loc 1 119 1 view .LVU206
  677 012a BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
  678              	.LVL51:
  679              	.L48:
- 680              		.loc 1 120 1 view .LVU207
+ 680              		.loc 1 119 1 view .LVU207
  681 012e 00BF     		.align	2
  682              	.L47:
  683 0130 00000000 		.word	0
@@ -933,35 +932,35 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  695              	_ZN9NeuralNet5TrainERK13AudioFeaturesif:
  696              	.LVL52:
  697              	.LFB560:
- 121:NeuralNet.cpp **** 
- 122:NeuralNet.cpp **** void NeuralNet::Train(const AudioFeatures& features, int targetClass, float eta){
- 698              		.loc 1 122 81 is_stmt 1 view -0
+ 120:NeuralNet.cpp **** 
+ 121:NeuralNet.cpp **** void NeuralNet::Train(const AudioFeatures& features, int targetClass, float eta){
+ 698              		.loc 1 121 81 is_stmt 1 view -0
  699              		.cfi_startproc
  700              		@ args = 0, pretend = 0, frame = 216
  701              		@ frame_needed = 0, uses_anonymous_args = 0
- 123:NeuralNet.cpp ****     float input[inputSize];
- 702              		.loc 1 123 5 view .LVU209
- 124:NeuralNet.cpp ****     float hidden[hiddenSize];
- 703              		.loc 1 124 5 view .LVU210
- 125:NeuralNet.cpp ****     float hiddenPre[hiddenSize];
- 704              		.loc 1 125 5 view .LVU211
- 126:NeuralNet.cpp ****     float output[outputSize];
- 705              		.loc 1 126 5 view .LVU212
- 127:NeuralNet.cpp **** 
- 128:NeuralNet.cpp ****     NormaliseInput(features, input);
- 706              		.loc 1 128 5 view .LVU213
  122:NeuralNet.cpp ****     float input[inputSize];
- 707              		.loc 1 122 81 is_stmt 0 view .LVU214
+ 702              		.loc 1 122 5 view .LVU209
+ 123:NeuralNet.cpp ****     float hidden[hiddenSize];
+ 703              		.loc 1 123 5 view .LVU210
+ 124:NeuralNet.cpp ****     float hiddenPre[hiddenSize];
+ 704              		.loc 1 124 5 view .LVU211
+ 125:NeuralNet.cpp ****     float output[outputSize];
+ 705              		.loc 1 125 5 view .LVU212
+ 126:NeuralNet.cpp **** 
+ 127:NeuralNet.cpp ****     NormaliseInput(features, input);
+ 706              		.loc 1 127 5 view .LVU213
+ 121:NeuralNet.cpp ****     float input[inputSize];
+ 707              		.loc 1 121 81 is_stmt 0 view .LVU214
  708 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
  709              		.cfi_def_cfa_offset 36
  710              		.cfi_offset 4, -36
  711              		.cfi_offset 5, -32
  712              		.cfi_offset 6, -28
  713              		.cfi_offset 7, -24
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 17
-
-
  714              		.cfi_offset 8, -20
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 17
+
+
  715              		.cfi_offset 9, -16
  716              		.cfi_offset 10, -12
  717              		.cfi_offset 11, -8
@@ -977,118 +976,118 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  727              		.cfi_def_cfa_offset 272
  728 000c 04F5F075 		add	r5, r4, #480
  729 0010 04F16007 		add	r7, r4, #96
- 122:NeuralNet.cpp ****     float input[inputSize];
- 730              		.loc 1 122 81 view .LVU215
+ 121:NeuralNet.cpp ****     float input[inputSize];
+ 730              		.loc 1 121 81 view .LVU215
  731 0014 B0EE408A 		vmov.f32	s16, s0
  732 0018 0DF16809 		add	r9, sp, #104
  733 001c 0192     		str	r2, [sp, #4]
- 734              		.loc 1 128 19 view .LVU216
+ 734              		.loc 1 127 19 view .LVU216
  735 001e 2AAA     		add	r2, sp, #168
  736              	.LVL53:
- 122:NeuralNet.cpp ****     float input[inputSize];
- 737              		.loc 1 122 81 view .LVU217
+ 121:NeuralNet.cpp ****     float input[inputSize];
+ 737              		.loc 1 121 81 view .LVU217
  738 0020 0090     		str	r0, [sp]
  739 0022 2646     		mov	r6, r4
- 740              		.loc 1 128 19 view .LVU218
+ 740              		.loc 1 127 19 view .LVU218
  741 0024 FFF7FEFF 		bl	_ZNK9NeuralNet14NormaliseInputERK13AudioFeaturesPf
  742              	.LVL54:
- 129:NeuralNet.cpp **** 
- 130:NeuralNet.cpp ****     for(int i = 0; i < hiddenSize; i++){
- 743              		.loc 1 130 5 is_stmt 1 view .LVU219
+ 128:NeuralNet.cpp **** 
+ 129:NeuralNet.cpp ****     for(int i = 0; i < hiddenSize; i++){
+ 743              		.loc 1 129 5 is_stmt 1 view .LVU219
  744              	.LBB65:
- 745              		.loc 1 130 22 discriminator 1 view .LVU220
+ 745              		.loc 1 129 22 discriminator 1 view .LVU220
  746 0028 04F50078 		add	r8, r4, #512
  747              	.LBE65:
- 128:NeuralNet.cpp **** 
- 748              		.loc 1 128 19 is_stmt 0 view .LVU221
+ 127:NeuralNet.cpp **** 
+ 748              		.loc 1 127 19 is_stmt 0 view .LVU221
  749 002c CC46     		mov	ip, r9
  750 002e 3846     		mov	r0, r7
  751 0030 12AC     		add	r4, sp, #72
  752              	.LVL55:
- 128:NeuralNet.cpp **** 
- 753              		.loc 1 128 19 view .LVU222
+ 127:NeuralNet.cpp **** 
+ 753              		.loc 1 127 19 view .LVU222
  754 0032 2946     		mov	r1, r5
  755              	.LVL56:
  756              	.L51:
  757              	.LBB71:
  758              	.LBB66:
- 131:NeuralNet.cpp ****         float sum = b1_[i];
- 759              		.loc 1 131 9 is_stmt 1 view .LVU223
- 760              		.loc 1 131 15 is_stmt 0 view .LVU224
+ 130:NeuralNet.cpp ****         float sum = b1_[i];
+ 759              		.loc 1 130 9 is_stmt 1 view .LVU223
+ 760              		.loc 1 130 15 is_stmt 0 view .LVU224
  761 0034 F1EC017A 		vldmia.32	r1!, {s15}
- 132:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
- 762              		.loc 1 132 9 is_stmt 1 view .LVU225
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 18
-
-
+ 131:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
+ 762              		.loc 1 131 9 is_stmt 1 view .LVU225
  763              	.LVL57:
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 18
+
+
  764              	.LBB67:
- 765              		.loc 1 132 26 discriminator 1 view .LVU226
+ 765              		.loc 1 131 26 discriminator 1 view .LVU226
  766              	.LBE67:
- 131:NeuralNet.cpp ****         float sum = b1_[i];
- 767              		.loc 1 131 15 is_stmt 0 view .LVU227
+ 130:NeuralNet.cpp ****         float sum = b1_[i];
+ 767              		.loc 1 130 15 is_stmt 0 view .LVU227
  768 0038 2AAB     		add	r3, sp, #168
  769 003a 0246     		mov	r2, r0
  770              	.LVL58:
  771              	.L50:
  772              	.LBB68:
- 133:NeuralNet.cpp ****             sum += W1_[i][j] * input[j];
- 773              		.loc 1 133 13 is_stmt 1 view .LVU228
- 774              		.loc 1 133 39 is_stmt 0 view .LVU229
+ 132:NeuralNet.cpp ****             sum += W1_[i][j] * input[j];
+ 773              		.loc 1 132 13 is_stmt 1 view .LVU228
+ 774              		.loc 1 132 39 is_stmt 0 view .LVU229
  775 003c B3EC017A 		vldmia.32	r3!, {s14}
- 132:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
- 776              		.loc 1 132 26 discriminator 1 view .LVU230
+ 131:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
+ 776              		.loc 1 131 26 discriminator 1 view .LVU230
  777 0040 0DF1D80E 		add	lr, sp, #216
- 778              		.loc 1 133 28 view .LVU231
+ 778              		.loc 1 132 28 view .LVU231
  779 0044 F2EC016A 		vldmia.32	r2!, {s13}
- 132:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
- 780              		.loc 1 132 26 discriminator 1 view .LVU232
+ 131:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
+ 780              		.loc 1 131 26 discriminator 1 view .LVU232
  781 0048 7345     		cmp	r3, lr
- 782              		.loc 1 133 17 view .LVU233
+ 782              		.loc 1 132 17 view .LVU233
  783 004a E6EE877A 		vfma.f32	s15, s13, s14
  784              	.LVL59:
- 132:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
- 785              		.loc 1 132 9 is_stmt 1 discriminator 3 view .LVU234
- 132:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
- 786              		.loc 1 132 26 discriminator 1 view .LVU235
+ 131:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
+ 785              		.loc 1 131 9 is_stmt 1 discriminator 3 view .LVU234
+ 131:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
+ 786              		.loc 1 131 26 discriminator 1 view .LVU235
  787 004e F5D1     		bne	.L50
  788              	.LBE68:
- 134:NeuralNet.cpp ****         }
- 135:NeuralNet.cpp ****         hiddenPre[i] = sum;
- 789              		.loc 1 135 9 view .LVU236
- 136:NeuralNet.cpp ****         hidden[i] = ReLU(sum);
- 790              		.loc 1 136 19 is_stmt 0 discriminator 1 view .LVU237
+ 133:NeuralNet.cpp ****         }
+ 134:NeuralNet.cpp ****         hiddenPre[i] = sum;
+ 789              		.loc 1 134 9 view .LVU236
+ 135:NeuralNet.cpp ****         hidden[i] = ReLU(sum);
+ 790              		.loc 1 135 19 is_stmt 0 discriminator 1 view .LVU237
  791 0050 F5EEC07A 		vcmpe.f32	s15, #0
  792 0054 9FED6B7A 		vldr.32	s14, .L78
- 135:NeuralNet.cpp ****         hidden[i] = ReLU(sum);
- 793              		.loc 1 135 22 view .LVU238
+ 134:NeuralNet.cpp ****         hidden[i] = ReLU(sum);
+ 793              		.loc 1 134 22 view .LVU238
  794 0058 ECEC017A 		vstmia.32	ip!, {s15}
- 795              		.loc 1 136 9 is_stmt 1 view .LVU239
+ 795              		.loc 1 135 9 is_stmt 1 view .LVU239
  796              	.LBE66:
- 130:NeuralNet.cpp ****         float sum = b1_[i];
- 797              		.loc 1 130 22 is_stmt 0 discriminator 1 view .LVU240
+ 129:NeuralNet.cpp ****         float sum = b1_[i];
+ 797              		.loc 1 129 22 is_stmt 0 discriminator 1 view .LVU240
  798 005c 3030     		adds	r0, r0, #48
  799              	.LBB69:
- 800              		.loc 1 136 19 discriminator 1 view .LVU241
+ 800              		.loc 1 135 19 discriminator 1 view .LVU241
  801 005e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
  802 0062 77FE877A 		vselgt.f32	s15, s15, s14
  803              	.LVL60:
- 804              		.loc 1 136 19 discriminator 1 view .LVU242
+ 804              		.loc 1 135 19 discriminator 1 view .LVU242
  805              	.LBE69:
- 130:NeuralNet.cpp ****         float sum = b1_[i];
- 806              		.loc 1 130 22 discriminator 1 view .LVU243
+ 129:NeuralNet.cpp ****         float sum = b1_[i];
+ 806              		.loc 1 129 22 discriminator 1 view .LVU243
  807 0066 4145     		cmp	r1, r8
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 19
-
-
  808              	.LBB70:
- 809              		.loc 1 136 19 discriminator 1 view .LVU244
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 19
+
+
+ 809              		.loc 1 135 19 discriminator 1 view .LVU244
  810 0068 E4EC017A 		vstmia.32	r4!, {s15}
  811              	.LBE70:
- 130:NeuralNet.cpp ****         float sum = b1_[i];
- 812              		.loc 1 130 5 is_stmt 1 discriminator 2 view .LVU245
- 130:NeuralNet.cpp ****         float sum = b1_[i];
- 813              		.loc 1 130 22 discriminator 1 view .LVU246
+ 129:NeuralNet.cpp ****         float sum = b1_[i];
+ 812              		.loc 1 129 5 is_stmt 1 discriminator 2 view .LVU245
+ 129:NeuralNet.cpp ****         float sum = b1_[i];
+ 813              		.loc 1 129 22 discriminator 1 view .LVU246
  814 006c E2D1     		bne	.L51
  815 006e 009A     		ldr	r2, [sp]
  816 0070 4046     		mov	r0, r8
@@ -1097,355 +1096,353 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  819 0078 02F5207A 		add	r10, r2, #640
  820 007c 02F5247C 		add	ip, r2, #656
  821              	.LVL61:
- 130:NeuralNet.cpp ****         float sum = b1_[i];
- 822              		.loc 1 130 22 is_stmt 0 discriminator 1 view .LVU247
+ 129:NeuralNet.cpp ****         float sum = b1_[i];
+ 822              		.loc 1 129 22 is_stmt 0 discriminator 1 view .LVU247
  823 0080 5146     		mov	r1, r10
  824              	.L53:
- 130:NeuralNet.cpp ****         float sum = b1_[i];
- 825              		.loc 1 130 22 discriminator 1 view .LVU248
+ 129:NeuralNet.cpp ****         float sum = b1_[i];
+ 825              		.loc 1 129 22 discriminator 1 view .LVU248
  826              	.LBE71:
  827              	.LBB72:
  828              	.LBB73:
- 137:NeuralNet.cpp ****     }
- 138:NeuralNet.cpp **** 
- 139:NeuralNet.cpp ****     for(int i = 0; i < outputSize; i++){
- 140:NeuralNet.cpp ****         float sum = b2_[i];
- 829              		.loc 1 140 9 is_stmt 1 view .LVU249
- 830              		.loc 1 140 15 is_stmt 0 view .LVU250
+ 136:NeuralNet.cpp ****     }
+ 137:NeuralNet.cpp **** 
+ 138:NeuralNet.cpp ****     for(int i = 0; i < outputSize; i++){
+ 139:NeuralNet.cpp ****         float sum = b2_[i];
+ 829              		.loc 1 139 9 is_stmt 1 view .LVU249
+ 830              		.loc 1 139 15 is_stmt 0 view .LVU250
  831 0082 F1EC017A 		vldmia.32	r1!, {s15}
- 141:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
- 832              		.loc 1 141 9 is_stmt 1 view .LVU251
+ 140:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
+ 832              		.loc 1 140 9 is_stmt 1 view .LVU251
  833              	.LVL62:
  834              	.LBB74:
- 835              		.loc 1 141 26 discriminator 1 view .LVU252
+ 835              		.loc 1 140 26 discriminator 1 view .LVU252
  836              	.LBE74:
- 140:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
- 837              		.loc 1 140 15 is_stmt 0 view .LVU253
+ 139:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
+ 837              		.loc 1 139 15 is_stmt 0 view .LVU253
  838 0086 12AA     		add	r2, sp, #72
  839 0088 8346     		mov	fp, r0
  840              	.LVL63:
  841              	.L52:
  842              	.LBB75:
- 142:NeuralNet.cpp ****             sum += W2_[i][j] * hidden[j];
- 843              		.loc 1 142 13 is_stmt 1 view .LVU254
- 844              		.loc 1 142 40 is_stmt 0 view .LVU255
+ 141:NeuralNet.cpp ****             sum += W2_[i][j] * hidden[j];
+ 843              		.loc 1 141 13 is_stmt 1 view .LVU254
+ 844              		.loc 1 141 40 is_stmt 0 view .LVU255
  845 008a B2EC017A 		vldmia.32	r2!, {s14}
- 846              		.loc 1 142 28 view .LVU256
+ 846              		.loc 1 141 28 view .LVU256
  847 008e FBEC016A 		vldmia.32	fp!, {s13}
- 141:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
- 848              		.loc 1 141 26 discriminator 1 view .LVU257
+ 140:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
+ 848              		.loc 1 140 26 discriminator 1 view .LVU257
  849 0092 A242     		cmp	r2, r4
- 850              		.loc 1 142 17 view .LVU258
+ 850              		.loc 1 141 17 view .LVU258
  851 0094 E6EE877A 		vfma.f32	s15, s13, s14
  852              	.LVL64:
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 20
+ 140:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 20
 
 
- 141:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
- 853              		.loc 1 141 9 is_stmt 1 discriminator 3 view .LVU259
- 141:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
- 854              		.loc 1 141 26 discriminator 1 view .LVU260
+ 853              		.loc 1 140 9 is_stmt 1 discriminator 3 view .LVU259
+ 140:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
+ 854              		.loc 1 140 26 discriminator 1 view .LVU260
  855 0098 F7D1     		bne	.L52
  856              	.LBE75:
- 143:NeuralNet.cpp ****         }
- 144:NeuralNet.cpp ****         output[i] = sum;
- 857              		.loc 1 144 9 view .LVU261
+ 142:NeuralNet.cpp ****         }
+ 143:NeuralNet.cpp ****         output[i] = sum;
+ 857              		.loc 1 143 9 view .LVU261
  858              	.LBE73:
- 139:NeuralNet.cpp ****         float sum = b2_[i];
- 859              		.loc 1 139 22 is_stmt 0 discriminator 1 view .LVU262
+ 138:NeuralNet.cpp ****         float sum = b2_[i];
+ 859              		.loc 1 138 22 is_stmt 0 discriminator 1 view .LVU262
  860 009a 6145     		cmp	r1, ip
  861 009c 00F12000 		add	r0, r0, #32
  862              	.LBB76:
- 863              		.loc 1 144 19 view .LVU263
+ 863              		.loc 1 143 19 view .LVU263
  864 00a0 EEEC017A 		vstmia.32	lr!, {s15}
  865              	.LBE76:
- 139:NeuralNet.cpp ****         float sum = b2_[i];
- 866              		.loc 1 139 5 is_stmt 1 discriminator 2 view .LVU264
- 139:NeuralNet.cpp ****         float sum = b2_[i];
- 867              		.loc 1 139 22 discriminator 1 view .LVU265
+ 138:NeuralNet.cpp ****         float sum = b2_[i];
+ 866              		.loc 1 138 5 is_stmt 1 discriminator 2 view .LVU264
+ 138:NeuralNet.cpp ****         float sum = b2_[i];
+ 867              		.loc 1 138 22 discriminator 1 view .LVU265
  868 00a4 EDD1     		bne	.L53
  869              	.LBE72:
- 145:NeuralNet.cpp ****     }
- 146:NeuralNet.cpp **** 
- 147:NeuralNet.cpp ****     // Softmax
- 148:NeuralNet.cpp ****     float maxLogit = output[0];
- 870              		.loc 1 148 5 view .LVU266
- 871              		.loc 1 148 11 is_stmt 0 view .LVU267
+ 144:NeuralNet.cpp ****     }
+ 145:NeuralNet.cpp **** 
+ 146:NeuralNet.cpp ****     float maxLogit = output[0];
+ 870              		.loc 1 146 5 view .LVU266
+ 871              		.loc 1 146 11 is_stmt 0 view .LVU267
  872 00a6 DDED066A 		vldr.32	s13, [sp, #24]
- 149:NeuralNet.cpp ****     for(int i = 1; i < outputSize; i++){
- 873              		.loc 1 149 5 is_stmt 1 view .LVU268
+ 147:NeuralNet.cpp ****     for(int i = 1; i < outputSize; i++){
+ 873              		.loc 1 147 5 is_stmt 1 view .LVU268
  874              	.LVL65:
  875              	.LBB77:
- 876              		.loc 1 149 22 discriminator 1 view .LVU269
- 150:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 877              		.loc 1 150 9 view .LVU270
+ 876              		.loc 1 147 22 discriminator 1 view .LVU269
+ 148:NeuralNet.cpp ****         if(output[i] > maxLogit){
+ 877              		.loc 1 148 9 view .LVU270
  878 00aa 0AA9     		add	r1, sp, #40
- 879              		.loc 1 150 20 is_stmt 0 view .LVU271
+ 879              		.loc 1 148 20 is_stmt 0 view .LVU271
  880 00ac 9DED077A 		vldr.32	s14, [sp, #28]
  881 00b0 E346     		mov	fp, ip
  882 00b2 DDED087A 		vldr.32	s15, [sp, #32]
  883              	.LVL66:
- 884              		.loc 1 150 20 view .LVU272
+ 884              		.loc 1 148 20 view .LVU272
  885 00b6 B4EEE67A 		vcmpe.f32	s14, s13
  886 00ba 9DED099A 		vldr.32	s18, [sp, #36]
  887 00be 0594     		str	r4, [sp, #20]
  888 00c0 06AC     		add	r4, sp, #24
  889              	.LBE77:
- 151:NeuralNet.cpp ****             maxLogit = output[i];
- 152:NeuralNet.cpp ****         }
- 153:NeuralNet.cpp ****     }
- 154:NeuralNet.cpp **** 
- 155:NeuralNet.cpp ****     float probs[outputSize];
- 156:NeuralNet.cpp ****     float sumExp = 0.0f;
- 890              		.loc 1 156 11 view .LVU273
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 21
-
-
+ 149:NeuralNet.cpp ****             maxLogit = output[i];
+ 150:NeuralNet.cpp ****         }
+ 151:NeuralNet.cpp ****     }
+ 152:NeuralNet.cpp **** 
+ 153:NeuralNet.cpp ****     float probs[outputSize];
+ 154:NeuralNet.cpp ****     float sumExp = 0.0f;
+ 890              		.loc 1 154 11 view .LVU273
  891 00c2 DFED508A 		vldr.32	s17, .L78
  892 00c6 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 21
+
+
  893              	.LBB78:
- 150:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 894              		.loc 1 150 20 view .LVU274
+ 148:NeuralNet.cpp ****         if(output[i] > maxLogit){
+ 894              		.loc 1 148 20 view .LVU274
  895 00ca 0491     		str	r1, [sp, #16]
  896 00cc CDE90275 		strd	r7, r5, [sp, #8]
  897 00d0 37FE267A 		vselgt.f32	s14, s14, s13
- 149:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 898              		.loc 1 149 5 is_stmt 1 discriminator 2 view .LVU275
+ 147:NeuralNet.cpp ****         if(output[i] > maxLogit){
+ 898              		.loc 1 147 5 is_stmt 1 discriminator 2 view .LVU275
  899              	.LVL67:
- 149:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 900              		.loc 1 149 22 discriminator 1 view .LVU276
- 150:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 901              		.loc 1 150 9 view .LVU277
+ 147:NeuralNet.cpp ****         if(output[i] > maxLogit){
+ 900              		.loc 1 147 22 discriminator 1 view .LVU276
+ 148:NeuralNet.cpp ****         if(output[i] > maxLogit){
+ 901              		.loc 1 148 9 view .LVU277
  902 00d4 F4EEC77A 		vcmpe.f32	s15, s14
- 150:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 903              		.loc 1 150 20 is_stmt 0 view .LVU278
+ 148:NeuralNet.cpp ****         if(output[i] > maxLogit){
+ 903              		.loc 1 148 20 is_stmt 0 view .LVU278
  904 00d8 0D46     		mov	r5, r1
  905 00da 0AAF     		add	r7, sp, #40
  906 00dc F1EE10FA 		vmrs	APSR_nzcv, FPSCR
  907 00e0 77FE877A 		vselgt.f32	s15, s15, s14
- 149:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 908              		.loc 1 149 5 is_stmt 1 discriminator 2 view .LVU279
+ 147:NeuralNet.cpp ****         if(output[i] > maxLogit){
+ 908              		.loc 1 147 5 is_stmt 1 discriminator 2 view .LVU279
  909              	.LVL68:
- 149:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 910              		.loc 1 149 22 discriminator 1 view .LVU280
- 150:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 911              		.loc 1 150 9 view .LVU281
+ 147:NeuralNet.cpp ****         if(output[i] > maxLogit){
+ 910              		.loc 1 147 22 discriminator 1 view .LVU280
+ 148:NeuralNet.cpp ****         if(output[i] > maxLogit){
+ 911              		.loc 1 148 9 view .LVU281
  912 00e4 B4EEE79A 		vcmpe.f32	s18, s15
  913 00e8 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
  914 00ec 39FE279A 		vselgt.f32	s18, s18, s15
- 149:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 915              		.loc 1 149 5 discriminator 2 view .LVU282
+ 147:NeuralNet.cpp ****         if(output[i] > maxLogit){
+ 915              		.loc 1 147 5 discriminator 2 view .LVU282
  916              	.LVL69:
- 149:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 917              		.loc 1 149 22 discriminator 1 view .LVU283
- 149:NeuralNet.cpp ****         if(output[i] > maxLogit){
- 918              		.loc 1 149 22 is_stmt 0 discriminator 1 view .LVU284
+ 147:NeuralNet.cpp ****         if(output[i] > maxLogit){
+ 917              		.loc 1 147 22 discriminator 1 view .LVU283
+ 147:NeuralNet.cpp ****         if(output[i] > maxLogit){
+ 918              		.loc 1 147 22 is_stmt 0 discriminator 1 view .LVU284
  919              	.LBE78:
  920              	.LBB79:
- 157:NeuralNet.cpp **** 
- 158:NeuralNet.cpp ****     for(int i = 0; i < outputSize; i++){
- 921              		.loc 1 158 22 is_stmt 1 discriminator 1 view .LVU285
+ 155:NeuralNet.cpp **** 
+ 156:NeuralNet.cpp ****     for(int i = 0; i < outputSize; i++){
+ 921              		.loc 1 156 22 is_stmt 1 discriminator 1 view .LVU285
  922              	.L54:
- 159:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
- 923              		.loc 1 159 9 view .LVU286
- 924              		.loc 1 159 33 is_stmt 0 view .LVU287
+ 157:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
+ 923              		.loc 1 157 9 view .LVU286
+ 924              		.loc 1 157 33 is_stmt 0 view .LVU287
  925 00f0 B4EC010A 		vldmia.32	r4!, {s0}
- 926              		.loc 1 159 24 view .LVU288
+ 926              		.loc 1 157 24 view .LVU288
  927 00f4 30EE490A 		vsub.f32	s0, s0, s18
  928 00f8 FFF7FEFF 		bl	expf
  929              	.LVL70:
- 158:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
- 930              		.loc 1 158 22 discriminator 1 view .LVU289
+ 156:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
+ 930              		.loc 1 156 22 discriminator 1 view .LVU289
  931 00fc BC42     		cmp	r4, r7
- 160:NeuralNet.cpp ****         sumExp += probs[i];
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 22
-
-
- 932              		.loc 1 160 16 view .LVU290
+ 158:NeuralNet.cpp ****         sumExp += probs[i];
+ 932              		.loc 1 158 16 view .LVU290
  933 00fe 78EE808A 		vadd.f32	s17, s17, s0
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 22
+
+
  934              	.LVL71:
- 159:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
- 935              		.loc 1 159 18 discriminator 1 view .LVU291
+ 157:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
+ 935              		.loc 1 157 18 discriminator 1 view .LVU291
  936 0102 A5EC010A 		vstmia.32	r5!, {s0}
- 937              		.loc 1 160 9 is_stmt 1 view .LVU292
- 158:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
- 938              		.loc 1 158 5 discriminator 3 view .LVU293
+ 937              		.loc 1 158 9 is_stmt 1 view .LVU292
+ 156:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
+ 938              		.loc 1 156 5 discriminator 3 view .LVU293
  939              	.LVL72:
- 158:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
- 940              		.loc 1 158 22 discriminator 1 view .LVU294
+ 156:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
+ 940              		.loc 1 156 22 discriminator 1 view .LVU294
  941 0106 F3D1     		bne	.L54
  942 0108 0499     		ldr	r1, [sp, #16]
  943 010a DC46     		mov	ip, fp
  944 010c 059C     		ldr	r4, [sp, #20]
  945              	.LVL73:
- 158:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
- 946              		.loc 1 158 22 is_stmt 0 discriminator 1 view .LVU295
+ 156:NeuralNet.cpp ****         probs[i] = expf(output[i] - maxLogit);
+ 946              		.loc 1 156 22 is_stmt 0 discriminator 1 view .LVU295
  947              	.LBE79:
  948              	.LBB80:
- 161:NeuralNet.cpp ****     }
- 162:NeuralNet.cpp **** 
- 163:NeuralNet.cpp ****     for(int i = 0; i < outputSize; i++){
- 949              		.loc 1 163 22 is_stmt 1 discriminator 1 view .LVU296
+ 159:NeuralNet.cpp ****     }
+ 160:NeuralNet.cpp **** 
+ 161:NeuralNet.cpp ****     for(int i = 0; i < outputSize; i++){
+ 949              		.loc 1 161 22 is_stmt 1 discriminator 1 view .LVU296
  950 010e 01F11003 		add	r3, r1, #16
  951 0112 DDE90275 		ldrd	r7, r5, [sp, #8]
  952              	.LVL74:
  953              	.L55:
- 164:NeuralNet.cpp ****         probs[i] /= sumExp;
- 954              		.loc 1 164 9 view .LVU297
- 955              		.loc 1 164 16 is_stmt 0 view .LVU298
+ 162:NeuralNet.cpp ****         probs[i] /= sumExp;
+ 954              		.loc 1 162 9 view .LVU297
+ 955              		.loc 1 162 16 is_stmt 0 view .LVU298
  956 0116 91ED007A 		vldr.32	s14, [r1]
- 957              		.loc 1 164 18 view .LVU299
+ 957              		.loc 1 162 18 view .LVU299
  958 011a C7EE287A 		vdiv.f32	s15, s14, s17
  959 011e E1EC017A 		vstmia.32	r1!, {s15}
- 163:NeuralNet.cpp ****         probs[i] /= sumExp;
- 960              		.loc 1 163 5 is_stmt 1 discriminator 3 view .LVU300
- 163:NeuralNet.cpp ****         probs[i] /= sumExp;
- 961              		.loc 1 163 22 discriminator 1 view .LVU301
+ 161:NeuralNet.cpp ****         probs[i] /= sumExp;
+ 960              		.loc 1 161 5 is_stmt 1 discriminator 3 view .LVU300
+ 161:NeuralNet.cpp ****         probs[i] /= sumExp;
+ 961              		.loc 1 161 22 discriminator 1 view .LVU301
  962 0122 9942     		cmp	r1, r3
  963 0124 F7D1     		bne	.L55
  964              	.LVL75:
- 163:NeuralNet.cpp ****         probs[i] /= sumExp;
- 965              		.loc 1 163 22 is_stmt 0 discriminator 1 view .LVU302
+ 161:NeuralNet.cpp ****         probs[i] /= sumExp;
+ 965              		.loc 1 161 22 is_stmt 0 discriminator 1 view .LVU302
  966              	.LBE80:
  967              	.LBB81:
- 165:NeuralNet.cpp ****     }
- 166:NeuralNet.cpp **** 
- 167:NeuralNet.cpp ****     // Cross-entropy gradient
- 168:NeuralNet.cpp ****     float dOut[outputSize];
- 169:NeuralNet.cpp ****     for(int i = 0; i < outputSize; i++){
- 968              		.loc 1 169 22 is_stmt 1 discriminator 1 view .LVU303
- 170:NeuralNet.cpp ****         dOut[i] = probs[i];
- 969              		.loc 1 170 9 view .LVU304
+ 163:NeuralNet.cpp ****     }
+ 164:NeuralNet.cpp **** 
+ 165:NeuralNet.cpp ****     float dOut[outputSize];
+ 166:NeuralNet.cpp ****     for(int i = 0; i < outputSize; i++){
+ 968              		.loc 1 166 22 is_stmt 1 discriminator 1 view .LVU303
+ 167:NeuralNet.cpp ****         dOut[i] = probs[i];
+ 969              		.loc 1 167 9 view .LVU304
  970              	.LBE81:
- 171:NeuralNet.cpp ****     }
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 23
-
-
- 172:NeuralNet.cpp ****     dOut[targetClass] -= 1.0f;
- 971              		.loc 1 172 23 is_stmt 0 view .LVU305
+ 168:NeuralNet.cpp ****     }
+ 169:NeuralNet.cpp ****     dOut[targetClass] -= 1.0f;
+ 971              		.loc 1 169 23 is_stmt 0 view .LVU305
  972 0126 36AA     		add	r2, sp, #216
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 23
+
+
  973 0128 019B     		ldr	r3, [sp, #4]
  974 012a B7EE007A 		vmov.f32	s14, #1.0e+0
  975 012e 4146     		mov	r1, r8
  976 0130 02EB8303 		add	r3, r2, r3, lsl #2
  977              	.LBB82:
- 170:NeuralNet.cpp ****         dOut[i] = probs[i];
- 978              		.loc 1 170 17 view .LVU306
+ 167:NeuralNet.cpp ****         dOut[i] = probs[i];
+ 978              		.loc 1 167 17 view .LVU306
  979 0134 0A9A     		ldr	r2, [sp, #40]	@ float
  980              	.LBE82:
- 981              		.loc 1 172 23 view .LVU307
+ 981              		.loc 1 169 23 view .LVU307
  982 0136 0EA8     		add	r0, sp, #56
  983              	.LBB83:
- 170:NeuralNet.cpp ****         dOut[i] = probs[i];
- 984              		.loc 1 170 17 view .LVU308
+ 167:NeuralNet.cpp ****         dOut[i] = probs[i];
+ 984              		.loc 1 167 17 view .LVU308
  985 0138 0E92     		str	r2, [sp, #56]	@ float
- 169:NeuralNet.cpp ****         dOut[i] = probs[i];
- 986              		.loc 1 169 5 is_stmt 1 discriminator 3 view .LVU309
+ 166:NeuralNet.cpp ****         dOut[i] = probs[i];
+ 986              		.loc 1 166 5 is_stmt 1 discriminator 3 view .LVU309
  987              	.LVL76:
- 169:NeuralNet.cpp ****         dOut[i] = probs[i];
- 988              		.loc 1 169 22 discriminator 1 view .LVU310
- 170:NeuralNet.cpp ****         dOut[i] = probs[i];
- 989              		.loc 1 170 9 view .LVU311
- 170:NeuralNet.cpp ****         dOut[i] = probs[i];
- 990              		.loc 1 170 17 is_stmt 0 view .LVU312
+ 166:NeuralNet.cpp ****         dOut[i] = probs[i];
+ 988              		.loc 1 166 22 discriminator 1 view .LVU310
+ 167:NeuralNet.cpp ****         dOut[i] = probs[i];
+ 989              		.loc 1 167 9 view .LVU311
+ 167:NeuralNet.cpp ****         dOut[i] = probs[i];
+ 990              		.loc 1 167 17 is_stmt 0 view .LVU312
  991 013a 0B9A     		ldr	r2, [sp, #44]	@ float
  992 013c 0F92     		str	r2, [sp, #60]	@ float
- 169:NeuralNet.cpp ****         dOut[i] = probs[i];
- 993              		.loc 1 169 5 is_stmt 1 discriminator 3 view .LVU313
+ 166:NeuralNet.cpp ****         dOut[i] = probs[i];
+ 993              		.loc 1 166 5 is_stmt 1 discriminator 3 view .LVU313
  994              	.LVL77:
- 169:NeuralNet.cpp ****         dOut[i] = probs[i];
- 995              		.loc 1 169 22 discriminator 1 view .LVU314
- 170:NeuralNet.cpp ****         dOut[i] = probs[i];
- 996              		.loc 1 170 9 view .LVU315
- 170:NeuralNet.cpp ****         dOut[i] = probs[i];
- 997              		.loc 1 170 17 is_stmt 0 view .LVU316
+ 166:NeuralNet.cpp ****         dOut[i] = probs[i];
+ 995              		.loc 1 166 22 discriminator 1 view .LVU314
+ 167:NeuralNet.cpp ****         dOut[i] = probs[i];
+ 996              		.loc 1 167 9 view .LVU315
+ 167:NeuralNet.cpp ****         dOut[i] = probs[i];
+ 997              		.loc 1 167 17 is_stmt 0 view .LVU316
  998 013e 0C9A     		ldr	r2, [sp, #48]	@ float
  999 0140 1092     		str	r2, [sp, #64]	@ float
- 169:NeuralNet.cpp ****         dOut[i] = probs[i];
- 1000              		.loc 1 169 5 is_stmt 1 discriminator 3 view .LVU317
+ 166:NeuralNet.cpp ****         dOut[i] = probs[i];
+ 1000              		.loc 1 166 5 is_stmt 1 discriminator 3 view .LVU317
  1001              	.LVL78:
- 169:NeuralNet.cpp ****         dOut[i] = probs[i];
- 1002              		.loc 1 169 22 discriminator 1 view .LVU318
- 170:NeuralNet.cpp ****         dOut[i] = probs[i];
- 1003              		.loc 1 170 9 view .LVU319
- 170:NeuralNet.cpp ****         dOut[i] = probs[i];
- 1004              		.loc 1 170 17 is_stmt 0 view .LVU320
+ 166:NeuralNet.cpp ****         dOut[i] = probs[i];
+ 1002              		.loc 1 166 22 discriminator 1 view .LVU318
+ 167:NeuralNet.cpp ****         dOut[i] = probs[i];
+ 1003              		.loc 1 167 9 view .LVU319
+ 167:NeuralNet.cpp ****         dOut[i] = probs[i];
+ 1004              		.loc 1 167 17 is_stmt 0 view .LVU320
  1005 0142 0D9A     		ldr	r2, [sp, #52]	@ float
  1006 0144 1192     		str	r2, [sp, #68]	@ float
- 169:NeuralNet.cpp ****         dOut[i] = probs[i];
- 1007              		.loc 1 169 5 is_stmt 1 discriminator 3 view .LVU321
+ 166:NeuralNet.cpp ****         dOut[i] = probs[i];
+ 1007              		.loc 1 166 5 is_stmt 1 discriminator 3 view .LVU321
  1008              	.LVL79:
- 169:NeuralNet.cpp ****         dOut[i] = probs[i];
- 1009              		.loc 1 169 22 discriminator 1 view .LVU322
+ 166:NeuralNet.cpp ****         dOut[i] = probs[i];
+ 1009              		.loc 1 166 22 discriminator 1 view .LVU322
  1010              	.LBE83:
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 24
-
-
- 1011              		.loc 1 172 5 view .LVU323
- 1012              		.loc 1 172 23 is_stmt 0 view .LVU324
+ 1011              		.loc 1 169 5 view .LVU323
+ 1012              		.loc 1 169 23 is_stmt 0 view .LVU324
  1013 0146 53ED287A 		vldr.32	s15, [r3, #-160]
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 24
+
+
  1014 014a 77EEC77A 		vsub.f32	s15, s15, s14
  1015 014e 43ED287A 		vstr.32	s15, [r3, #-160]
- 173:NeuralNet.cpp **** 
- 174:NeuralNet.cpp ****     // Update W2
- 175:NeuralNet.cpp ****     for(int i = 0; i < outputSize; i++){
- 1016              		.loc 1 175 5 is_stmt 1 view .LVU325
+ 170:NeuralNet.cpp **** 
+ 171:NeuralNet.cpp ****     // Update W2
+ 172:NeuralNet.cpp ****     for(int i = 0; i < outputSize; i++){
+ 1016              		.loc 1 172 5 is_stmt 1 view .LVU325
  1017              	.LVL80:
  1018              	.LBB84:
- 1019              		.loc 1 175 22 discriminator 1 view .LVU326
+ 1019              		.loc 1 172 22 discriminator 1 view .LVU326
  1020              	.L56:
  1021              	.LBB85:
  1022              	.LBB86:
- 176:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
- 1023              		.loc 1 176 26 discriminator 1 view .LVU327
- 177:NeuralNet.cpp ****             W2_[i][j] -= eta * dOut[i] * hidden[j];
- 1024              		.loc 1 177 38 is_stmt 0 view .LVU328
+ 173:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
+ 1023              		.loc 1 173 26 discriminator 1 view .LVU327
+ 174:NeuralNet.cpp ****             W2_[i][j] -= eta * dOut[i] * hidden[j];
+ 1024              		.loc 1 174 38 is_stmt 0 view .LVU328
  1025 0152 F0EC016A 		vldmia.32	r0!, {s13}
- 1026              		.loc 1 177 30 view .LVU329
+ 1026              		.loc 1 174 30 view .LVU329
  1027 0156 12AA     		add	r2, sp, #72
  1028 0158 0B46     		mov	r3, r1
  1029 015a 66EE886A 		vmul.f32	s13, s13, s16
  1030              	.LVL81:
  1031              	.L57:
- 1032              		.loc 1 177 13 is_stmt 1 view .LVU330
- 1033              		.loc 1 177 21 is_stmt 0 view .LVU331
+ 1032              		.loc 1 174 13 is_stmt 1 view .LVU330
+ 1033              		.loc 1 174 21 is_stmt 0 view .LVU331
  1034 015e D3ED007A 		vldr.32	s15, [r3]
- 1035              		.loc 1 177 50 view .LVU332
+ 1035              		.loc 1 174 50 view .LVU332
  1036 0162 B2EC017A 		vldmia.32	r2!, {s14}
- 1037              		.loc 1 177 23 view .LVU333
+ 1037              		.loc 1 174 23 view .LVU333
  1038 0166 E6EEC77A 		vfms.f32	s15, s13, s14
- 176:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
- 1039              		.loc 1 176 26 discriminator 1 view .LVU334
+ 173:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
+ 1039              		.loc 1 173 26 discriminator 1 view .LVU334
  1040 016a A242     		cmp	r2, r4
- 1041              		.loc 1 177 23 view .LVU335
+ 1041              		.loc 1 174 23 view .LVU335
  1042 016c E3EC017A 		vstmia.32	r3!, {s15}
- 176:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
- 1043              		.loc 1 176 9 is_stmt 1 discriminator 3 view .LVU336
- 176:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
- 1044              		.loc 1 176 26 discriminator 1 view .LVU337
+ 173:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
+ 1043              		.loc 1 173 9 is_stmt 1 discriminator 3 view .LVU336
+ 173:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
+ 1044              		.loc 1 173 26 discriminator 1 view .LVU337
  1045 0170 F5D1     		bne	.L57
  1046              	.LBE86:
- 178:NeuralNet.cpp ****         }
- 179:NeuralNet.cpp ****         b2_[i] -= eta * dOut[i];
- 1047              		.loc 1 179 9 view .LVU338
- 1048              		.loc 1 179 14 is_stmt 0 view .LVU339
+ 175:NeuralNet.cpp ****         }
+ 176:NeuralNet.cpp ****         b2_[i] -= eta * dOut[i];
+ 1047              		.loc 1 176 9 view .LVU338
+ 1048              		.loc 1 176 14 is_stmt 0 view .LVU339
  1049 0172 DAED007A 		vldr.32	s15, [r10]
  1050              	.LBE85:
- 175:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
- 1051              		.loc 1 175 22 discriminator 1 view .LVU340
+ 172:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
+ 1051              		.loc 1 172 22 discriminator 1 view .LVU340
  1052 0176 2031     		adds	r1, r1, #32
  1053              	.LBB87:
- 1054              		.loc 1 179 16 view .LVU341
+ 1054              		.loc 1 176 16 view .LVU341
  1055 0178 77EEE67A 		vsub.f32	s15, s15, s13
  1056 017c EAEC017A 		vstmia.32	r10!, {s15}
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 25
-
-
  1057              	.LBE87:
- 175:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
- 1058              		.loc 1 175 5 is_stmt 1 discriminator 2 view .LVU342
- 175:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
- 1059              		.loc 1 175 22 discriminator 1 view .LVU343
+ 172:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
+ 1058              		.loc 1 172 5 is_stmt 1 discriminator 2 view .LVU342
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 25
+
+
+ 172:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
+ 1059              		.loc 1 172 22 discriminator 1 view .LVU343
  1060 0180 E245     		cmp	r10, ip
  1061 0182 E6D1     		bne	.L56
  1062 0184 009B     		ldr	r3, [sp]
@@ -1455,179 +1452,177 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  1066 018e 0446     		mov	r4, r0
  1067              	.LVL82:
  1068              	.L62:
- 175:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
- 1069              		.loc 1 175 22 is_stmt 0 discriminator 1 view .LVU344
+ 172:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
+ 1069              		.loc 1 172 22 is_stmt 0 discriminator 1 view .LVU344
  1070              	.LBE84:
  1071              	.LBB88:
  1072              	.LBB89:
  1073              	.LBB90:
- 180:NeuralNet.cpp ****     }
- 181:NeuralNet.cpp **** 
- 182:NeuralNet.cpp ****     // Backprop to hidden
- 183:NeuralNet.cpp ****     float dHidden[hiddenSize];
- 184:NeuralNet.cpp **** 
- 185:NeuralNet.cpp ****     for(int j = 0; j < hiddenSize; j++){
- 186:NeuralNet.cpp ****         float grad = 0.0f;
- 187:NeuralNet.cpp ****         for(int i = 0; i < outputSize; i++){
- 1074              		.loc 1 187 26 is_stmt 1 discriminator 1 view .LVU345
+ 177:NeuralNet.cpp ****     }
+ 178:NeuralNet.cpp **** 
+ 179:NeuralNet.cpp ****     float dHidden[hiddenSize];
+ 180:NeuralNet.cpp **** 
+ 181:NeuralNet.cpp ****     for(int j = 0; j < hiddenSize; j++){
+ 182:NeuralNet.cpp ****         float grad = 0.0f;
+ 183:NeuralNet.cpp ****         for(int i = 0; i < outputSize; i++){
+ 1074              		.loc 1 183 26 is_stmt 1 discriminator 1 view .LVU345
  1075              	.LBE90:
  1076              	.LBE89:
  1077              	.LBE88:
- 172:NeuralNet.cpp **** 
- 1078              		.loc 1 172 23 is_stmt 0 view .LVU346
+ 169:NeuralNet.cpp **** 
+ 1078              		.loc 1 169 23 is_stmt 0 view .LVU346
  1079 0190 3246     		mov	r2, r6
  1080 0192 0EAB     		add	r3, sp, #56
  1081              	.LBB94:
  1082              	.LBB92:
- 186:NeuralNet.cpp ****         for(int i = 0; i < outputSize; i++){
- 1083              		.loc 1 186 15 view .LVU347
+ 182:NeuralNet.cpp ****         for(int i = 0; i < outputSize; i++){
+ 1083              		.loc 1 182 15 view .LVU347
  1084 0194 DFED1B7A 		vldr.32	s15, .L78
  1085              	.LVL83:
  1086              	.L59:
  1087              	.LBB91:
- 188:NeuralNet.cpp ****             grad += dOut[i] * W2_[i][j];
- 1088              		.loc 1 188 13 is_stmt 1 view .LVU348
- 1089              		.loc 1 188 27 is_stmt 0 view .LVU349
+ 184:NeuralNet.cpp ****             grad += dOut[i] * W2_[i][j];
+ 1088              		.loc 1 184 13 is_stmt 1 view .LVU348
+ 1089              		.loc 1 184 27 is_stmt 0 view .LVU349
  1090 0198 F3EC016A 		vldmia.32	r3!, {s13}
- 187:NeuralNet.cpp ****             grad += dOut[i] * W2_[i][j];
- 1091              		.loc 1 187 26 discriminator 1 view .LVU350
+ 183:NeuralNet.cpp ****             grad += dOut[i] * W2_[i][j];
+ 1091              		.loc 1 183 26 discriminator 1 view .LVU350
  1092 019c 2032     		adds	r2, r2, #32
- 1093              		.loc 1 188 18 view .LVU351
+ 1093              		.loc 1 184 18 view .LVU351
  1094 019e 92ED787A 		vldr.32	s14, [r2, #480]
- 187:NeuralNet.cpp ****             grad += dOut[i] * W2_[i][j];
- 1095              		.loc 1 187 26 discriminator 1 view .LVU352
+ 183:NeuralNet.cpp ****             grad += dOut[i] * W2_[i][j];
+ 1095              		.loc 1 183 26 discriminator 1 view .LVU352
  1096 01a2 8B42     		cmp	r3, r1
- 1097              		.loc 1 188 18 view .LVU353
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 26
-
-
+ 1097              		.loc 1 184 18 view .LVU353
  1098 01a4 E6EE877A 		vfma.f32	s15, s13, s14
  1099              	.LVL84:
- 187:NeuralNet.cpp ****             grad += dOut[i] * W2_[i][j];
- 1100              		.loc 1 187 9 is_stmt 1 discriminator 3 view .LVU354
- 187:NeuralNet.cpp ****             grad += dOut[i] * W2_[i][j];
- 1101              		.loc 1 187 26 discriminator 1 view .LVU355
+ 183:NeuralNet.cpp ****             grad += dOut[i] * W2_[i][j];
+ 1100              		.loc 1 183 9 is_stmt 1 discriminator 3 view .LVU354
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 26
+
+
+ 183:NeuralNet.cpp ****             grad += dOut[i] * W2_[i][j];
+ 1101              		.loc 1 183 26 discriminator 1 view .LVU355
  1102 01a8 F6D1     		bne	.L59
  1103              	.LBE91:
- 189:NeuralNet.cpp ****         }
- 190:NeuralNet.cpp ****         dHidden[j] = (hiddenPre[j] > 0.0f) ? grad : 0.0f;
- 1104              		.loc 1 190 9 view .LVU356
- 1105              		.loc 1 190 34 is_stmt 0 view .LVU357
+ 185:NeuralNet.cpp ****         }
+ 186:NeuralNet.cpp ****         dHidden[j] = (hiddenPre[j] > 0.0f) ? grad : 0.0f;
+ 1104              		.loc 1 186 9 view .LVU356
+ 1105              		.loc 1 186 34 is_stmt 0 view .LVU357
  1106 01aa B9EC017A 		vldmia.32	r9!, {s14}
- 1107              		.loc 1 190 44 view .LVU358
+ 1107              		.loc 1 186 44 view .LVU358
  1108 01ae B5EEC07A 		vcmpe.f32	s14, #0
  1109 01b2 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
  1110 01b6 01DC     		bgt	.L60
- 1111              		.loc 1 190 44 discriminator 2 view .LVU359
+ 1111              		.loc 1 186 44 discriminator 2 view .LVU359
  1112 01b8 DFED127A 		vldr.32	s15, .L78
  1113              	.LVL85:
  1114              	.L60:
- 1115              		.loc 1 190 44 discriminator 2 view .LVU360
+ 1115              		.loc 1 186 44 discriminator 2 view .LVU360
  1116              	.LBE92:
- 185:NeuralNet.cpp ****         float grad = 0.0f;
- 1117              		.loc 1 185 22 discriminator 1 view .LVU361
+ 181:NeuralNet.cpp ****         float grad = 0.0f;
+ 1117              		.loc 1 181 22 discriminator 1 view .LVU361
  1118 01bc 0436     		adds	r6, r6, #4
  1119              	.LBB93:
- 1120              		.loc 1 190 20 discriminator 4 view .LVU362
+ 1120              		.loc 1 186 20 discriminator 4 view .LVU362
  1121 01be E4EC017A 		vstmia.32	r4!, {s15}
  1122              	.LBE93:
- 185:NeuralNet.cpp ****         float grad = 0.0f;
- 1123              		.loc 1 185 5 is_stmt 1 discriminator 2 view .LVU363
- 185:NeuralNet.cpp ****         float grad = 0.0f;
- 1124              		.loc 1 185 22 discriminator 1 view .LVU364
+ 181:NeuralNet.cpp ****         float grad = 0.0f;
+ 1123              		.loc 1 181 5 is_stmt 1 discriminator 2 view .LVU363
+ 181:NeuralNet.cpp ****         float grad = 0.0f;
+ 1124              		.loc 1 181 22 discriminator 1 view .LVU364
  1125 01c2 6645     		cmp	r6, ip
  1126 01c4 E4D1     		bne	.L62
  1127              	.L63:
  1128              	.LVL86:
- 185:NeuralNet.cpp ****         float grad = 0.0f;
- 1129              		.loc 1 185 22 is_stmt 0 discriminator 1 view .LVU365
+ 181:NeuralNet.cpp ****         float grad = 0.0f;
+ 1129              		.loc 1 181 22 is_stmt 0 discriminator 1 view .LVU365
  1130              	.LBE94:
  1131              	.LBB95:
  1132              	.LBB96:
  1133              	.LBB97:
- 191:NeuralNet.cpp ****     }
- 192:NeuralNet.cpp **** 
- 193:NeuralNet.cpp ****     // Update W1
- 194:NeuralNet.cpp ****     for(int i = 0; i < hiddenSize; i++){
- 195:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
- 1134              		.loc 1 195 26 is_stmt 1 discriminator 1 view .LVU366
- 196:NeuralNet.cpp ****             W1_[i][j] -= eta * dHidden[i] * input[j];
- 1135              		.loc 1 196 41 is_stmt 0 view .LVU367
+ 187:NeuralNet.cpp ****     }
+ 188:NeuralNet.cpp **** 
+ 189:NeuralNet.cpp ****     for(int i = 0; i < hiddenSize; i++){
+ 190:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
+ 1134              		.loc 1 190 26 is_stmt 1 discriminator 1 view .LVU366
+ 191:NeuralNet.cpp ****             W1_[i][j] -= eta * dHidden[i] * input[j];
+ 1135              		.loc 1 191 41 is_stmt 0 view .LVU367
  1136 01c6 F0EC016A 		vldmia.32	r0!, {s13}
- 1137              		.loc 1 196 30 view .LVU368
+ 1137              		.loc 1 191 30 view .LVU368
  1138 01ca 2AAA     		add	r2, sp, #168
  1139 01cc 3B46     		mov	r3, r7
  1140 01ce 66EE886A 		vmul.f32	s13, s13, s16
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 27
-
-
  1141              	.LVL87:
  1142              	.L64:
- 1143              		.loc 1 196 13 is_stmt 1 view .LVU369
- 1144              		.loc 1 196 21 is_stmt 0 view .LVU370
+ 1143              		.loc 1 191 13 is_stmt 1 view .LVU369
+ 1144              		.loc 1 191 21 is_stmt 0 view .LVU370
  1145 01d2 D3ED007A 		vldr.32	s15, [r3]
- 195:NeuralNet.cpp ****             W1_[i][j] -= eta * dHidden[i] * input[j];
- 1146              		.loc 1 195 26 discriminator 1 view .LVU371
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 27
+
+
+ 190:NeuralNet.cpp ****             W1_[i][j] -= eta * dHidden[i] * input[j];
+ 1146              		.loc 1 190 26 discriminator 1 view .LVU371
  1147 01d6 36A9     		add	r1, sp, #216
- 1148              		.loc 1 196 52 view .LVU372
+ 1148              		.loc 1 191 52 view .LVU372
  1149 01d8 B2EC017A 		vldmia.32	r2!, {s14}
- 1150              		.loc 1 196 23 view .LVU373
+ 1150              		.loc 1 191 23 view .LVU373
  1151 01dc E6EEC77A 		vfms.f32	s15, s13, s14
- 195:NeuralNet.cpp ****             W1_[i][j] -= eta * dHidden[i] * input[j];
- 1152              		.loc 1 195 26 discriminator 1 view .LVU374
+ 190:NeuralNet.cpp ****             W1_[i][j] -= eta * dHidden[i] * input[j];
+ 1152              		.loc 1 190 26 discriminator 1 view .LVU374
  1153 01e0 8A42     		cmp	r2, r1
- 1154              		.loc 1 196 23 view .LVU375
+ 1154              		.loc 1 191 23 view .LVU375
  1155 01e2 E3EC017A 		vstmia.32	r3!, {s15}
- 195:NeuralNet.cpp ****             W1_[i][j] -= eta * dHidden[i] * input[j];
- 1156              		.loc 1 195 9 is_stmt 1 discriminator 3 view .LVU376
- 195:NeuralNet.cpp ****             W1_[i][j] -= eta * dHidden[i] * input[j];
- 1157              		.loc 1 195 26 discriminator 1 view .LVU377
+ 190:NeuralNet.cpp ****             W1_[i][j] -= eta * dHidden[i] * input[j];
+ 1156              		.loc 1 190 9 is_stmt 1 discriminator 3 view .LVU376
+ 190:NeuralNet.cpp ****             W1_[i][j] -= eta * dHidden[i] * input[j];
+ 1157              		.loc 1 190 26 discriminator 1 view .LVU377
  1158 01e6 F4D1     		bne	.L64
  1159              	.LBE97:
- 197:NeuralNet.cpp ****         }
- 198:NeuralNet.cpp ****         b1_[i] -= eta * dHidden[i];
- 1160              		.loc 1 198 9 view .LVU378
- 1161              		.loc 1 198 14 is_stmt 0 view .LVU379
+ 192:NeuralNet.cpp ****         }
+ 193:NeuralNet.cpp ****         b1_[i] -= eta * dHidden[i];
+ 1160              		.loc 1 193 9 view .LVU378
+ 1161              		.loc 1 193 14 is_stmt 0 view .LVU379
  1162 01e8 D5ED007A 		vldr.32	s15, [r5]
  1163              	.LBE96:
- 194:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
- 1164              		.loc 1 194 22 discriminator 1 view .LVU380
+ 189:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
+ 1164              		.loc 1 189 22 discriminator 1 view .LVU380
  1165 01ec 3037     		adds	r7, r7, #48
  1166              	.LBB98:
- 1167              		.loc 1 198 16 view .LVU381
+ 1167              		.loc 1 193 16 view .LVU381
  1168 01ee 77EEE67A 		vsub.f32	s15, s15, s13
  1169 01f2 E5EC017A 		vstmia.32	r5!, {s15}
  1170              	.LBE98:
- 194:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
- 1171              		.loc 1 194 5 is_stmt 1 discriminator 2 view .LVU382
- 194:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
- 1172              		.loc 1 194 22 discriminator 1 view .LVU383
+ 189:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
+ 1171              		.loc 1 189 5 is_stmt 1 discriminator 2 view .LVU382
+ 189:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
+ 1172              		.loc 1 189 22 discriminator 1 view .LVU383
  1173 01f6 4545     		cmp	r5, r8
  1174 01f8 E5D1     		bne	.L63
  1175              	.LBE95:
- 199:NeuralNet.cpp ****     }
- 200:NeuralNet.cpp **** }
- 1176              		.loc 1 200 1 is_stmt 0 view .LVU384
+ 194:NeuralNet.cpp ****     }
+ 195:NeuralNet.cpp **** }
+ 1176              		.loc 1 195 1 is_stmt 0 view .LVU384
  1177 01fa 37B0     		add	sp, sp, #220
  1178              		.cfi_def_cfa_offset 52
  1179              	.LVL88:
- 1180              		.loc 1 200 1 view .LVU385
+ 1180              		.loc 1 195 1 view .LVU385
  1181              		@ sp needed
  1182 01fc BDEC048B 		vldm	sp!, {d8-d9}
  1183              		.cfi_restore 82
  1184              		.cfi_restore 83
  1185              		.cfi_restore 80
  1186              		.cfi_restore 81
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 28
-
-
  1187              		.cfi_def_cfa_offset 36
  1188              	.LVL89:
- 1189              		.loc 1 200 1 view .LVU386
+ 1189              		.loc 1 195 1 view .LVU386
  1190 0200 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
  1191              	.LVL90:
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 28
+
+
  1192              	.L79:
- 1193              		.loc 1 200 1 view .LVU387
+ 1193              		.loc 1 195 1 view .LVU387
  1194              		.align	2
  1195              	.L78:
  1196 0204 00000000 		.word	0
@@ -1643,19 +1638,19 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  1208              	_ZNK9NeuralNet9SaveStateER12MappingState:
  1209              	.LVL91:
  1210              	.LFB561:
- 201:NeuralNet.cpp **** 
- 202:NeuralNet.cpp **** void NeuralNet::SaveState(MappingState& state) const{
- 1211              		.loc 1 202 53 is_stmt 1 view -0
+ 196:NeuralNet.cpp **** 
+ 197:NeuralNet.cpp **** void NeuralNet::SaveState(MappingState& state) const{
+ 1211              		.loc 1 197 53 is_stmt 1 view -0
  1212              		.cfi_startproc
  1213              		@ args = 0, pretend = 0, frame = 0
  1214              		@ frame_needed = 0, uses_anonymous_args = 0
- 203:NeuralNet.cpp ****     for(int i = 0; i < inputSize; i++){
- 1215              		.loc 1 203 5 view .LVU389
+ 198:NeuralNet.cpp ****     for(int i = 0; i < inputSize; i++){
+ 1215              		.loc 1 198 5 view .LVU389
  1216              	.LBB99:
- 1217              		.loc 1 203 22 discriminator 1 view .LVU390
+ 1217              		.loc 1 198 22 discriminator 1 view .LVU390
  1218              	.LBE99:
- 202:NeuralNet.cpp ****     for(int i = 0; i < inputSize; i++){
- 1219              		.loc 1 202 53 is_stmt 0 view .LVU391
+ 197:NeuralNet.cpp ****     for(int i = 0; i < inputSize; i++){
+ 1219              		.loc 1 197 53 is_stmt 0 view .LVU391
  1220 0000 F0B5     		push	{r4, r5, r6, r7, lr}
  1221              		.cfi_def_cfa_offset 20
  1222              		.cfi_offset 4, -20
@@ -1663,46 +1658,46 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  1224              		.cfi_offset 6, -12
  1225              		.cfi_offset 7, -8
  1226              		.cfi_offset 14, -4
- 202:NeuralNet.cpp ****     for(int i = 0; i < inputSize; i++){
- 1227              		.loc 1 202 53 view .LVU392
+ 197:NeuralNet.cpp ****     for(int i = 0; i < inputSize; i++){
+ 1227              		.loc 1 197 53 view .LVU392
  1228 0002 0D46     		mov	r5, r1
  1229 0004 0446     		mov	r4, r0
  1230 0006 00F13001 		add	r1, r0, #48
  1231              	.LVL92:
- 202:NeuralNet.cpp ****     for(int i = 0; i < inputSize; i++){
- 1232              		.loc 1 202 53 view .LVU393
+ 197:NeuralNet.cpp ****     for(int i = 0; i < inputSize; i++){
+ 1232              		.loc 1 197 53 view .LVU393
  1233 000a 0346     		mov	r3, r0
  1234 000c 2A46     		mov	r2, r5
  1235              	.LVL93:
  1236              	.L81:
  1237              	.LBB100:
- 204:NeuralNet.cpp ****         state.mean[i] = mean_[i];
- 1238              		.loc 1 204 9 is_stmt 1 view .LVU394
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 29
-
-
- 1239              		.loc 1 204 32 is_stmt 0 view .LVU395
+ 199:NeuralNet.cpp ****         state.mean[i] = mean_[i];
+ 1238              		.loc 1 199 9 is_stmt 1 view .LVU394
+ 1239              		.loc 1 199 32 is_stmt 0 view .LVU395
  1240 000e 53F804CB 		ldr	ip, [r3], #4	@ float
- 1241              		.loc 1 204 23 view .LVU396
+ 1241              		.loc 1 199 23 view .LVU396
  1242 0012 42F804CB 		str	ip, [r2], #4	@ float
- 205:NeuralNet.cpp ****         state.std[i]  = std_[i];
- 1243              		.loc 1 205 9 is_stmt 1 view .LVU397
- 203:NeuralNet.cpp ****         state.mean[i] = mean_[i];
- 1244              		.loc 1 203 22 is_stmt 0 discriminator 1 view .LVU398
+ 200:NeuralNet.cpp ****         state.std[i]  = std_[i];
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 29
+
+
+ 1243              		.loc 1 200 9 is_stmt 1 view .LVU397
+ 198:NeuralNet.cpp ****         state.mean[i] = mean_[i];
+ 1244              		.loc 1 198 22 is_stmt 0 discriminator 1 view .LVU398
  1245 0016 8B42     		cmp	r3, r1
- 1246              		.loc 1 205 31 view .LVU399
+ 1246              		.loc 1 200 31 view .LVU399
  1247 0018 D3F82CC0 		ldr	ip, [r3, #44]	@ float
- 1248              		.loc 1 205 23 view .LVU400
+ 1248              		.loc 1 200 23 view .LVU400
  1249 001c C2F82CC0 		str	ip, [r2, #44]	@ float
- 203:NeuralNet.cpp ****         state.mean[i] = mean_[i];
- 1250              		.loc 1 203 5 is_stmt 1 discriminator 3 view .LVU401
- 203:NeuralNet.cpp ****         state.mean[i] = mean_[i];
- 1251              		.loc 1 203 22 discriminator 1 view .LVU402
+ 198:NeuralNet.cpp ****         state.mean[i] = mean_[i];
+ 1250              		.loc 1 198 5 is_stmt 1 discriminator 3 view .LVU401
+ 198:NeuralNet.cpp ****         state.mean[i] = mean_[i];
+ 1251              		.loc 1 198 22 discriminator 1 view .LVU402
  1252 0020 F5D1     		bne	.L81
  1253 0022 04F5F070 		add	r0, r4, #480
  1254              	.LVL94:
- 203:NeuralNet.cpp ****         state.mean[i] = mean_[i];
- 1255              		.loc 1 203 22 is_stmt 0 discriminator 1 view .LVU403
+ 198:NeuralNet.cpp ****         state.mean[i] = mean_[i];
+ 1255              		.loc 1 198 22 is_stmt 0 discriminator 1 view .LVU403
  1256 0026 05F5F076 		add	r6, r5, #480
  1257 002a 05F16001 		add	r1, r5, #96
  1258 002e 04F1900E 		add	lr, r4, #144
@@ -1711,46 +1706,46 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  1261              	.LBE100:
  1262              	.LBB101:
  1263              	.LBB102:
- 206:NeuralNet.cpp ****     }
- 207:NeuralNet.cpp **** 
- 208:NeuralNet.cpp ****     for(int i = 0; i < hiddenSize; i++){
- 209:NeuralNet.cpp ****         state.b1[i] = b1_[i];
- 1264              		.loc 1 209 9 is_stmt 1 view .LVU404
- 1265              		.loc 1 209 28 is_stmt 0 view .LVU405
+ 201:NeuralNet.cpp ****     }
+ 202:NeuralNet.cpp **** 
+ 203:NeuralNet.cpp ****     for(int i = 0; i < hiddenSize; i++){
+ 204:NeuralNet.cpp ****         state.b1[i] = b1_[i];
+ 1264              		.loc 1 204 9 is_stmt 1 view .LVU404
+ 1265              		.loc 1 204 28 is_stmt 0 view .LVU405
  1266 0036 50F804CB 		ldr	ip, [r0], #4	@ float
  1267 003a AEF13003 		sub	r3, lr, #48
- 1268              		.loc 1 209 21 view .LVU406
+ 1268              		.loc 1 204 21 view .LVU406
  1269 003e 0A46     		mov	r2, r1
  1270 0040 46F804CB 		str	ip, [r6], #4	@ float
- 210:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
- 1271              		.loc 1 210 9 is_stmt 1 view .LVU407
+ 205:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
+ 1271              		.loc 1 205 9 is_stmt 1 view .LVU407
  1272              	.LVL95:
  1273              	.LBB103:
- 1274              		.loc 1 210 26 discriminator 1 view .LVU408
+ 1274              		.loc 1 205 26 discriminator 1 view .LVU408
  1275              	.L82:
- 211:NeuralNet.cpp ****             state.W1[i][j] = W1_[i][j];
- 1276              		.loc 1 211 13 view .LVU409
- 1277              		.loc 1 211 38 is_stmt 0 view .LVU410
+ 206:NeuralNet.cpp ****             state.W1[i][j] = W1_[i][j];
+ 1276              		.loc 1 206 13 view .LVU409
+ 1277              		.loc 1 206 38 is_stmt 0 view .LVU410
  1278 0044 53F804CB 		ldr	ip, [r3], #4	@ float
- 210:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
- 1279              		.loc 1 210 26 discriminator 1 view .LVU411
+ 205:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
+ 1279              		.loc 1 205 26 discriminator 1 view .LVU411
  1280 0048 7345     		cmp	r3, lr
- 1281              		.loc 1 211 28 view .LVU412
+ 1281              		.loc 1 206 28 view .LVU412
  1282 004a 42F804CB 		str	ip, [r2], #4	@ float
- 210:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 30
-
-
- 1283              		.loc 1 210 9 is_stmt 1 discriminator 3 view .LVU413
- 210:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
- 1284              		.loc 1 210 26 discriminator 1 view .LVU414
+ 205:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
+ 1283              		.loc 1 205 9 is_stmt 1 discriminator 3 view .LVU413
+ 205:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
+ 1284              		.loc 1 205 26 discriminator 1 view .LVU414
  1285 004e F9D1     		bne	.L82
  1286              	.LBE103:
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 30
+
+
  1287              	.LBE102:
- 208:NeuralNet.cpp ****         state.b1[i] = b1_[i];
- 1288              		.loc 1 208 5 discriminator 2 view .LVU415
- 208:NeuralNet.cpp ****         state.b1[i] = b1_[i];
- 1289              		.loc 1 208 22 discriminator 1 view .LVU416
+ 203:NeuralNet.cpp ****         state.b1[i] = b1_[i];
+ 1288              		.loc 1 203 5 discriminator 2 view .LVU415
+ 203:NeuralNet.cpp ****         state.b1[i] = b1_[i];
+ 1289              		.loc 1 203 22 discriminator 1 view .LVU416
  1290 0050 B842     		cmp	r0, r7
  1291 0052 01F13001 		add	r1, r1, #48
  1292 0056 03F1300E 		add	lr, r3, #48
@@ -1762,63 +1757,63 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  1298 006c 04F52474 		add	r4, r4, #656
  1299              	.LVL96:
  1300              	.L85:
- 208:NeuralNet.cpp ****         state.b1[i] = b1_[i];
- 1301              		.loc 1 208 22 is_stmt 0 discriminator 1 view .LVU417
+ 203:NeuralNet.cpp ****         state.b1[i] = b1_[i];
+ 1301              		.loc 1 203 22 is_stmt 0 discriminator 1 view .LVU417
  1302              	.LBE101:
  1303              	.LBB104:
  1304              	.LBB105:
- 212:NeuralNet.cpp ****         }
- 213:NeuralNet.cpp ****     }
- 214:NeuralNet.cpp **** 
- 215:NeuralNet.cpp ****     for(int i = 0; i < outputSize; i++){
- 216:NeuralNet.cpp ****         state.b2[i] = b2_[i];
- 1305              		.loc 1 216 9 is_stmt 1 view .LVU418
- 1306              		.loc 1 216 28 is_stmt 0 view .LVU419
+ 207:NeuralNet.cpp ****         }
+ 208:NeuralNet.cpp ****     }
+ 209:NeuralNet.cpp **** 
+ 210:NeuralNet.cpp ****     for(int i = 0; i < outputSize; i++){
+ 211:NeuralNet.cpp ****         state.b2[i] = b2_[i];
+ 1305              		.loc 1 211 9 is_stmt 1 view .LVU418
+ 1306              		.loc 1 211 28 is_stmt 0 view .LVU419
  1307 0070 50F8041B 		ldr	r1, [r0], #4	@ float
  1308 0074 ACF12003 		sub	r3, ip, #32
- 1309              		.loc 1 216 21 view .LVU420
+ 1309              		.loc 1 211 21 view .LVU420
  1310 0078 7246     		mov	r2, lr
  1311 007a 46F8041B 		str	r1, [r6], #4	@ float
- 217:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
- 1312              		.loc 1 217 9 is_stmt 1 view .LVU421
+ 212:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
+ 1312              		.loc 1 212 9 is_stmt 1 view .LVU421
  1313              	.LVL97:
  1314              	.LBB106:
- 1315              		.loc 1 217 26 discriminator 1 view .LVU422
+ 1315              		.loc 1 212 26 discriminator 1 view .LVU422
  1316              	.L84:
- 218:NeuralNet.cpp ****             state.W2[i][j] = W2_[i][j];
- 1317              		.loc 1 218 13 view .LVU423
- 1318              		.loc 1 218 38 is_stmt 0 view .LVU424
+ 213:NeuralNet.cpp ****             state.W2[i][j] = W2_[i][j];
+ 1317              		.loc 1 213 13 view .LVU423
+ 1318              		.loc 1 213 38 is_stmt 0 view .LVU424
  1319 007e 53F8041B 		ldr	r1, [r3], #4	@ float
- 217:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
- 1320              		.loc 1 217 26 discriminator 1 view .LVU425
+ 212:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
+ 1320              		.loc 1 212 26 discriminator 1 view .LVU425
  1321 0082 6345     		cmp	r3, ip
- 1322              		.loc 1 218 28 view .LVU426
+ 1322              		.loc 1 213 28 view .LVU426
  1323 0084 42F8041B 		str	r1, [r2], #4	@ float
- 217:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
- 1324              		.loc 1 217 9 is_stmt 1 discriminator 3 view .LVU427
- 217:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
- 1325              		.loc 1 217 26 discriminator 1 view .LVU428
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 31
-
-
+ 212:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
+ 1324              		.loc 1 212 9 is_stmt 1 discriminator 3 view .LVU427
+ 212:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
+ 1325              		.loc 1 212 26 discriminator 1 view .LVU428
  1326 0088 F9D1     		bne	.L84
  1327              	.LBE106:
  1328              	.LBE105:
- 215:NeuralNet.cpp ****         state.b2[i] = b2_[i];
- 1329              		.loc 1 215 5 discriminator 2 view .LVU429
- 215:NeuralNet.cpp ****         state.b2[i] = b2_[i];
- 1330              		.loc 1 215 22 discriminator 1 view .LVU430
+ 210:NeuralNet.cpp ****         state.b2[i] = b2_[i];
+ 1329              		.loc 1 210 5 discriminator 2 view .LVU429
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 31
+
+
+ 210:NeuralNet.cpp ****         state.b2[i] = b2_[i];
+ 1330              		.loc 1 210 22 discriminator 1 view .LVU430
  1331 008a A042     		cmp	r0, r4
  1332 008c 0EF1200E 		add	lr, lr, #32
  1333 0090 03F1200C 		add	ip, r3, #32
  1334 0094 ECD1     		bne	.L85
  1335              	.LBE104:
- 219:NeuralNet.cpp ****         }
- 220:NeuralNet.cpp ****     }
- 221:NeuralNet.cpp **** }
- 1336              		.loc 1 221 1 is_stmt 0 view .LVU431
+ 214:NeuralNet.cpp ****         }
+ 215:NeuralNet.cpp ****     }
+ 216:NeuralNet.cpp **** }
+ 1336              		.loc 1 216 1 is_stmt 0 view .LVU431
  1337 0096 F0BD     		pop	{r4, r5, r6, r7, pc}
- 1338              		.loc 1 221 1 view .LVU432
+ 1338              		.loc 1 216 1 view .LVU432
  1339              		.cfi_endproc
  1340              	.LFE561:
  1342              		.section	.text._ZN9NeuralNet9LoadStateERK12MappingState,"ax",%progbits
@@ -1831,19 +1826,19 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  1350              	_ZN9NeuralNet9LoadStateERK12MappingState:
  1351              	.LVL98:
  1352              	.LFB562:
- 222:NeuralNet.cpp **** 
- 223:NeuralNet.cpp **** void NeuralNet::LoadState(const MappingState& state){
- 1353              		.loc 1 223 53 is_stmt 1 view -0
+ 217:NeuralNet.cpp **** 
+ 218:NeuralNet.cpp **** void NeuralNet::LoadState(const MappingState& state){
+ 1353              		.loc 1 218 53 is_stmt 1 view -0
  1354              		.cfi_startproc
  1355              		@ args = 0, pretend = 0, frame = 0
  1356              		@ frame_needed = 0, uses_anonymous_args = 0
- 224:NeuralNet.cpp ****     for(int i = 0; i < inputSize; i++){
- 1357              		.loc 1 224 5 view .LVU434
+ 219:NeuralNet.cpp ****     for(int i = 0; i < inputSize; i++){
+ 1357              		.loc 1 219 5 view .LVU434
  1358              	.LBB107:
- 1359              		.loc 1 224 22 discriminator 1 view .LVU435
+ 1359              		.loc 1 219 22 discriminator 1 view .LVU435
  1360              	.LBE107:
- 223:NeuralNet.cpp ****     for(int i = 0; i < inputSize; i++){
- 1361              		.loc 1 223 53 is_stmt 0 view .LVU436
+ 218:NeuralNet.cpp ****     for(int i = 0; i < inputSize; i++){
+ 1361              		.loc 1 218 53 is_stmt 0 view .LVU436
  1362 0000 F0B5     		push	{r4, r5, r6, r7, lr}
  1363              		.cfi_def_cfa_offset 20
  1364              		.cfi_offset 4, -20
@@ -1851,46 +1846,46 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  1366              		.cfi_offset 6, -12
  1367              		.cfi_offset 7, -8
  1368              		.cfi_offset 14, -4
- 223:NeuralNet.cpp ****     for(int i = 0; i < inputSize; i++){
- 1369              		.loc 1 223 53 view .LVU437
+ 218:NeuralNet.cpp ****     for(int i = 0; i < inputSize; i++){
+ 1369              		.loc 1 218 53 view .LVU437
  1370 0002 0C46     		mov	r4, r1
  1371 0004 0546     		mov	r5, r0
  1372 0006 3031     		adds	r1, r1, #48
  1373              	.LVL99:
- 223:NeuralNet.cpp ****     for(int i = 0; i < inputSize; i++){
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 32
-
-
- 1374              		.loc 1 223 53 view .LVU438
+ 218:NeuralNet.cpp ****     for(int i = 0; i < inputSize; i++){
+ 1374              		.loc 1 218 53 view .LVU438
  1375 0008 0246     		mov	r2, r0
  1376 000a 2346     		mov	r3, r4
  1377              	.LVL100:
  1378              	.L93:
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 32
+
+
  1379              	.LBB108:
- 225:NeuralNet.cpp ****         mean_[i] = state.mean[i];
- 1380              		.loc 1 225 9 is_stmt 1 view .LVU439
- 1381              		.loc 1 225 32 is_stmt 0 view .LVU440
+ 220:NeuralNet.cpp ****         mean_[i] = state.mean[i];
+ 1380              		.loc 1 220 9 is_stmt 1 view .LVU439
+ 1381              		.loc 1 220 32 is_stmt 0 view .LVU440
  1382 000c 53F804CB 		ldr	ip, [r3], #4	@ float
- 1383              		.loc 1 225 18 view .LVU441
+ 1383              		.loc 1 220 18 view .LVU441
  1384 0010 42F804CB 		str	ip, [r2], #4	@ float
- 226:NeuralNet.cpp ****         std_[i]  = state.std[i];
- 1385              		.loc 1 226 9 is_stmt 1 view .LVU442
- 224:NeuralNet.cpp ****         mean_[i] = state.mean[i];
- 1386              		.loc 1 224 22 is_stmt 0 discriminator 1 view .LVU443
+ 221:NeuralNet.cpp ****         std_[i]  = state.std[i];
+ 1385              		.loc 1 221 9 is_stmt 1 view .LVU442
+ 219:NeuralNet.cpp ****         mean_[i] = state.mean[i];
+ 1386              		.loc 1 219 22 is_stmt 0 discriminator 1 view .LVU443
  1387 0014 8B42     		cmp	r3, r1
- 1388              		.loc 1 226 31 view .LVU444
+ 1388              		.loc 1 221 31 view .LVU444
  1389 0016 D3F82CC0 		ldr	ip, [r3, #44]	@ float
- 1390              		.loc 1 226 18 view .LVU445
+ 1390              		.loc 1 221 18 view .LVU445
  1391 001a C2F82CC0 		str	ip, [r2, #44]	@ float
- 224:NeuralNet.cpp ****         mean_[i] = state.mean[i];
- 1392              		.loc 1 224 5 is_stmt 1 discriminator 3 view .LVU446
- 224:NeuralNet.cpp ****         mean_[i] = state.mean[i];
- 1393              		.loc 1 224 22 discriminator 1 view .LVU447
+ 219:NeuralNet.cpp ****         mean_[i] = state.mean[i];
+ 1392              		.loc 1 219 5 is_stmt 1 discriminator 3 view .LVU446
+ 219:NeuralNet.cpp ****         mean_[i] = state.mean[i];
+ 1393              		.loc 1 219 22 discriminator 1 view .LVU447
  1394 001e F5D1     		bne	.L93
  1395 0020 04F5F070 		add	r0, r4, #480
  1396              	.LVL101:
- 224:NeuralNet.cpp ****         mean_[i] = state.mean[i];
- 1397              		.loc 1 224 22 is_stmt 0 discriminator 1 view .LVU448
+ 219:NeuralNet.cpp ****         mean_[i] = state.mean[i];
+ 1397              		.loc 1 219 22 is_stmt 0 discriminator 1 view .LVU448
  1398 0024 05F5F076 		add	r6, r5, #480
  1399 0028 05F16001 		add	r1, r5, #96
  1400 002c 04F1900E 		add	lr, r4, #144
@@ -1899,46 +1894,46 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  1403              	.LBE108:
  1404              	.LBB109:
  1405              	.LBB110:
- 227:NeuralNet.cpp ****     }
- 228:NeuralNet.cpp **** 
- 229:NeuralNet.cpp ****     for(int i = 0; i < hiddenSize; i++){
- 230:NeuralNet.cpp ****         b1_[i] = state.b1[i];
- 1406              		.loc 1 230 9 is_stmt 1 view .LVU449
- 1407              		.loc 1 230 28 is_stmt 0 view .LVU450
+ 222:NeuralNet.cpp ****     }
+ 223:NeuralNet.cpp **** 
+ 224:NeuralNet.cpp ****     for(int i = 0; i < hiddenSize; i++){
+ 225:NeuralNet.cpp ****         b1_[i] = state.b1[i];
+ 1406              		.loc 1 225 9 is_stmt 1 view .LVU449
+ 1407              		.loc 1 225 28 is_stmt 0 view .LVU450
  1408 0034 50F804CB 		ldr	ip, [r0], #4	@ float
  1409 0038 AEF13003 		sub	r3, lr, #48
- 1410              		.loc 1 230 16 view .LVU451
+ 1410              		.loc 1 225 16 view .LVU451
  1411 003c 0A46     		mov	r2, r1
  1412 003e 46F804CB 		str	ip, [r6], #4	@ float
- 231:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
- 1413              		.loc 1 231 9 is_stmt 1 view .LVU452
+ 226:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
+ 1413              		.loc 1 226 9 is_stmt 1 view .LVU452
  1414              	.LVL102:
  1415              	.LBB111:
- 1416              		.loc 1 231 26 discriminator 1 view .LVU453
+ 1416              		.loc 1 226 26 discriminator 1 view .LVU453
  1417              	.L94:
- 232:NeuralNet.cpp ****             W1_[i][j] = state.W1[i][j];
- 1418              		.loc 1 232 13 view .LVU454
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 33
-
-
- 1419              		.loc 1 232 38 is_stmt 0 view .LVU455
+ 227:NeuralNet.cpp ****             W1_[i][j] = state.W1[i][j];
+ 1418              		.loc 1 227 13 view .LVU454
+ 1419              		.loc 1 227 38 is_stmt 0 view .LVU455
  1420 0042 53F804CB 		ldr	ip, [r3], #4	@ float
- 231:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
- 1421              		.loc 1 231 26 discriminator 1 view .LVU456
+ 226:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
+ 1421              		.loc 1 226 26 discriminator 1 view .LVU456
  1422 0046 7345     		cmp	r3, lr
- 1423              		.loc 1 232 23 view .LVU457
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 33
+
+
+ 1423              		.loc 1 227 23 view .LVU457
  1424 0048 42F804CB 		str	ip, [r2], #4	@ float
- 231:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
- 1425              		.loc 1 231 9 is_stmt 1 discriminator 3 view .LVU458
- 231:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
- 1426              		.loc 1 231 26 discriminator 1 view .LVU459
+ 226:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
+ 1425              		.loc 1 226 9 is_stmt 1 discriminator 3 view .LVU458
+ 226:NeuralNet.cpp ****         for(int j = 0; j < inputSize; j++){
+ 1426              		.loc 1 226 26 discriminator 1 view .LVU459
  1427 004c F9D1     		bne	.L94
  1428              	.LBE111:
  1429              	.LBE110:
- 229:NeuralNet.cpp ****         b1_[i] = state.b1[i];
- 1430              		.loc 1 229 5 discriminator 2 view .LVU460
- 229:NeuralNet.cpp ****         b1_[i] = state.b1[i];
- 1431              		.loc 1 229 22 discriminator 1 view .LVU461
+ 224:NeuralNet.cpp ****         b1_[i] = state.b1[i];
+ 1430              		.loc 1 224 5 discriminator 2 view .LVU460
+ 224:NeuralNet.cpp ****         b1_[i] = state.b1[i];
+ 1431              		.loc 1 224 22 discriminator 1 view .LVU461
  1432 004e B842     		cmp	r0, r7
  1433 0050 01F13001 		add	r1, r1, #48
  1434 0054 03F1300E 		add	lr, r3, #48
@@ -1950,63 +1945,63 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  1440 006a 04F52474 		add	r4, r4, #656
  1441              	.LVL103:
  1442              	.L97:
- 229:NeuralNet.cpp ****         b1_[i] = state.b1[i];
- 1443              		.loc 1 229 22 is_stmt 0 discriminator 1 view .LVU462
+ 224:NeuralNet.cpp ****         b1_[i] = state.b1[i];
+ 1443              		.loc 1 224 22 is_stmt 0 discriminator 1 view .LVU462
  1444              	.LBE109:
  1445              	.LBB112:
  1446              	.LBB113:
- 233:NeuralNet.cpp ****         }
- 234:NeuralNet.cpp ****     }
- 235:NeuralNet.cpp **** 
- 236:NeuralNet.cpp ****     for(int i = 0; i < outputSize; i++){
- 237:NeuralNet.cpp ****         b2_[i] = state.b2[i];
- 1447              		.loc 1 237 9 is_stmt 1 view .LVU463
- 1448              		.loc 1 237 28 is_stmt 0 view .LVU464
+ 228:NeuralNet.cpp ****         }
+ 229:NeuralNet.cpp ****     }
+ 230:NeuralNet.cpp **** 
+ 231:NeuralNet.cpp ****     for(int i = 0; i < outputSize; i++){
+ 232:NeuralNet.cpp ****         b2_[i] = state.b2[i];
+ 1447              		.loc 1 232 9 is_stmt 1 view .LVU463
+ 1448              		.loc 1 232 28 is_stmt 0 view .LVU464
  1449 006e 56F8041B 		ldr	r1, [r6], #4	@ float
  1450 0072 A0F12003 		sub	r3, r0, #32
- 1451              		.loc 1 237 16 view .LVU465
+ 1451              		.loc 1 232 16 view .LVU465
  1452 0076 6246     		mov	r2, ip
  1453 0078 4EF8041B 		str	r1, [lr], #4	@ float
- 238:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
- 1454              		.loc 1 238 9 is_stmt 1 view .LVU466
+ 233:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
+ 1454              		.loc 1 233 9 is_stmt 1 view .LVU466
  1455              	.LVL104:
  1456              	.LBB114:
- 1457              		.loc 1 238 26 discriminator 1 view .LVU467
+ 1457              		.loc 1 233 26 discriminator 1 view .LVU467
  1458              	.L96:
- 239:NeuralNet.cpp ****             W2_[i][j] = state.W2[i][j];
- 1459              		.loc 1 239 13 view .LVU468
- 1460              		.loc 1 239 38 is_stmt 0 view .LVU469
+ 234:NeuralNet.cpp ****             W2_[i][j] = state.W2[i][j];
+ 1459              		.loc 1 234 13 view .LVU468
+ 1460              		.loc 1 234 38 is_stmt 0 view .LVU469
  1461 007c 53F8041B 		ldr	r1, [r3], #4	@ float
- 238:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 34
-
-
- 1462              		.loc 1 238 26 discriminator 1 view .LVU470
+ 233:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
+ 1462              		.loc 1 233 26 discriminator 1 view .LVU470
  1463 0080 8342     		cmp	r3, r0
- 1464              		.loc 1 239 23 view .LVU471
+ 1464              		.loc 1 234 23 view .LVU471
  1465 0082 42F8041B 		str	r1, [r2], #4	@ float
- 238:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
- 1466              		.loc 1 238 9 is_stmt 1 discriminator 3 view .LVU472
- 238:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
- 1467              		.loc 1 238 26 discriminator 1 view .LVU473
+ 233:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 34
+
+
+ 1466              		.loc 1 233 9 is_stmt 1 discriminator 3 view .LVU472
+ 233:NeuralNet.cpp ****         for(int j = 0; j < hiddenSize; j++){
+ 1467              		.loc 1 233 26 discriminator 1 view .LVU473
  1468 0086 F9D1     		bne	.L96
  1469              	.LBE114:
  1470              	.LBE113:
- 236:NeuralNet.cpp ****         b2_[i] = state.b2[i];
- 1471              		.loc 1 236 5 discriminator 2 view .LVU474
- 236:NeuralNet.cpp ****         b2_[i] = state.b2[i];
- 1472              		.loc 1 236 22 discriminator 1 view .LVU475
+ 231:NeuralNet.cpp ****         b2_[i] = state.b2[i];
+ 1471              		.loc 1 231 5 discriminator 2 view .LVU474
+ 231:NeuralNet.cpp ****         b2_[i] = state.b2[i];
+ 1472              		.loc 1 231 22 discriminator 1 view .LVU475
  1473 0088 A642     		cmp	r6, r4
  1474 008a 0CF1200C 		add	ip, ip, #32
  1475 008e 03F12000 		add	r0, r3, #32
  1476 0092 ECD1     		bne	.L97
  1477              	.LBE112:
- 240:NeuralNet.cpp ****         }
- 241:NeuralNet.cpp ****     }
- 242:NeuralNet.cpp **** }...
- 1478              		.loc 1 242 1 is_stmt 0 view .LVU476
+ 235:NeuralNet.cpp ****         }
+ 236:NeuralNet.cpp ****     }
+ 237:NeuralNet.cpp **** }...
+ 1478              		.loc 1 237 1 is_stmt 0 view .LVU476
  1479 0094 F0BD     		pop	{r4, r5, r6, r7, pc}
- 1480              		.loc 1 242 1 view .LVU477
+ 1480              		.loc 1 237 1 view .LVU477
  1481              		.cfi_endproc
  1482              	.LFE562:
  1484 0096 00BF     		.text
@@ -2024,32 +2019,32 @@ ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 1
  1496              		.file 12 "FeatureExtractor.h"
  1497              		.file 13 "NeuralNet.h"
  1498              		.file 14 "/Applications/ArmGNUToolchain/15.2.rel1/arm-none-eabi/arm-none-eabi/include/c++/15.2.1/a
-ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s 			page 35
+ARM GAS  /var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s 			page 35
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 NeuralNet.cpp
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s:20     .text._ZN9NeuralNet4InitEv:00000000 $t
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s:27     .text._ZN9NeuralNet4InitEv:00000000 _ZN9NeuralNet4InitEv
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s:167    .text._ZN9NeuralNet4InitEv:000000b4 $d
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s:173    .text._ZN9NeuralNet13NormalisationEPKfS1_:00000000 $t
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s:180    .text._ZN9NeuralNet13NormalisationEPKfS1_:00000000 _ZN9NeuralNet13NormalisationEPKfS1_
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s:223    .text._ZN9NeuralNet13NormalisationEPKfS1_:0000002c $d
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s:228    .text._ZNK9NeuralNet14NormaliseInputERK13AudioFeaturesPf:00000000 $t
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s:235    .text._ZNK9NeuralNet14NormaliseInputERK13AudioFeaturesPf:00000000 _ZNK9NeuralNet14NormaliseInputERK13AudioFeaturesPf
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s:313    .text._ZNK9NeuralNet4ReLUEf:00000000 $t
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s:320    .text._ZNK9NeuralNet4ReLUEf:00000000 _ZNK9NeuralNet4ReLUEf
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s:341    .text._ZNK9NeuralNet4ReLUEf:00000014 $d
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s:346    .text._ZNK9NeuralNet7PredictERK13AudioFeatures:00000000 $t
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s:353    .text._ZNK9NeuralNet7PredictERK13AudioFeatures:00000000 _ZNK9NeuralNet7PredictERK13AudioFeatures
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s:683    .text._ZNK9NeuralNet7PredictERK13AudioFeatures:00000130 $d
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s:688    .text._ZN9NeuralNet5TrainERK13AudioFeaturesif:00000000 $t
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s:695    .text._ZN9NeuralNet5TrainERK13AudioFeaturesif:00000000 _ZN9NeuralNet5TrainERK13AudioFeaturesif
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s:1196   .text._ZN9NeuralNet5TrainERK13AudioFeaturesif:00000204 $d
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s:1201   .text._ZNK9NeuralNet9SaveStateER12MappingState:00000000 $t
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s:1208   .text._ZNK9NeuralNet9SaveStateER12MappingState:00000000 _ZNK9NeuralNet9SaveStateER12MappingState
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s:1343   .text._ZN9NeuralNet9LoadStateERK12MappingState:00000000 $t
-/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccT7Uxrs.s:1350   .text._ZN9NeuralNet9LoadStateERK12MappingState:00000000 _ZN9NeuralNet9LoadStateERK12MappingState
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s:20     .text._ZN9NeuralNet4InitEv:00000000 $t
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s:27     .text._ZN9NeuralNet4InitEv:00000000 _ZN9NeuralNet4InitEv
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s:167    .text._ZN9NeuralNet4InitEv:000000b4 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s:173    .text._ZN9NeuralNet13NormalisationEPKfS1_:00000000 $t
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s:180    .text._ZN9NeuralNet13NormalisationEPKfS1_:00000000 _ZN9NeuralNet13NormalisationEPKfS1_
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s:223    .text._ZN9NeuralNet13NormalisationEPKfS1_:0000002c $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s:228    .text._ZNK9NeuralNet14NormaliseInputERK13AudioFeaturesPf:00000000 $t
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s:235    .text._ZNK9NeuralNet14NormaliseInputERK13AudioFeaturesPf:00000000 _ZNK9NeuralNet14NormaliseInputERK13AudioFeaturesPf
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s:313    .text._ZNK9NeuralNet4ReLUEf:00000000 $t
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s:320    .text._ZNK9NeuralNet4ReLUEf:00000000 _ZNK9NeuralNet4ReLUEf
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s:341    .text._ZNK9NeuralNet4ReLUEf:00000014 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s:346    .text._ZNK9NeuralNet7PredictERK13AudioFeatures:00000000 $t
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s:353    .text._ZNK9NeuralNet7PredictERK13AudioFeatures:00000000 _ZNK9NeuralNet7PredictERK13AudioFeatures
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s:683    .text._ZNK9NeuralNet7PredictERK13AudioFeatures:00000130 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s:688    .text._ZN9NeuralNet5TrainERK13AudioFeaturesif:00000000 $t
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s:695    .text._ZN9NeuralNet5TrainERK13AudioFeaturesif:00000000 _ZN9NeuralNet5TrainERK13AudioFeaturesif
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s:1196   .text._ZN9NeuralNet5TrainERK13AudioFeaturesif:00000204 $d
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s:1201   .text._ZNK9NeuralNet9SaveStateER12MappingState:00000000 $t
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s:1208   .text._ZNK9NeuralNet9SaveStateER12MappingState:00000000 _ZNK9NeuralNet9SaveStateER12MappingState
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s:1343   .text._ZN9NeuralNet9LoadStateERK12MappingState:00000000 $t
+/var/folders/6_/psd2b8g56p7696hhrr4ztjs00000gn/T//ccgqJTbM.s:1350   .text._ZN9NeuralNet9LoadStateERK12MappingState:00000000 _ZN9NeuralNet9LoadStateERK12MappingState
 
 UNDEFINED SYMBOLS
 memset

@@ -202,8 +202,12 @@ static constexpr int targetPhrasesPerClass = 32; //ideal number of phrases per c
 uint32_t lastAcceptedPhraseMs[4] = {0, 0, 0, 0};
 
 //Classification arrays
-float classDistances[4] = {9999.0f, 9999.0f, 9999.0f, 9999.0f};, //difference in current phrase vs class centroid (lower is better)
+float classDistances[4] = {9999.0f, 9999.0f, 9999.0f, 9999.0f}; //difference in current phrase vs class centroid (lower is better)
 float classScores[4] = {0.0f, 0.0f, 0.0f, 0.0f};
+float smoothedClassScores[4] = {0.25f, 0.25f, 0.25f, 0.25f};
+
+float datasetMean[12] = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
+float datasetStd[12] = {1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
 
 
 //clamp function for safe audio clipping
@@ -287,7 +291,7 @@ void AccumulatePhrase(const AudioFeatures& f, uint32_t nowMs){
     //do we have a strong attack, strong amplitude, significant frequency spectrum changes from previous frame
     //alternatively we could have have strongly rising amplitude envelope or changes in harmonic content
     //overall this detects the start of a plucked note 
-    bool strongAttack =f.peak > 0.0075f && (f.spectralFlux > 0.035f || f.envelopeDelta > 0.012f || f.rmsDelta > 0.010f);
+    bool strongAttack = f.peak > 0.0075f && (f.spectralFlux > 0.035f || f.envelopeDelta > 0.012f || f.rmsDelta > 0.010f);
 
     bool cooldownExpired =
         lastPhraseAttackMs == 0 ||
@@ -454,123 +458,158 @@ bool ShouldAcceptTrainingPhrase(int label, const AudioFeatures& phraseFeatures, 
     return false;
 }
 
-//compute the centroid for a class, e.g distorition or choru 
-void ComputeClassCentroid(int classId, AudioFeatures& out){
-    std::memset(&out, 0, sizeof(AudioFeatures));
+void StorePhraseExample(int label, const AudioFeatures& phraseFeatures, uint32_t nowMs){
+    featureBuffer[label][bufferIndex[label]] = phraseFeatures;
 
-    if(bufferCount[classId] <= 0){
-        return;
+    bufferIndex[label] = (bufferIndex[label] + 1) % perClassBufferCapacity;
+    if(bufferCount[label] < perClassBufferCapacity){
+        bufferCount[label]++;
     }
 
-    for(int i = 0; i < bufferCount[classId]; i++){
-        const AudioFeatures& f = featureBuffer[classId][i];
-        out.rms += f.rms;
-        out.peak += f.peak;
-        out.zcr += f.zcr;
-        out.spectralCentroid += f.spectralCentroid;
-        out.spectralFlux += f.spectralFlux;
-        out.rmsDelta += f.rmsDelta;
-        out.envelope += f.envelope;
-        out.envelopeDelta += f.envelopeDelta;
-        out.rmsVariance += f.rmsVariance;
-        out.centroidVariance += f.centroidVariance;
-        out.onsetCount += f.onsetCount;
-        out.timeSinceLastOnset += f.timeSinceLastOnset;
-    }
-
-    float inv = 1.0f / (float)bufferCount[classId];
-    out.rms *= inv;
-    out.peak *= inv;
-    out.zcr *= inv;
-    out.spectralCentroid *= inv;
-    out.spectralFlux *= inv;
-    out.rmsDelta *= inv;
-    out.envelope *= inv;
-    out.envelopeDelta *= inv;
-    out.rmsVariance *= inv;
-    out.centroidVariance *= inv;
-    out.onsetCount *= inv;
-    out.timeSinceLastOnset *= inv;
+    lastAcceptedPhraseMs[label] = nowMs;
 }
 
-float ComputeFeatureDistance(const AudioFeatures& a, const AudioFeatures& b){
-    float d = 0.0f;
-
-    float drms = (a.rms - b.rms) / 0.010f;
-    float dpeak = (a.peak - b.peak) / 0.015f;
-    float dflux = (a.spectralFlux - b.spectralFlux) / 0.050f;
-    float drmsvar = (a.rmsVariance - b.rmsVariance) / 0.020f;
-    float dcentvar = (a.centroidVariance - b.centroidVariance) / 500.0f;
-    float donsets = (a.onsetCount - b.onsetCount) / 1.5f;
-    float dattacksPerSec = (a.rmsDelta - b.rmsDelta) / 1.5f;
-    float dsustainRatio = (a.envelopeDelta - b.envelopeDelta) / 0.25f;
-    float dtailGap = (a.timeSinceLastOnset - b.timeSinceLastOnset) / 0.20f;
-    float dcent = (a.spectralCentroid - b.spectralCentroid) / 800.0f;
-    float dzcr = (a.zcr - b.zcr) / 0.12f;
-
-    d += 0.6f * drms * drms;
-    d += 0.5f * dpeak * dpeak;
-    d += 0.7f * dflux * dflux;
-    d += 0.8f * drmsvar * drmsvar;
-    d += 0.7f * dcentvar * dcentvar;
-    d += 3.2f * donsets * donsets;
-    d += 2.8f * dattacksPerSec * dattacksPerSec;
-    d += 4.0f * dsustainRatio * dsustainRatio;
-    d += 2.2f * dtailGap * dtailGap;
-    d += 0.4f * dcent * dcent;
-    d += 0.3f * dzcr * dzcr;
-
-    return sqrtf(d);
+void ExtractRawArray(const AudioFeatures& f, float raw[12]){
+    raw[0] = f.rms;
+    raw[1] = f.peak;
+    raw[2] = f.zcr;
+    raw[3] = f.spectralCentroid;
+    raw[4] = f.spectralFlux;
+    raw[5] = f.rmsDelta;
+    raw[6] = f.envelope;
+    raw[7] = f.envelopeDelta;
+    raw[8] = f.rmsVariance;
+    raw[9] = f.centroidVariance;
+    raw[10] = f.onsetCount;
+    raw[11] = f.timeSinceLastOnset;
 }
 
-
-//main classification loop
-void ClassifyByCentroid(const AudioFeatures& phraseFeatures){
-    for(int i = 0; i < 4; i++){
-        classDistances[i] = 9999.0f;
-        classScores[i] = 0.0f;
-        nnOutput.scores[i] = 0.0f;
+bool ComputeDatasetNormalisation(){
+    for(int i = 0; i < 12; i++){
+        datasetMean[i] = 0.0f;
+        datasetStd[i] = 1.0f;
     }
 
-    int bestIndex = 0;
-    float bestDistance = 9999.0f;
+    int totalCount = 0;
 
     for(int classId = 0; classId < 4; classId++){
-        if(bufferCount[classId] <= 0){
-            continue;
-        }
-
-        AudioFeatures centroid;
-        ComputeClassCentroid(classId, centroid);
-
-        float dist = ComputeFeatureDistance(phraseFeatures, centroid);
-        classDistances[classId] = dist;
-
-        float score = 1.0f / (1.0f + dist);
-        classScores[classId] = score;
-        nnOutput.scores[classId] = score;
-
-        if(dist < bestDistance){
-            bestDistance = dist;
-            bestIndex = classId;
+        for(int i = 0; i < bufferCount[classId]; i++){
+            float raw[12];
+            ExtractRawArray(featureBuffer[classId][i], raw);
+            for(int j = 0; j < 12; j++){
+                datasetMean[j] += raw[j];
+            }
+            totalCount++;
         }
     }
 
-    nnOutput.predictedClass = bestIndex;
+    if(totalCount <= 0){
+        return false;
+    }
+
+    float inv = 1.0f / (float)totalCount;
+    for(int j = 0; j < 12; j++){
+        datasetMean[j] *= inv;
+    }
+
+    for(int classId = 0; classId < 4; classId++){
+        for(int i = 0; i < bufferCount[classId]; i++){
+            float raw[12];
+            ExtractRawArray(featureBuffer[classId][i], raw);
+            for(int j = 0; j < 12; j++){
+                float d = raw[j] - datasetMean[j];
+                datasetStd[j] += d * d;
+            }
+        }
+    }
+
+    for(int j = 0; j < 12; j++){
+        datasetStd[j] = sqrtf(datasetStd[j] * inv);
+        if(datasetStd[j] < 1e-6f){
+            datasetStd[j] = 1.0f;
+        }
+    }
+
+    return true;
+}
+
+int CountReadyClasses(){
+    int readyClasses = 0;
+    for(int i = 0; i < 4; i++){
+        if(bufferCount[i] >= 1){
+            readyClasses++;
+        }
+    }
+    return readyClasses;
+}
+
+bool TrainNetworkFromBuffers(){
+    if(CountReadyClasses() < 2){
+        return false;
+    }
+
+    if(!ComputeDatasetNormalisation()){
+        return false;
+    }
+
+    neuralnet.Init();
+    neuralnet.Normalisation(datasetMean, datasetStd);
+
+    static constexpr int epochs = 90;
+    static constexpr float eta = 0.0035f;
+
+    for(int epoch = 0; epoch < epochs; epoch++){
+        for(int classId = 0; classId < 4; classId++){
+            for(int i = 0; i < bufferCount[classId]; i++){
+                neuralnet.Train(featureBuffer[classId][i], classId, eta);
+            }
+        }
+    }
+
+    neuralnet.SaveState(savedMapping);
+    return true;
+}
+
+//main classification loop
+void ClassifyByNeuralNet(const AudioFeatures& phraseFeatures){
+    nnOutput = neuralnet.Predict(phraseFeatures);
+
+    for(int i = 0; i < 4; i++){
+        classScores[i] = nnOutput.scores[i];
+        classDistances[i] = 1.0f - nnOutput.scores[i];
+    }
 }
 
 //Poor forms of classification
 bool IsTransitionOnlyPhrase(const AudioFeatures& phraseFeatures){
     bool pureTail =
         phraseFeatures.onsetCount < 0.5f &&
-        phraseFeatures.envelopeDelta > 0.75f;
+        phraseFeatures.envelopeDelta > 0.90f &&
+        phraseFeatures.timeSinceLastOnset > 0.35f;
 
     bool freshTransientOnly =
-        phraseFeatures.onsetCount <= 1.5f &&
-        phraseFeatures.envelopeDelta < 0.10f &&
-        phraseFeatures.timeSinceLastOnset < 0.05f;
+        phraseFeatures.onsetCount <= 1.0f &&
+        phraseFeatures.envelopeDelta < 0.06f &&
+        phraseFeatures.timeSinceLastOnset < 0.04f;
 
     return pureTail || freshTransientOnly;
+}
+
+void ResetPredictionState(){
+    predictedCandidate = currentPresetIndex;
+    predictedStableClass = currentPresetIndex;
+    predictedHoldCount = 0;
+    stableClassAge = 0;
+    candidateClassAge = 0;
+
+    for(int i = 0; i < 4; i++){
+        classScores[i] = 0.0f;
+        classDistances[i] = 9999.0f;
+        smoothedClassScores[i] = 0.25f;
+        nnOutput.scores[i] = 0.0f;
+    }
+
+    nnOutput.predictedClass = currentPresetIndex;
 }
 
 void UpdatePredictionState(bool allowImmediateSwitch, const AudioFeatures& phraseFeatures){
@@ -578,46 +617,57 @@ void UpdatePredictionState(bool allowImmediateSwitch, const AudioFeatures& phras
         return;
     }
 
-    int bestClass = nnOutput.predictedClass;
-    float bestScore = -1.0f;
-    float secondScore = -1.0f;
-    float bestDistance = 9999.0f;
-    float secondDistance = 9999.0f;
+    int rawBestClass = 0;
+    float rawBestScore = nnOutput.scores[0];
+    float rawSecondScore = 0.0f;
+
+    for(int i = 1; i < 4; i++){
+        float s = nnOutput.scores[i];
+        if(s > rawBestScore){
+            rawSecondScore = rawBestScore;
+            rawBestScore = s;
+            rawBestClass = i;
+        }
+        else if(s > rawSecondScore){
+            rawSecondScore = s;
+        }
+    }
+
+    float rawMargin = rawBestScore - rawSecondScore;
 
     for(int i = 0; i < 4; i++){
-        if(bufferCount[i] <= 0){
-            continue;
-        }
+        smoothedClassScores[i] = 0.45f * smoothedClassScores[i] + 0.55f * nnOutput.scores[i];
+        classScores[i] = smoothedClassScores[i];
+        classDistances[i] = 1.0f - smoothedClassScores[i];
+    }
 
-        float score = classScores[i];
-        float dist = classDistances[i];
+    int bestClass = 0;
+    float bestScore = smoothedClassScores[0];
+    float secondScore = 0.0f;
 
-        if(score > bestScore){
+    for(int i = 1; i < 4; i++){
+        float s = smoothedClassScores[i];
+        if(s > bestScore){
             secondScore = bestScore;
-            bestScore = score;
+            bestScore = s;
+            bestClass = i;
         }
-        else if(score > secondScore){
-            secondScore = score;
-        }
-
-        if(dist < bestDistance){
-            secondDistance = bestDistance;
-            bestDistance = dist;
-        }
-        else if(dist < secondDistance){
-            secondDistance = dist;
+        else if(s > secondScore){
+            secondScore = s;
         }
     }
 
-    bool confidentLead = false;
+    float margin = bestScore - secondScore;
 
-    if(secondScore <= 0.0f){
-        confidentLead = true;
-    }
-    else{
-        confidentLead =
-            bestScore > secondScore * 1.18f ||
-            bestDistance + 0.30f < secondDistance;
+    bool confident =
+        rawBestScore > 0.45f &&
+        rawMargin > 0.08f &&
+        bestScore > 0.34f &&
+        margin > 0.05f;
+
+    if(!confident){
+        stableClassAge++;
+        return;
     }
 
     if(bestClass == predictedCandidate){
@@ -630,49 +680,35 @@ void UpdatePredictionState(bool allowImmediateSwitch, const AudioFeatures& phras
         candidateClassAge = 1;
     }
 
-    if(predictedCandidate == MODE_AMBIENT && phraseFeatures.onsetCount < 0.5f){
-        return;
-    }
-
-    if(predictedCandidate == MODE_CHORUS && phraseFeatures.onsetCount < 2.0f){
-        return;
-    }
+    bool strongAmbientStyle =
+        predictedCandidate == MODE_AMBIENT &&
+        phraseFeatures.onsetCount <= 1.5f &&
+        phraseFeatures.envelopeDelta > 0.18f &&
+        phraseFeatures.timeSinceLastOnset > 0.10f;
 
     int requiredHold = 2;
 
-    if(allowImmediateSwitch && confidentLead){
+    if(allowImmediateSwitch && rawBestScore > 0.72f && rawMargin > 0.18f){
         requiredHold = 1;
     }
 
-    if(predictedStableClass == MODE_CHORUS && predictedCandidate == MODE_AMBIENT){
-        requiredHold = 2;
-
-        bool strongAmbientStyle =
-            phraseFeatures.onsetCount <= 1.5f &&
-            phraseFeatures.rmsDelta < 2.8f &&
-            phraseFeatures.envelopeDelta > 0.12f;
-
-        if(strongAmbientStyle){
-            requiredHold = 1;
-        }
+    if(predictedStableClass != predictedCandidate && bestScore < 0.40f){
+        requiredHold = 3;
     }
 
-    if(predictedStableClass != MODE_AMBIENT && predictedCandidate == MODE_AMBIENT){
-        if(phraseFeatures.envelopeDelta < 0.25f){
-            requiredHold = 3;
-        }
-    }
-
-    if(predictedStableClass != MODE_CHORUS && predictedCandidate == MODE_CHORUS){
-        if(phraseFeatures.onsetCount < 2.0f){
-            requiredHold = 3;
-        }
+    if(strongAmbientStyle){
+        requiredHold = 1;
     }
 
     if(predictedHoldCount >= requiredHold){
         if(predictedStableClass != predictedCandidate){
             predictedStableClass = predictedCandidate;
             stableClassAge = 0;
+
+            for(int i = 0; i < 4; i++){
+                smoothedClassScores[i] = 0.05f;
+            }
+            smoothedClassScores[predictedStableClass] = bestScore;
         }
     }
     else{
@@ -897,6 +933,7 @@ int main(void){
 
     ApplyPresetIndex(currentPresetIndex);
     ResetPhrase();
+    ResetPredictionState();
 
     hw.seed.PrintLine("Starting...");
     hw.seed.PrintLine("Preset: %s", tonePresets[currentPresetIndex].toneName);
@@ -916,6 +953,7 @@ int main(void){
             if(isTraining){
                 predictionMode = false;
                 ResetPhrase();
+                ResetPredictionState();
                 hw.seed.PrintLine("Training ON Label:%d Preset:%s",
                     currentLabel,
                     tonePresets[currentLabel].toneName);
@@ -927,27 +965,26 @@ int main(void){
         }
 
         if(hw.button2.RisingEdge()){
-            int readyClasses = 0;
-            for(int i = 0; i < 4; i++){
-                if(bufferCount[i] >= 1){
-                    readyClasses++;
-                }
-            }
+            int readyClasses = CountReadyClasses();
 
             if(readyClasses < 2){
                 hw.seed.PrintLine("Need 2 trained classes before saving");
             }
             else{
-                hasSavedMapping = true;
-                predictionMode = true;
-                isTraining = false;
-                ResetPhrase();
-                predictedCandidate = currentPresetIndex;
-                predictedStableClass = currentPresetIndex;
-                predictedHoldCount = 0;
-                stableClassAge = 0;
-                candidateClassAge = 0;
-                hw.seed.PrintLine("Saved mapping and entered prediction mode");
+                bool trainedOk = TrainNetworkFromBuffers();
+
+                if(trainedOk){
+                    hasSavedMapping = true;
+                    predictionMode = true;
+                    isTraining = false;
+                    neuralnet.LoadState(savedMapping);
+                    ResetPhrase();
+                    ResetPredictionState();
+                    hw.seed.PrintLine("Saved mapping and entered prediction mode");
+                }
+                else{
+                    hw.seed.PrintLine("Training failed");
+                }
             }
         }
 
@@ -1007,7 +1044,7 @@ int main(void){
                 if(predictionMode && hasSavedMapping && phraseFrames >= 2){
                     AudioFeatures livePhraseFeatures;
                     FinalisePhrase(livePhraseFeatures);
-                    ClassifyByCentroid(livePhraseFeatures);
+                    ClassifyByNeuralNet(livePhraseFeatures);
                     UpdatePredictionState(true, livePhraseFeatures);
                 }
             }
@@ -1028,20 +1065,11 @@ int main(void){
                 lastPhraseReady = true;
 
                 if(phraseFrames >= minPhraseFrames){
-                    ClassifyByCentroid(phraseFeatures);
-
                     if(isTraining){
                         bool acceptPhrase = ShouldAcceptTrainingPhrase(currentLabel, phraseFeatures, nowMs);
 
                         if(acceptPhrase){
-                            featureBuffer[currentLabel][bufferIndex[currentLabel]] = phraseFeatures;
-
-                            bufferIndex[currentLabel] = (bufferIndex[currentLabel] + 1) % perClassBufferCapacity;
-                            if(bufferCount[currentLabel] < perClassBufferCapacity){
-                                bufferCount[currentLabel]++;
-                            }
-
-                            lastAcceptedPhraseMs[currentLabel] = nowMs;
+                            StorePhraseExample(currentLabel, phraseFeatures, nowMs);
 
                             hw.seed.PrintLine("Accepted phrase Label:%d Frames:%d Count:%d Timeout:%d",
                                 currentLabel,
@@ -1058,6 +1086,7 @@ int main(void){
                         }
                     }
                     else if(predictionMode && hasSavedMapping){
+                        ClassifyByNeuralNet(phraseFeatures);
                         UpdatePredictionState(true, phraseFeatures);
 
                         hw.seed.PrintLine("Captured prediction phrase Pred:%d Stable:%d Frames:%d Timeout:%d",
