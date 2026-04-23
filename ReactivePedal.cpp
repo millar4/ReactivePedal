@@ -153,7 +153,7 @@ float toneStateL = 0.0f;
 
 //An array of tone pre sets
 static const TonePreset tonePresets[] = {
-    {"Distortion", 4.2f, 4.8f, 0.18f, 0.97f, 1.25f, 0.75f, CLIP_ASYM},
+    {"Distortion", 4.4f, 4.6f, 0.14f, 0.94f, 1.18f, 0.78f, CLIP_ASYM},
     {"Chorus", 1.2f, 1.0f, 0.32f, 0.45f, 1.2f, 1.0f, CLIP_BYPASS},
     {"Ambient", 1.1f, 0.9f, 0.20f, 0.55f, 1.0f, 1.0f, CLIP_SOFT},
     {"Reverb", 1.4f, 1.1f, 0.24f, 0.65f, 1.1f, 1.0f, CLIP_SOFT},
@@ -176,7 +176,7 @@ AudioFeatures phraseAccum = {}; //feature sums over phrase
 int phraseFrames = 0; //how many feature frames do we have in this phrase
 static constexpr uint32_t phraseEndGapMs = 160; //end of phrase (if inactive in ms)
 static constexpr uint32_t maxPhraseLengthMs = 1200; //max phrase length
-static constexpr int minPhraseFrames = 1; //each phrase needs at least one frame
+static constexpr int minPhraseFrames = 3; //each phrase needs at least one frame
 static constexpr uint32_t phraseAttackCooldownMs = 180; //prevents attack detection from counting too many attacks together
 
 
@@ -636,7 +636,7 @@ void UpdatePredictionState(bool allowImmediateSwitch, const AudioFeatures& phras
     float rawMargin = rawBestScore - rawSecondScore;
 
     for(int i = 0; i < 4; i++){
-        smoothedClassScores[i] = 0.45f * smoothedClassScores[i] + 0.55f * nnOutput.scores[i];
+        smoothedClassScores[i] = 0.60f * smoothedClassScores[i] + 0.40f * nnOutput.scores[i];
         classScores[i] = smoothedClassScores[i];
         classDistances[i] = 1.0f - smoothedClassScores[i];
     }
@@ -660,10 +660,10 @@ void UpdatePredictionState(bool allowImmediateSwitch, const AudioFeatures& phras
     float margin = bestScore - secondScore;
 
     bool confident =
-        rawBestScore > 0.45f &&
-        rawMargin > 0.08f &&
-        bestScore > 0.34f &&
-        margin > 0.05f;
+        rawBestScore > 0.48f &&
+        rawMargin > 0.10f &&
+        bestScore > 0.36f &&
+        margin > 0.06f;
 
     if(!confident){
         stableClassAge++;
@@ -682,17 +682,26 @@ void UpdatePredictionState(bool allowImmediateSwitch, const AudioFeatures& phras
 
     bool strongAmbientStyle =
         predictedCandidate == MODE_AMBIENT &&
-        phraseFeatures.onsetCount <= 1.5f &&
-        phraseFeatures.envelopeDelta > 0.18f &&
-        phraseFeatures.timeSinceLastOnset > 0.10f;
+        phraseFeatures.onsetCount <= 0.8f &&
+        phraseFeatures.rmsDelta < 1.8f &&
+        phraseFeatures.envelopeDelta > 0.35f &&
+        phraseFeatures.timeSinceLastOnset > 0.18f;
 
     int requiredHold = 2;
 
-    if(allowImmediateSwitch && rawBestScore > 0.72f && rawMargin > 0.18f){
+    if(allowImmediateSwitch && rawBestScore > 0.75f && rawMargin > 0.20f){
         requiredHold = 1;
     }
 
-    if(predictedStableClass != predictedCandidate && bestScore < 0.40f){
+    if(predictedStableClass != predictedCandidate && bestScore < 0.42f){
+        requiredHold = 3;
+    }
+
+    if(predictedStableClass == MODE_CHORUS && predictedCandidate == MODE_AMBIENT){
+        requiredHold = 4;
+    }
+
+    if(predictedCandidate == MODE_CHORUS && phraseFeatures.onsetCount < 2.0f){
         requiredHold = 3;
     }
 
@@ -706,7 +715,7 @@ void UpdatePredictionState(bool allowImmediateSwitch, const AudioFeatures& phras
             stableClassAge = 0;
 
             for(int i = 0; i < 4; i++){
-                smoothedClassScores[i] = 0.05f;
+                smoothedClassScores[i] *= 0.35f;
             }
             smoothedClassScores[predictedStableClass] = bestScore;
         }
@@ -772,12 +781,12 @@ void ApplyPresetIndex(int presetIndex){
 
 float ProcessTone(float x){
     float pre = x * smoothedPreamp;
-    float drive = pre * smoothedDrive;
-    float wet = ApplyClipper(drive, currentClipMode, smoothedClipThreshold);
-    float mixed = (1.0f - smoothedMix) * x + smoothedMix * wet;
+    float stage1 = ApplyClipper(pre * smoothedDrive, currentClipMode, smoothedClipThreshold);
+    float stage2 = tanhf(stage1 * 1.35f);
+    float mixed = (1.0f - smoothedMix) * x + smoothedMix * stage2;
     toneStateL = toneStateL + smoothedTone * (mixed - toneStateL);
     float y = toneStateL * smoothedLevel;
-    return y;
+    return Clamp(y, -1.0f, 1.0f);
 }
 
 float ReadDelay(float delay){
