@@ -35,9 +35,9 @@ int stableClassAge = 0;
 int candidateClassAge = 0;
 
 static constexpr int perClassBufferCapacity = 32;
-static constexpr int cabWindowSize = 32;
-static constexpr int cabExamplesPerClass = 32;
-static constexpr int minCABExamplesPerClassForTraining = 12;
+static constexpr int cabWindowSize = 256;
+static constexpr int cabExamplesPerClass = 24;
+static constexpr int minCABExamplesPerClassForTraining = 8;
 
 DSY_SDRAM_BSS AudioFeatures featureBuffer[4][perClassBufferCapacity];
 DSY_SDRAM_BSS AudioFeatures cabWindow[cabWindowSize];
@@ -203,11 +203,105 @@ float classDistances[4] = {9999.0f, 9999.0f, 9999.0f, 9999.0f};
 float classScores[4] = {0.0f, 0.0f, 0.0f, 0.0f};
 float smoothedClassScores[4] = {0.25f, 0.25f, 0.25f, 0.25f};
 
+
+struct PredictionState{
+    int predictedCandidate;
+    int predictedStableClass;
+    int predictedHoldCount;
+    int stableClassAge;
+    int candidateClassAge;
+    float smoothedScores[4];
+};
+
+PredictionState nnState = {0, 0, 0, 0, 0, {0.25f, 0.25f, 0.25f, 0.25f}};
+PredictionState cabState = {0, 0, 0, 0, 0, {0.25f, 0.25f, 0.25f, 0.25f}};
+
 float datasetMean[12] = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f};
 float datasetStd[12] = {1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f};
 
 bool CurrentNetworkHasSavedMapping(){
     return currentNetworkMode == NETWORK_MINICAB ? hasSavedCABMapping : hasSavedNeuralNetMapping;
+}
+
+
+PredictionState& CurrentPredictionState(){
+    return currentNetworkMode == NETWORK_MINICAB ? cabState : nnState;
+}
+
+const PredictionState& CurrentPredictionStateConst(){
+    return currentNetworkMode == NETWORK_MINICAB ? cabState : nnState;
+}
+
+float GetActiveRawScore(int classId){
+    if(classId < 0 || classId >= 4){
+        return 0.0f;
+    }
+
+    return currentNetworkMode == NETWORK_MINICAB ? cabOutput.scores[classId] : nnOutput.scores[classId];
+}
+
+int GetActiveRawPredictedClass(){
+    int predicted = currentNetworkMode == NETWORK_MINICAB ? cabOutput.predictedClass : nnOutput.predictedClass;
+
+    if(predicted < 0){
+        predicted = 0;
+    }
+
+    if(predicted >= 4){
+        predicted = 3;
+    }
+
+    return predicted;
+}
+
+int GetActiveStableClass(){
+    const PredictionState& state = CurrentPredictionStateConst();
+    int stable = state.predictedStableClass;
+
+    if(stable < 0){
+        stable = 0;
+    }
+
+    if(stable >= 4){
+        stable = 3;
+    }
+
+    return stable;
+}
+
+void PublishActivePredictionState(){
+    const PredictionState& state = CurrentPredictionStateConst();
+
+    predictedCandidate = state.predictedCandidate;
+    predictedStableClass = state.predictedStableClass;
+    predictedHoldCount = state.predictedHoldCount;
+    stableClassAge = state.stableClassAge;
+    candidateClassAge = state.candidateClassAge;
+
+    for(int i = 0; i < 4; i++){
+        classScores[i] = state.smoothedScores[i];
+        classDistances[i] = 1.0f - state.smoothedScores[i];
+    }
+}
+
+void ResetOnePredictionState(PredictionState& state, int presetIndex){
+    if(presetIndex < 0){
+        presetIndex = 0;
+    }
+
+    if(presetIndex >= 4){
+        presetIndex = 3;
+    }
+
+    state.predictedCandidate = presetIndex;
+    state.predictedStableClass = presetIndex;
+    state.predictedHoldCount = 0;
+    state.stableClassAge = 0;
+    state.candidateClassAge = 0;
+
+    for(int i = 0; i < 4; i++){
+        state.smoothedScores[i] = 0.25f;
+    }
 }
 
 void ForceScreenRedraw(int& lastMenuIndex,
@@ -274,6 +368,21 @@ void PushCABWindowFrame(const AudioFeatures& f){
     }
 }
 
+bool ShouldCaptureCABMoment(const AudioFeatures& f){
+    bool hasLevel =
+        f.rms > 0.0008f ||
+        f.peak > 0.0015f ||
+        f.envelope > 0.0008f;
+
+    bool transientOrNoteChange =
+        f.spectralFlux > 0.0008f ||
+        f.onsetCount > 0.05f ||
+        f.rmsDelta > 0.0010f ||
+        f.envelopeDelta > 0.0010f;
+
+    return hasLevel || transientOrNoteChange;
+}
+
 bool CABWindowHasSignal(){
     if(cabWindowCount < cabWindowSize){
         return false;
@@ -281,38 +390,56 @@ bool CABWindowHasSignal(){
 
     int activeFrames = 0;
     float maxPeak = 0.0f;
+    float maxFlux = 0.0f;
+    float maxOnset = 0.0f;
+    float maxEnvelope = 0.0f;
     float rmsSum = 0.0f;
-    float fluxSum = 0.0f;
     float envSum = 0.0f;
+    float fluxSum = 0.0f;
 
     for(int i = 0; i < cabWindowSize; i++){
         rmsSum += cabWindow[i].rms;
-        fluxSum += cabWindow[i].spectralFlux;
         envSum += cabWindow[i].envelope;
+        fluxSum += cabWindow[i].spectralFlux;
 
         if(cabWindow[i].peak > maxPeak){
             maxPeak = cabWindow[i].peak;
         }
 
-        if(cabWindow[i].rms > 0.00035f ||
-           cabWindow[i].peak > 0.00120f ||
-           cabWindow[i].envelope > 0.00035f ||
-           cabWindow[i].spectralFlux > 0.00075f){
+        if(cabWindow[i].spectralFlux > maxFlux){
+            maxFlux = cabWindow[i].spectralFlux;
+        }
+
+        if(cabWindow[i].onsetCount > maxOnset){
+            maxOnset = cabWindow[i].onsetCount;
+        }
+
+        if(cabWindow[i].envelope > maxEnvelope){
+            maxEnvelope = cabWindow[i].envelope;
+        }
+
+        if(cabWindow[i].rms > 0.00020f ||
+           cabWindow[i].peak > 0.00060f ||
+           cabWindow[i].envelope > 0.00020f ||
+           cabWindow[i].spectralFlux > 0.00040f){
             activeFrames++;
         }
     }
 
     float meanRms = rmsSum / (float)cabWindowSize;
-    float meanFlux = fluxSum / (float)cabWindowSize;
     float meanEnv = envSum / (float)cabWindowSize;
+    float meanFlux = fluxSum / (float)cabWindowSize;
 
     return
-        activeFrames >= 6 &&
+        activeFrames >= 3 &&
         (
-            maxPeak > 0.00120f ||
-            meanRms > 0.00035f ||
-            meanEnv > 0.00035f ||
-            meanFlux > 0.00075f
+            maxPeak > 0.00060f ||
+            maxFlux > 0.00040f ||
+            maxOnset > 0.05f ||
+            maxEnvelope > 0.00020f ||
+            meanRms > 0.00012f ||
+            meanEnv > 0.00012f ||
+            meanFlux > 0.00020f
         );
 }
 
@@ -328,38 +455,49 @@ void StoreCABTrainingWindow(int label){
 
     int activeFrames = 0;
     float maxPeak = 0.0f;
+    float maxFlux = 0.0f;
+    float maxTimeSinceOnset = 0.0f;
     float rmsSum = 0.0f;
-    float fluxSum = 0.0f;
     float envSum = 0.0f;
+    float fluxSum = 0.0f;
 
     for(int i = 0; i < cabWindowSize; i++){
         rmsSum += cabWindow[i].rms;
-        fluxSum += cabWindow[i].spectralFlux;
         envSum += cabWindow[i].envelope;
+        fluxSum += cabWindow[i].spectralFlux;
 
         if(cabWindow[i].peak > maxPeak){
             maxPeak = cabWindow[i].peak;
         }
 
-        if(cabWindow[i].rms > 0.00035f ||
-           cabWindow[i].peak > 0.00120f ||
-           cabWindow[i].envelope > 0.00035f ||
-           cabWindow[i].spectralFlux > 0.00075f){
+        if(cabWindow[i].spectralFlux > maxFlux){
+            maxFlux = cabWindow[i].spectralFlux;
+        }
+
+        if(cabWindow[i].timeSinceLastOnset > maxTimeSinceOnset){
+            maxTimeSinceOnset = cabWindow[i].timeSinceLastOnset;
+        }
+
+        if(cabWindow[i].rms > 0.00020f ||
+           cabWindow[i].peak > 0.00060f ||
+           cabWindow[i].envelope > 0.00020f ||
+           cabWindow[i].spectralFlux > 0.00040f){
             activeFrames++;
         }
     }
 
     float meanRms = rmsSum / (float)cabWindowSize;
-    float meanFlux = fluxSum / (float)cabWindowSize;
     float meanEnv = envSum / (float)cabWindowSize;
+    float meanFlux = fluxSum / (float)cabWindowSize;
 
     if(!CABWindowHasSignal()){
-        hw.seed.PrintLine("CAB reject quiet AF:%d Peak:%d RMS:%d Env:%d Flux:%d",
+        hw.seed.PrintLine("CAB reject empty AF:%d Peak:%d RMS:%d Env:%d Flux:%d Gap:%d",
             activeFrames,
             (int)(maxPeak * 1000000.0f),
             (int)(meanRms * 1000000.0f),
             (int)(meanEnv * 1000000.0f),
-            (int)(meanFlux * 1000000.0f));
+            (int)(meanFlux * 1000000.0f),
+            (int)(maxTimeSinceOnset * 1000.0f));
         return;
     }
 
@@ -377,14 +515,15 @@ void StoreCABTrainingWindow(int label){
         cabTrainCount[label]++;
     }
 
-    hw.seed.PrintLine("Stored CAB window Label:%d Count:%d AF:%d Peak:%d RMS:%d Env:%d Flux:%d",
+    hw.seed.PrintLine("Stored CAB window Label:%d Count:%d AF:%d Peak:%d RMS:%d Env:%d Flux:%d Gap:%d",
         label,
         cabTrainCount[label],
         activeFrames,
         (int)(maxPeak * 1000000.0f),
         (int)(meanRms * 1000000.0f),
         (int)(meanEnv * 1000000.0f),
-        (int)(meanFlux * 1000000.0f));
+        (int)(meanFlux * 1000000.0f),
+        (int)(maxTimeSinceOnset * 1000.0f));
 }
 
 void ResetPhrase(){
@@ -751,8 +890,8 @@ bool TrainMiniCABFromBuffers(){
     minicab.SetNormalisation(datasetMean, datasetStd);
     minicab.Reset();
 
-    static constexpr int epochs = 300;
-    static constexpr float eta = 0.0010f;
+    static constexpr int epochs = 70;
+    static constexpr float eta = 0.0025f;
     static constexpr int maxTrainItems = 4 * cabExamplesPerClass;
 
     int maxCount = 0;
@@ -771,6 +910,10 @@ bool TrainMiniCABFromBuffers(){
     int trainIndex[maxTrainItems];
 
     for(int epoch = 0; epoch < epochs; epoch++){
+        if((epoch % 10) == 0){
+            hw.seed.PrintLine("MiniCAB training epoch:%d/%d", epoch, epochs);
+        }
+
         int trainCount = 0;
 
         for(int n = 0; n < maxCount; n++){
@@ -829,22 +972,19 @@ bool IsTransitionOnlyPhrase(const AudioFeatures& phraseFeatures){
 }
 
 void ResetPredictionState(){
-    predictedCandidate = currentPresetIndex;
-    predictedStableClass = currentPresetIndex;
-    predictedHoldCount = 0;
-    stableClassAge = 0;
-    candidateClassAge = 0;
+    ResetOnePredictionState(nnState, currentPresetIndex);
+    ResetOnePredictionState(cabState, currentPresetIndex);
 
     for(int i = 0; i < 4; i++){
-        classScores[i] = 0.0f;
-        classDistances[i] = 9999.0f;
-        smoothedClassScores[i] = 0.25f;
         nnOutput.scores[i] = 0.0f;
         cabOutput.scores[i] = 0.0f;
+        smoothedClassScores[i] = 0.25f;
     }
 
     nnOutput.predictedClass = currentPresetIndex;
     cabOutput.predictedClass = currentPresetIndex;
+
+    PublishActivePredictionState();
 }
 
 void UpdatePredictionState(bool allowImmediateSwitch, const AudioFeatures& phraseFeatures){
@@ -854,88 +994,119 @@ void UpdatePredictionState(bool allowImmediateSwitch, const AudioFeatures& phras
         return;
     }
 
-    int rawBestClass = nnOutput.predictedClass;
-    float rawBestScore = nnOutput.scores[rawBestClass];
+    PredictionState& state = CurrentPredictionState();
+
+    int rawBestClass = GetActiveRawPredictedClass();
+    float rawBestScore = GetActiveRawScore(rawBestClass);
     float rawSecondScore = 0.0f;
 
+    float smoothAmount = currentNetworkMode == NETWORK_MINICAB ? 0.20f : 0.60f;
+    float newAmount = 1.0f - smoothAmount;
+
     for(int i = 0; i < 4; i++){
-        if(i != rawBestClass && nnOutput.scores[i] > rawSecondScore){
-            rawSecondScore = nnOutput.scores[i];
+        float score = GetActiveRawScore(i);
+
+        if(i != rawBestClass && score > rawSecondScore){
+            rawSecondScore = score;
         }
 
-        float smoothAmount = currentNetworkMode == NETWORK_MINICAB ? 0.45f : 0.60f;
-        float newAmount = 1.0f - smoothAmount;
-
-        smoothedClassScores[i] = smoothAmount * smoothedClassScores[i] + newAmount * nnOutput.scores[i];
-        classScores[i] = smoothedClassScores[i];
-        classDistances[i] = 1.0f - smoothedClassScores[i];
-    }
-
-    int bestClass = 0;
-    float bestScore = smoothedClassScores[0];
-    float secondScore = 0.0f;
-
-    for(int i = 1; i < 4; i++){
-        float s = smoothedClassScores[i];
-
-        if(s > bestScore){
-            secondScore = bestScore;
-            bestScore = s;
-            bestClass = i;
-        }
-        else if(s > secondScore){
-            secondScore = s;
-        }
+        state.smoothedScores[i] = smoothAmount * state.smoothedScores[i] + newAmount * score;
+        smoothedClassScores[i] = state.smoothedScores[i];
     }
 
     float rawMargin = rawBestScore - rawSecondScore;
-    float margin = bestScore - secondScore;
-
-    bool confident;
 
     if(currentNetworkMode == NETWORK_MINICAB){
-        confident =
-            rawBestScore > 0.30f &&
-            rawMargin > 0.015f &&
-            bestScore > 0.28f &&
-            margin > 0.010f;
-    }
-    else{
-        confident =
-            rawBestScore > 0.48f &&
-            rawMargin > 0.10f &&
-            bestScore > 0.36f &&
-            margin > 0.06f;
-    }
+        bool usablePrediction =
+            rawBestScore > 0.23f &&
+            rawMargin > 0.004f;
 
-    if(!confident){
-        stableClassAge++;
+        if(!usablePrediction){
+            state.stableClassAge++;
+            PublishActivePredictionState();
+            return;
+        }
+
+        if(rawBestClass == state.predictedCandidate){
+            state.predictedHoldCount++;
+            state.candidateClassAge++;
+        }
+        else{
+            state.predictedCandidate = rawBestClass;
+            state.predictedHoldCount = 1;
+            state.candidateClassAge = 1;
+        }
+
+        int requiredHold = 2;
+
+        if(rawBestClass != state.predictedStableClass && rawMargin > 0.030f){
+            requiredHold = 1;
+        }
+
+        if(state.predictedHoldCount >= requiredHold){
+            state.predictedStableClass = state.predictedCandidate;
+            state.stableClassAge = 0;
+        }
+        else{
+            state.stableClassAge++;
+        }
+
+        PublishActivePredictionState();
         return;
     }
 
-    if(bestClass == predictedCandidate){
-        predictedHoldCount++;
-        candidateClassAge++;
+    int bestClass = 0;
+    float bestScore = state.smoothedScores[0];
+    float secondScore = 0.0f;
+
+    for(int i = 1; i < 4; i++){
+        float score = state.smoothedScores[i];
+
+        if(score > bestScore){
+            secondScore = bestScore;
+            bestScore = score;
+            bestClass = i;
+        }
+        else if(score > secondScore){
+            secondScore = score;
+        }
+    }
+
+    float margin = bestScore - secondScore;
+
+    bool confident =
+        rawBestScore > 0.48f &&
+        rawMargin > 0.10f &&
+        bestScore > 0.36f &&
+        margin > 0.06f;
+
+    if(!confident){
+        state.stableClassAge++;
+        PublishActivePredictionState();
+        return;
+    }
+
+    if(bestClass == state.predictedCandidate){
+        state.predictedHoldCount++;
+        state.candidateClassAge++;
     }
     else{
-        predictedCandidate = bestClass;
-        predictedHoldCount = 1;
-        candidateClassAge = 1;
+        state.predictedCandidate = bestClass;
+        state.predictedHoldCount = 1;
+        state.candidateClassAge = 1;
     }
 
-    int requiredHold = currentNetworkMode == NETWORK_MINICAB ? 2 : 2;
+    int requiredHold = 2;
 
-    if(bestScore > 0.60f && margin > 0.18f){
-        requiredHold = 1;
-    }
-
-    if(predictedHoldCount >= requiredHold){
-        predictedStableClass = predictedCandidate;
-        stableClassAge = 0;
+    if(state.predictedHoldCount >= requiredHold){
+        state.predictedStableClass = state.predictedCandidate;
+        state.stableClassAge = 0;
     }
     else{
-        stableClassAge++;
+        state.stableClassAge++;
     }
+
+    PublishActivePredictionState();
 }
 
 float MySoftClip(float x){
@@ -1007,7 +1178,7 @@ void ApplyLearnedToneMapping(){
     int effectClass = currentLabel;
 
     if(predictionMode && CurrentNetworkHasSavedMapping()){
-        effectClass = predictedStableClass;
+        effectClass = GetActiveStableClass();
 
         if(effectClass < 0){
             effectClass = 0;
@@ -1342,25 +1513,12 @@ bool PredictCABWindow(){
     }
 
     cabOutput = minicab.PredictSequence();
-
-    for(int i = 0; i < 4; i++){
-        nnOutput.scores[i] = cabOutput.scores[i];
-        classScores[i] = cabOutput.scores[i];
-        classDistances[i] = 1.0f - cabOutput.scores[i];
-    }
-
-    nnOutput.predictedClass = cabOutput.predictedClass;
     return true;
 }
 
 void ClassifyCurrentNetwork(const AudioFeatures& phraseFeatures){
     if(currentNetworkMode == NETWORK_NEURALNET){
         nnOutput = neuralnet.Predict(phraseFeatures);
-
-        for(int i = 0; i < 4; i++){
-            classScores[i] = nnOutput.scores[i];
-            classDistances[i] = 1.0f - nnOutput.scores[i];
-        }
     }
     else{
         PredictCABWindow();
@@ -1478,17 +1636,20 @@ int main(void){
 
         if(hw.encoder.RisingEdge()){
             if(menuIndex == MENU_PRESET){
-                predictionMode = false;
-
                 modeIndex = (modeIndex + 1) % 4;
                 currentLabel = modeIndex;
-                ApplyPresetIndex(currentLabel);
 
-                ResetPredictionState();
+                if(!predictionMode || !CurrentNetworkHasSavedMapping()){
+                    ApplyPresetIndex(currentLabel);
+                    ResetPredictionState();
+                    hw.seed.PrintLine("Manual preset: %s", tonePresets[currentLabel].toneName);
+                }
+                else{
+                    hw.seed.PrintLine("Selected label: %s Prediction stays ON", tonePresets[currentLabel].toneName);
+                }
+
                 ResetPhrase();
                 ResetCABWindow();
-
-                hw.seed.PrintLine("Manual preset: %s", tonePresets[currentLabel].toneName);
             }
             else if(menuIndex == MENU_NETWORK){
                 if(currentNetworkMode == NETWORK_NEURALNET){
@@ -1558,6 +1719,7 @@ int main(void){
                         }
                     }
                     else{
+                        hw.seed.PrintLine("Training MiniCAB now. Counts D:%d C:%d A:%d R:%d", cabTrainCount[0], cabTrainCount[1], cabTrainCount[2], cabTrainCount[3]);
                         trainedOk = TrainMiniCABFromBuffers();
 
                         if(trainedOk){
@@ -1635,18 +1797,23 @@ int main(void){
             uint32_t nowMs = System::GetNow();
 
             if(isTraining && currentNetworkMode == NETWORK_MINICAB){
-                if(nowMs - lastCABStoreMs >= 500){
+                if(nowMs - lastCABStoreMs >= 450){
                     lastCABStoreMs = nowMs;
-                    StoreCABTrainingWindow(currentLabel);
+
+                    if(ShouldCaptureCABMoment(smoothedFeatures)){
+                        StoreCABTrainingWindow(currentLabel);
+                    }
                 }
             }
 
             if(predictionMode && CurrentNetworkHasSavedMapping() && currentNetworkMode == NETWORK_MINICAB){
-                if(nowMs - lastCABPredictMs >= 250){
+                if(nowMs - lastCABPredictMs >= 220){
                     lastCABPredictMs = nowMs;
 
-                    if(PredictCABWindow()){
-                        UpdatePredictionState(true, smoothedFeatures);
+                    if(ShouldCaptureCABMoment(smoothedFeatures)){
+                        if(PredictCABWindow()){
+                            UpdatePredictionState(true, smoothedFeatures);
+                        }
                     }
                 }
             }
@@ -1818,10 +1985,10 @@ int main(void){
                 (int)CurrentNetworkHasSavedMapping());
 
             hw.seed.PrintLine("Scores D:%d C:%d A:%d R:%d",
-                (int)(nnOutput.scores[0] * 1000.0f),
-                (int)(nnOutput.scores[1] * 1000.0f),
-                (int)(nnOutput.scores[2] * 1000.0f),
-                (int)(nnOutput.scores[3] * 1000.0f));
+                (int)(GetActiveRawScore(0) * 1000.0f),
+                (int)(GetActiveRawScore(1) * 1000.0f),
+                (int)(GetActiveRawScore(2) * 1000.0f),
+                (int)(GetActiveRawScore(3) * 1000.0f));
         }
     }
 }

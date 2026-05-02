@@ -23,47 +23,11 @@ void MiniCABClassifier::Init(){
 
     hasNormalisation = false;
 
-    for(int f = 0; f < numConvFilters; f++){
-        convB[f] = 0.0f;
-
-        for(int t = 0; t < convKernelSize; t++){
-            for(int j = 0; j < inputSize; j++){
-                convW[f][t][j] = ((float)rand() / RAND_MAX - 0.5f) * 0.05f;
-            }
-        }
-    }
-
-    for(int cl = 0; cl < numClassifiers; cl++){
-        for(int i = 0; i < classifierHiddenSize; i++){
-            classifierB1[cl][i] = 0.0f;
-
-            for(int j = 0; j < representationSize; j++){
-                classifierW1[cl][i][j] = ((float)rand() / RAND_MAX - 0.5f) * 0.05f;
-            }
-        }
-
-        for(int i = 0; i < numClasses; i++){
-            classifierB2[cl][i] = 0.0f;
-
-            for(int j = 0; j < classifierHiddenSize; j++){
-                classifierW2[cl][i][j] = ((float)rand() / RAND_MAX - 0.5f) * 0.05f;
-            }
-        }
-    }
-
-    for(int i = 0; i < attentionHiddenSize; i++){
-        attentionB1[i] = 0.0f;
+    for(int k = 0; k < numClasses; k++){
+        classifierB[k] = 0.0f;
 
         for(int j = 0; j < representationSize; j++){
-            attentionW1[i][j] = ((float)rand() / RAND_MAX - 0.5f) * 0.05f;
-        }
-    }
-
-    for(int i = 0; i < numClassifiers; i++){
-        attentionB2[i] = 0.0f;
-
-        for(int j = 0; j < attentionHiddenSize; j++){
-            attentionW2[i][j] = ((float)rand() / RAND_MAX - 0.5f) * 0.05f;
+            classifierW[k][j] = 0.0f;
         }
     }
 
@@ -93,40 +57,25 @@ CABOutput MiniCABClassifier::PredictSequence() const{
     }
 
     float seq[timeSteps][inputSize];
-    float convPre[numConvFilters][convTimeSteps];
-    float convAct[numConvFilters][convTimeSteps];
     float rep[representationSize];
-    int maxIndex[numConvFilters];
+    float probs[numClasses];
 
     BuildSequenceFromBuffer(seq);
-    CNNForward(seq, convPre, convAct, rep, maxIndex);
-
-    float alpha[numClassifiers];
-    AttentionUnitPredict(rep, alpha);
-
-    float finalScores[numClasses] = {0.0f};
-
-    for(int cl = 0; cl < numClassifiers; cl++){
-        float probs[numClasses];
-        ClassifierPredict(cl, rep, probs);
-
-        for(int k = 0; k < numClasses; k++){
-            finalScores[k] += alpha[cl] * probs[k];
-        }
-    }
+    BuildRepresentation(seq, rep);
+    ClassifierPredict(rep, probs);
 
     int bestClass = 0;
-    float bestScore = finalScores[0];
+    float bestScore = probs[0];
 
     for(int i = 1; i < numClasses; i++){
-        if(finalScores[i] > bestScore){
-            bestScore = finalScores[i];
+        if(probs[i] > bestScore){
+            bestScore = probs[i];
             bestClass = i;
         }
     }
 
     for(int i = 0; i < numClasses; i++){
-        out.scores[i] = finalScores[i];
+        out.scores[i] = probs[i];
     }
 
     out.predictedClass = bestClass;
@@ -150,14 +99,7 @@ void MiniCABClassifier::FeaturesToInput(const AudioFeatures& f, float input[inpu
     if(hasNormalisation){
         for(int i = 0; i < inputSize; i++){
             input[i] = (input[i] - normMean[i]) / normStd[i];
-
-            if(input[i] > 8.0f){
-                input[i] = 8.0f;
-            }
-
-            if(input[i] < -8.0f){
-                input[i] = -8.0f;
-            }
+            input[i] = ClipValue(input[i], -8.0f, 8.0f);
         }
     }
 }
@@ -206,53 +148,32 @@ void MiniCABClassifier::BuildSequenceWithLatest(const AudioFeatures& f, float se
     FeaturesToInput(f, seq[timeSteps - 1]);
 }
 
-void MiniCABClassifier::CNNForward(const float seq[timeSteps][inputSize],
-                                   float convPre[numConvFilters][convTimeSteps],
-                                   float convAct[numConvFilters][convTimeSteps],
-                                   float rep[representationSize],
-                                   int maxIndex[numConvFilters]) const{
+void MiniCABClassifier::BuildRepresentation(const float seq[timeSteps][inputSize], float rep[representationSize]) const{
     for(int i = 0; i < representationSize; i++){
         rep[i] = 0.0f;
     }
 
     for(int f = 0; f < numConvFilters; f++){
         float maxVal = -1000000000.0f;
-        float sumAct = 0.0f;
-        int bestIndex = 0;
+        float sumVal = 0.0f;
+        float lastVal = 0.0f;
 
         for(int t = 0; t < convTimeSteps; t++){
-            float sum = convB[f];
+            float v = ConvFilterValue(seq, f, t);
+            v = tanhf(v);
 
-            for(int r = 0; r < convKernelSize; r++){
-                for(int j = 0; j < inputSize; j++){
-                    sum += convW[f][r][j] * seq[t + r][j];
-                }
+            if(v > maxVal){
+                maxVal = v;
             }
 
-            convPre[f][t] = sum;
-            convAct[f][t] = ReLU(sum);
-            sumAct += convAct[f][t];
-
-            if(convAct[f][t] > maxVal){
-                maxVal = convAct[f][t];
-                bestIndex = t;
-            }
+            sumVal += v;
+            lastVal = v;
         }
 
-        float meanVal = sumAct / (float)convTimeSteps;
-        float firstVal = convAct[f][0];
-        float lastVal = convAct[f][convTimeSteps - 1];
-        float changeVal = lastVal - firstVal;
-
-        rep[f] = maxVal;
-        rep[f + numConvFilters] = meanVal;
+        rep[f] = sumVal / (float)convTimeSteps;
+        rep[f + numConvFilters] = maxVal;
         rep[f + 2 * numConvFilters] = lastVal;
-        rep[f + 3 * numConvFilters] = changeVal;
-
-        maxIndex[f] = bestIndex;
     }
-
-    int base = numConvFilters * representationParts;
 
     float mean[inputSize];
     float maxVal[inputSize];
@@ -266,10 +187,12 @@ void MiniCABClassifier::CNNForward(const float seq[timeSteps][inputSize],
         motion[j] = 0.0f;
     }
 
+    float eventMax = -1000000000.0f;
+    float gapMax = -1000000000.0f;
+
     for(int t = 0; t < timeSteps; t++){
         for(int j = 0; j < inputSize; j++){
             float v = seq[t][j];
-
             mean[j] += v;
 
             if(v > maxVal[j]){
@@ -284,6 +207,17 @@ void MiniCABClassifier::CNNForward(const float seq[timeSteps][inputSize],
                 motion[j] += fabsf(seq[t][j] - seq[t - 1][j]);
             }
         }
+
+        float eventLogit = EventAttentionLogit(seq[t]);
+        float gapLogit = GapAttentionLogit(seq[t]);
+
+        if(eventLogit > eventMax){
+            eventMax = eventLogit;
+        }
+
+        if(gapLogit > gapMax){
+            gapMax = gapLogit;
+        }
     }
 
     for(int j = 0; j < inputSize; j++){
@@ -291,74 +225,118 @@ void MiniCABClassifier::CNNForward(const float seq[timeSteps][inputSize],
         motion[j] /= (float)(timeSteps - 1);
     }
 
+    float eventSum = 0.0f;
+    float gapSum = 0.0f;
+    float eventMean[inputSize];
+    float gapMean[inputSize];
+
+    for(int j = 0; j < inputSize; j++){
+        eventMean[j] = 0.0f;
+        gapMean[j] = 0.0f;
+    }
+
+    int activeFrames = 0;
+    int quietFrames = 0;
+    int longGapFrames = 0;
+
+    for(int t = 0; t < timeSteps; t++){
+        float eventWeight = expf(EventAttentionLogit(seq[t]) - eventMax);
+        float gapWeight = expf(GapAttentionLogit(seq[t]) - gapMax);
+
+        eventSum += eventWeight;
+        gapSum += gapWeight;
+
+        for(int j = 0; j < inputSize; j++){
+            eventMean[j] += eventWeight * seq[t][j];
+            gapMean[j] += gapWeight * seq[t][j];
+        }
+
+        if(seq[t][0] > 0.0f || seq[t][1] > 0.0f || seq[t][6] > 0.0f || seq[t][4] > 0.0f){
+            activeFrames++;
+        }
+
+        if(seq[t][0] < 0.0f && seq[t][1] < 0.0f && seq[t][6] < 0.0f){
+            quietFrames++;
+        }
+
+        if(seq[t][11] > 0.5f){
+            longGapFrames++;
+        }
+    }
+
+    if(eventSum < 1e-6f){
+        eventSum = 1.0f;
+    }
+
+    if(gapSum < 1e-6f){
+        gapSum = 1.0f;
+    }
+
+    for(int j = 0; j < inputSize; j++){
+        eventMean[j] /= eventSum;
+        gapMean[j] /= gapSum;
+    }
+
+    int base = numConvFilters * representationParts;
+
     rep[base + 0] = mean[0];
     rep[base + 1] = maxVal[0];
     rep[base + 2] = maxVal[0] - minVal[0];
-    rep[base + 3] = mean[1];
-    rep[base + 4] = maxVal[1] - minVal[1];
-    rep[base + 5] = mean[2];
-    rep[base + 6] = mean[3];
-    rep[base + 7] = motion[3];
+    rep[base + 3] = motion[0];
+    rep[base + 4] = mean[1];
+    rep[base + 5] = maxVal[1];
+    rep[base + 6] = mean[2];
+    rep[base + 7] = mean[3];
     rep[base + 8] = maxVal[3] - minVal[3];
-    rep[base + 9] = mean[4];
-    rep[base + 10] = maxVal[4];
-    rep[base + 11] = motion[4];
-    rep[base + 12] = maxVal[4] - minVal[4];
-    rep[base + 13] = motion[6] + maxVal[6] - minVal[6];
-    rep[base + 14] = mean[10];
-    rep[base + 15] = mean[11];
+    rep[base + 9] = motion[3];
+    rep[base + 10] = mean[4];
+    rep[base + 11] = maxVal[4];
+    rep[base + 12] = motion[4];
+    rep[base + 13] = mean[6];
+    rep[base + 14] = maxVal[6];
+    rep[base + 15] = motion[6];
+    rep[base + 16] = mean[7];
+    rep[base + 17] = maxVal[7];
+    rep[base + 18] = mean[5];
+    rep[base + 19] = maxVal[5];
+    rep[base + 20] = mean[10];
+    rep[base + 21] = maxVal[10];
+    rep[base + 22] = mean[11];
+    rep[base + 23] = maxVal[11];
+    rep[base + 24] = seq[timeSteps - 1][11];
+    rep[base + 25] = maxVal[11] - minVal[11];
+    rep[base + 26] = eventMean[0];
+    rep[base + 27] = eventMean[1];
+    rep[base + 28] = eventMean[4];
+    rep[base + 29] = eventMean[10];
+    rep[base + 30] = eventMean[11];
+    rep[base + 31] = gapMean[0];
+    rep[base + 32] = gapMean[1];
+    rep[base + 33] = gapMean[4];
+    rep[base + 34] = gapMean[10];
+    rep[base + 35] = gapMean[11];
+    rep[base + 36] = (float)activeFrames / (float)timeSteps;
+    rep[base + 37] = (float)quietFrames / (float)timeSteps;
+    rep[base + 38] = (float)longGapFrames / (float)timeSteps;
+    rep[base + 39] = eventMean[11] - mean[11];
+
+    for(int i = 0; i < representationSize; i++){
+        rep[i] = ClipValue(rep[i], -8.0f, 8.0f);
+    }
 }
 
-void MiniCABClassifier::ClassifierPredict(int classifierId, const float rep[representationSize], float probs[numClasses]) const{
-    float hidden[classifierHiddenSize];
-
-    for(int i = 0; i < classifierHiddenSize; i++){
-        float sum = classifierB1[classifierId][i];
+void MiniCABClassifier::ClassifierPredict(const float rep[representationSize], float probs[numClasses]) const{
+    for(int k = 0; k < numClasses; k++){
+        float sum = classifierB[k];
 
         for(int j = 0; j < representationSize; j++){
-            sum += classifierW1[classifierId][i][j] * rep[j];
+            sum += classifierW[k][j] * rep[j];
         }
 
-        hidden[i] = ReLU(sum);
-    }
-
-    for(int i = 0; i < numClasses; i++){
-        float sum = classifierB2[classifierId][i];
-
-        for(int j = 0; j < classifierHiddenSize; j++){
-            sum += classifierW2[classifierId][i][j] * hidden[j];
-        }
-
-        probs[i] = sum;
+        probs[k] = sum;
     }
 
     Softmax(probs, numClasses);
-}
-
-void MiniCABClassifier::AttentionUnitPredict(const float rep[representationSize], float alpha[numClassifiers]) const{
-    float hidden[attentionHiddenSize];
-
-    for(int i = 0; i < attentionHiddenSize; i++){
-        float sum = attentionB1[i];
-
-        for(int j = 0; j < representationSize; j++){
-            sum += attentionW1[i][j] * rep[j];
-        }
-
-        hidden[i] = ReLU(sum);
-    }
-
-    for(int i = 0; i < numClassifiers; i++){
-        float sum = attentionB2[i];
-
-        for(int j = 0; j < attentionHiddenSize; j++){
-            sum += attentionW2[i][j] * hidden[j];
-        }
-
-        alpha[i] = sum;
-    }
-
-    Softmax(alpha, numClassifiers);
 }
 
 void MiniCABClassifier::TrainFromExample(const AudioFeatures& f, int label, float eta){
@@ -384,79 +362,12 @@ void MiniCABClassifier::TrainOnSequence(const float seq[timeSteps][inputSize], i
         return;
     }
 
-    float convPre[numConvFilters][convTimeSteps];
-    float convAct[numConvFilters][convTimeSteps];
     float rep[representationSize];
-    int maxIndex[numConvFilters];
-
-    CNNForward(seq, convPre, convAct, rep, maxIndex);
-
-    float classifierHiddenPre[numClassifiers][classifierHiddenSize];
-    float classifierHidden[numClassifiers][classifierHiddenSize];
-    float classifierProbs[numClassifiers][numClasses];
-
-    for(int cl = 0; cl < numClassifiers; cl++){
-        for(int i = 0; i < classifierHiddenSize; i++){
-            float sum = classifierB1[cl][i];
-
-            for(int j = 0; j < representationSize; j++){
-                sum += classifierW1[cl][i][j] * rep[j];
-            }
-
-            classifierHiddenPre[cl][i] = sum;
-            classifierHidden[cl][i] = ReLU(sum);
-        }
-
-        for(int k = 0; k < numClasses; k++){
-            float sum = classifierB2[cl][k];
-
-            for(int j = 0; j < classifierHiddenSize; j++){
-                sum += classifierW2[cl][k][j] * classifierHidden[cl][j];
-            }
-
-            classifierProbs[cl][k] = sum;
-        }
-
-        Softmax(classifierProbs[cl], numClasses);
-    }
-
-    float attentionHiddenPre[attentionHiddenSize];
-    float attentionHidden[attentionHiddenSize];
-
-    for(int i = 0; i < attentionHiddenSize; i++){
-        float sum = attentionB1[i];
-
-        for(int j = 0; j < representationSize; j++){
-            sum += attentionW1[i][j] * rep[j];
-        }
-
-        attentionHiddenPre[i] = sum;
-        attentionHidden[i] = ReLU(sum);
-    }
-
-    float alpha[numClassifiers];
-
-    for(int cl = 0; cl < numClassifiers; cl++){
-        float sum = attentionB2[cl];
-
-        for(int j = 0; j < attentionHiddenSize; j++){
-            sum += attentionW2[cl][j] * attentionHidden[j];
-        }
-
-        alpha[cl] = sum;
-    }
-
-    Softmax(alpha, numClassifiers);
-
-    float finalScores[numClasses] = {0.0f};
-
-    for(int k = 0; k < numClasses; k++){
-        for(int cl = 0; cl < numClassifiers; cl++){
-            finalScores[k] += alpha[cl] * classifierProbs[cl][k];
-        }
-    }
-
+    float probs[numClasses];
     float target[numClasses];
+
+    BuildRepresentation(seq, rep);
+    ClassifierPredict(rep, probs);
 
     for(int k = 0; k < numClasses; k++){
         target[k] = 0.02f;
@@ -464,183 +375,26 @@ void MiniCABClassifier::TrainOnSequence(const float seq[timeSteps][inputSize], i
 
     target[label] = 0.94f;
 
-    float dFinal[numClasses];
+    float lr = eta;
+
+    if(lr < 0.0001f){
+        lr = 0.0001f;
+    }
+
+    if(lr > 0.05f){
+        lr = 0.05f;
+    }
+
+    static constexpr float weightDecay = 0.00008f;
 
     for(int k = 0; k < numClasses; k++){
-        dFinal[k] = finalScores[k] - target[k];
-    }
+        float d = ClipGrad(probs[k] - target[k]);
 
-    float dClassifierProbs[numClassifiers][numClasses];
+        classifierB[k] -= lr * d;
 
-    for(int cl = 0; cl < numClassifiers; cl++){
-        for(int k = 0; k < numClasses; k++){
-            dClassifierProbs[cl][k] = alpha[cl] * dFinal[k];
-        }
-    }
-
-    float dAlpha[numClassifiers] = {0.0f};
-
-    for(int cl = 0; cl < numClassifiers; cl++){
-        for(int k = 0; k < numClasses; k++){
-            dAlpha[cl] += dFinal[k] * classifierProbs[cl][k];
-        }
-    }
-
-    float dAttentionLogits[numClassifiers];
-    float alphaDotGrad = 0.0f;
-
-    for(int cl = 0; cl < numClassifiers; cl++){
-        alphaDotGrad += dAlpha[cl] * alpha[cl];
-    }
-
-    for(int cl = 0; cl < numClassifiers; cl++){
-        dAttentionLogits[cl] = alpha[cl] * (dAlpha[cl] - alphaDotGrad);
-        dAttentionLogits[cl] = ClipGrad(dAttentionLogits[cl]);
-    }
-
-    float dRep[representationSize] = {0.0f};
-
-    float dAttentionHidden[attentionHiddenSize] = {0.0f};
-
-    for(int cl = 0; cl < numClassifiers; cl++){
-        for(int j = 0; j < attentionHiddenSize; j++){
-            dAttentionHidden[j] += dAttentionLogits[cl] * attentionW2[cl][j];
-        }
-    }
-
-    float dAttentionPre[attentionHiddenSize];
-
-    for(int j = 0; j < attentionHiddenSize; j++){
-        dAttentionPre[j] = dAttentionHidden[j] * ReLUGrad(attentionHiddenPre[j]);
-        dAttentionPre[j] = ClipGrad(dAttentionPre[j]);
-
-        for(int m = 0; m < representationSize; m++){
-            dRep[m] += dAttentionPre[j] * attentionW1[j][m];
-        }
-    }
-
-    for(int cl = 0; cl < numClassifiers; cl++){
-        float dClassifierLogits[numClasses];
-        float probDotGrad = 0.0f;
-
-        for(int k = 0; k < numClasses; k++){
-            probDotGrad += dClassifierProbs[cl][k] * classifierProbs[cl][k];
-        }
-
-        for(int k = 0; k < numClasses; k++){
-            dClassifierLogits[k] = classifierProbs[cl][k] * (dClassifierProbs[cl][k] - probDotGrad);
-            dClassifierLogits[k] = ClipGrad(dClassifierLogits[k]);
-        }
-
-        float dHidden[classifierHiddenSize] = {0.0f};
-
-        for(int k = 0; k < numClasses; k++){
-            for(int j = 0; j < classifierHiddenSize; j++){
-                dHidden[j] += dClassifierLogits[k] * classifierW2[cl][k][j];
-            }
-        }
-
-        float dHiddenPre[classifierHiddenSize];
-
-        for(int j = 0; j < classifierHiddenSize; j++){
-            dHiddenPre[j] = dHidden[j] * ReLUGrad(classifierHiddenPre[cl][j]);
-            dHiddenPre[j] = ClipGrad(dHiddenPre[j]);
-
-            for(int m = 0; m < representationSize; m++){
-                dRep[m] += dHiddenPre[j] * classifierW1[cl][j][m];
-            }
-        }
-
-        for(int k = 0; k < numClasses; k++){
-            classifierB2[cl][k] -= eta * dClassifierLogits[k];
-
-            for(int j = 0; j < classifierHiddenSize; j++){
-                classifierW2[cl][k][j] -= eta * dClassifierLogits[k] * classifierHidden[cl][j];
-            }
-        }
-
-        for(int j = 0; j < classifierHiddenSize; j++){
-            classifierB1[cl][j] -= eta * dHiddenPre[j];
-
-            for(int m = 0; m < representationSize; m++){
-                classifierW1[cl][j][m] -= eta * dHiddenPre[j] * rep[m];
-            }
-        }
-    }
-
-    for(int cl = 0; cl < numClassifiers; cl++){
-        attentionB2[cl] -= eta * dAttentionLogits[cl];
-
-        for(int j = 0; j < attentionHiddenSize; j++){
-            attentionW2[cl][j] -= eta * dAttentionLogits[cl] * attentionHidden[j];
-        }
-    }
-
-    for(int j = 0; j < attentionHiddenSize; j++){
-        attentionB1[j] -= eta * dAttentionPre[j];
-
-        for(int m = 0; m < representationSize; m++){
-            attentionW1[j][m] -= eta * dAttentionPre[j] * rep[m];
-        }
-    }
-
-    float dConvPre[numConvFilters][convTimeSteps];
-
-    for(int f = 0; f < numConvFilters; f++){
-        for(int t = 0; t < convTimeSteps; t++){
-            dConvPre[f][t] = 0.0f;
-        }
-    }
-
-    for(int f = 0; f < numConvFilters; f++){
-        int maxT = maxIndex[f];
-
-        float dMax = dRep[f];
-        float dMean = dRep[f + numConvFilters];
-        float dLast = dRep[f + 2 * numConvFilters];
-        float dChange = dRep[f + 3 * numConvFilters];
-
-        dConvPre[f][maxT] += dMax * ReLUGrad(convPre[f][maxT]);
-
-        for(int t = 0; t < convTimeSteps; t++){
-            dConvPre[f][t] += (dMean / (float)convTimeSteps) * ReLUGrad(convPre[f][t]);
-        }
-
-        int firstT = 0;
-        int lastT = convTimeSteps - 1;
-
-        dConvPre[f][lastT] += dLast * ReLUGrad(convPre[f][lastT]);
-        dConvPre[f][lastT] += dChange * ReLUGrad(convPre[f][lastT]);
-        dConvPre[f][firstT] -= dChange * ReLUGrad(convPre[f][firstT]);
-    }
-
-    for(int f = 0; f < numConvFilters; f++){
-        float biasGrad = 0.0f;
-        float weightGrad[convKernelSize][inputSize];
-
-        for(int r = 0; r < convKernelSize; r++){
-            for(int m = 0; m < inputSize; m++){
-                weightGrad[r][m] = 0.0f;
-            }
-        }
-
-        for(int t = 0; t < convTimeSteps; t++){
-            float grad = ClipGrad(dConvPre[f][t]);
-            biasGrad += grad;
-
-            for(int r = 0; r < convKernelSize; r++){
-                for(int m = 0; m < inputSize; m++){
-                    weightGrad[r][m] += grad * seq[t + r][m];
-                }
-            }
-        }
-
-        convB[f] -= eta * ClipGrad(biasGrad);
-
-        for(int r = 0; r < convKernelSize; r++){
-            for(int m = 0; m < inputSize; m++){
-                convW[f][r][m] -= eta * ClipGrad(weightGrad[r][m]);
-            }
+        for(int j = 0; j < representationSize; j++){
+            float grad = d * rep[j] + weightDecay * classifierW[k][j];
+            classifierW[k][j] -= lr * ClipGrad(grad);
         }
     }
 }
@@ -654,20 +408,79 @@ void MiniCABClassifier::SetNormalisation(const float mean[inputSize], const floa
     hasNormalisation = true;
 }
 
-float MiniCABClassifier::ReLU(float x) const{
-    if(x > 0.0f){
-        return x;
+float MiniCABClassifier::ClipValue(float x, float lo, float hi) const{
+    if(x < lo){
+        return lo;
     }
 
-    return 0.01f * x;
+    if(x > hi){
+        return hi;
+    }
+
+    return x;
 }
 
-float MiniCABClassifier::ReLUGrad(float x) const{
-    if(x > 0.0f){
-        return 1.0f;
+float MiniCABClassifier::ConvFilterValue(const float seq[timeSteps][inputSize], int filterId, int t) const{
+    float sum = 0.0f;
+
+    for(int r = 0; r < convKernelSize; r++){
+        int idx = t + r;
+
+        switch(filterId){
+            case 0:
+                sum += seq[idx][0];
+                break;
+            case 1:
+                sum += seq[idx][1];
+                break;
+            case 2:
+                sum += seq[idx][4];
+                break;
+            case 3:
+                sum += seq[idx][6];
+                break;
+            case 4:
+                sum += 0.60f * seq[idx][10] + 0.40f * seq[idx][5];
+                break;
+            case 5:
+                sum += seq[idx][11];
+                break;
+            case 6:
+                sum += seq[idx][3];
+                break;
+            case 7:
+                if(r == convKernelSize - 1){
+                    sum += seq[idx][6] + 0.50f * seq[idx][4] + 0.30f * seq[idx][1];
+                }
+                else if(r == 0){
+                    sum -= seq[idx][6] + 0.50f * seq[idx][4] + 0.30f * seq[idx][1];
+                }
+                break;
+            default:
+                break;
+        }
     }
 
-    return 0.01f;
+    if(filterId != 7){
+        sum /= (float)convKernelSize;
+    }
+
+    return sum;
+}
+
+float MiniCABClassifier::EventAttentionLogit(const float input[inputSize]) const{
+    float level = 0.35f * fabsf(input[0]) + 0.25f * fabsf(input[1]) + 0.25f * fabsf(input[6]);
+    float movement = 0.70f * fabsf(input[4]) + 0.35f * fabsf(input[5]) + 0.35f * fabsf(input[7]) + 0.55f * fabsf(input[10]);
+    float logit = -1.0f + level + movement;
+
+    return ClipValue(logit, -8.0f, 8.0f);
+}
+
+float MiniCABClassifier::GapAttentionLogit(const float input[inputSize]) const{
+    float quietness = -0.25f * fabsf(input[0]) - 0.20f * fabsf(input[1]) - 0.15f * fabsf(input[4]);
+    float logit = 0.85f * input[11] + quietness;
+
+    return ClipValue(logit, -8.0f, 8.0f);
 }
 
 void MiniCABClassifier::Softmax(float* values, int n) const{
@@ -682,7 +495,7 @@ void MiniCABClassifier::Softmax(float* values, int n) const{
     float sum = 0.0f;
 
     for(int i = 0; i < n; i++){
-        values[i] = std::exp(values[i] - maxVal);
+        values[i] = expf(values[i] - maxVal);
         sum += values[i];
     }
 
